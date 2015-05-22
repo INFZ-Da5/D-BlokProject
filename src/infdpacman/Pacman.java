@@ -12,8 +12,10 @@ package infdpacman;
  */
 public class Pacman extends Poppetje {
     public int leven;
-    public int score;
+   
     
+    
+    public void Bewegen(){}
     
     
 }
