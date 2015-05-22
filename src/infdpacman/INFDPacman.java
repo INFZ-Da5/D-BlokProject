@@ -16,7 +16,8 @@ public class INFDPacman {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       Spel spel  = new Spel();
+       spel.start();
     }
     
 }
