@@ -1,10 +1,8 @@
 package infdpacman.poppetje;
 
 import infdpacman.Direction;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,17 +13,17 @@ public class Pacman extends Poppetje {
     public int levens;
     private final static int MOVEMENT = 20;//moet vakje worden niet pixels
     
-    private int xPos;
-    private int yPos;
+    //private int xPos;
+    //private int yPos;
     
-    public Pacman(int xPos, int yPos){
-        this.xPos = xPos;
-        this.yPos = yPos;
+    public Pacman(){
+        //this.xPos = xPos;
+        //this.yPos = yPos;
     }
     
     @Override
     public void bewegen(Direction direction) {
-            switch (direction){
+           /* switch (direction){
             case NORTH:
                 yPos-=MOVEMENT;
                 break;
@@ -38,7 +36,7 @@ public class Pacman extends Poppetje {
             case EAST:
                 xPos+=MOVEMENT;
                 break;
-        }
+        }*/
         
     }
     
