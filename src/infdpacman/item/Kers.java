@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 
-package infdpacman;
+package infdpacman.item;
 
 /**
  *
  * @author Lenovo
  */
-public class Bolletje implements Item{
+public class Kers implements Item {
     
 }

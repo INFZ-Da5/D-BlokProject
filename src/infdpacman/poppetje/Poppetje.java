@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 
-package infdpacman;
+package infdpacman.poppetje;
 
 /**
  *
  * @author Lenovo
  */
-public interface Item {
+public abstract class Poppetje {
     
+    
+    public void checkRichting(){}
 }

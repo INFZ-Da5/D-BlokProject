@@ -4,18 +4,12 @@
  * and open the template in the editor.
  */
 
-package infdpacman;
+package infdpacman.item;
 
 /**
  *
  * @author Lenovo
  */
-public class Pacman extends Poppetje {
-    public int leven;
-   
-    
-    
-    public void Bewegen(){}
-    
+public class SuperBolletje implements Item {
     
 }
