@@ -18,8 +18,10 @@ public class Speelbord extends JPanel implements KeyListener {
     int length;
     ArrayList<Poppetje> poppetjes = new ArrayList();
     Pacman p = new Pacman(100,100);
-
+    Vakje[][] vakjes;
+    
     public Speelbord(){
+        vakjes = new Vakje[3][3];
         poppetjes.add(p);
         this.requestFocusInWindow();
         this.repaint();
