@@ -8,11 +8,10 @@ import javax.swing.ImageIcon;
  *
  * @author Lenovo
  */
-public class SuperBolletje implements Item {
-    
+public class Banaan implements Item {
     @Override
     public void draw(Graphics g) {
-        ImageIcon i = new ImageIcon("Plaatjes/superbol.png");
+        ImageIcon i = new ImageIcon("Plaatjes/banana.png");
         Image img = i.getImage();
         g.drawImage(img, 20,20,null);    
     }

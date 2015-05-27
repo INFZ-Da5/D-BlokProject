@@ -29,7 +29,7 @@ public class Pacman extends Poppetje {
     
     @Override
     public void draw(Graphics g) {
-        ImageIcon i = new ImageIcon("Plaatjes/Pacman.png");
+        ImageIcon i = new ImageIcon("Plaatjes/pacman.png");
         Image img = i.getImage();
         g.drawImage(img, 20,20,null);
     }

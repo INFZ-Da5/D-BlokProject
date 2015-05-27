@@ -1,6 +1,8 @@
 package infdpacman.poppetje;
 
 import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -15,7 +17,9 @@ public class Spook extends Poppetje {
 
     @Override
     public void draw(Graphics g) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ImageIcon i = new ImageIcon("Plaatjes/ghost.png");
+        Image img = i.getImage();
+        g.drawImage(img, 20,20,null);    
     }
     
 }
