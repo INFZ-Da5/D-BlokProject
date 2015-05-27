@@ -40,6 +40,7 @@ public class Spel implements ActionListener {
         menu.add(stop);
         menu.add(pauze);
         menu.add(reset);
+        frame.add(menu);
         
         frame.setVisible(true);
         
