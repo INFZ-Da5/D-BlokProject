@@ -21,7 +21,7 @@ public class Speelbord extends JPanel implements KeyListener {
     Vakje[][] vakjes;
     
     public Speelbord(){
-        vakjes = new Vakje[3][3];
+        vakjes = new Vakje[5][5];
         poppetjes.add(p);
         this.requestFocusInWindow();
         this.repaint();
@@ -66,7 +66,7 @@ public class Speelbord extends JPanel implements KeyListener {
     public void keyReleased(KeyEvent ke) {}
     
     private void movePacman(Direction direction){
-           p.move(direction);
+           p.bewegen(direction);
         repaint();
     }
 }
