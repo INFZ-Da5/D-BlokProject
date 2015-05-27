@@ -29,11 +29,9 @@ public class Pacman extends Poppetje {
     
     @Override
     public void draw(Graphics g) {
-        /*ImageIcon i = new ImageIcon("Plaatjes/Pacman.png");
+        ImageIcon i = new ImageIcon("Plaatjes/Pacman.png");
         Image img = i.getImage();
-        g.drawImage(img, 20,20,null);*/
-        g.setColor(Color.RED);
-        g.fillRect(xPos, yPos, 10, 10);
+        g.drawImage(img, 20,20,null);
     }
     
     public void move(Direction direction){       
