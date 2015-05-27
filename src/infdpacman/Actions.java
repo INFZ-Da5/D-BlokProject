@@ -6,13 +6,10 @@
 
 package infdpacman;
 
-import javax.swing.JPanel;
-
 /**
  *
  * @author Lenovo
  */
-public class Speelbord extends JPanel {
-    int height;
-    int length;
+public enum Actions {
+    START,STOP,PAUZE,RESET
 }
