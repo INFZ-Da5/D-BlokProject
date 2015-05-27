@@ -1,5 +1,6 @@
 package infdpacman.poppetje;
 
+import infdpacman.Direction;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -11,7 +12,7 @@ import javax.swing.ImageIcon;
 public class Spook extends Poppetje {
 
     @Override
-    public void bewegen() {
+    public void bewegen(Direction direction) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
