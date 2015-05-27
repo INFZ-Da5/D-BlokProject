@@ -24,18 +24,8 @@ public class Pacman extends Poppetje {
     }
     
     @Override
-    public void bewegen() {
-    }
-    
-    @Override
-    public void draw(Graphics g) {
-        ImageIcon i = new ImageIcon("Plaatjes/Pacman.png");
-        Image img = i.getImage();
-        g.drawImage(img, 20,20,null);
-    }
-    
-    public void move(Direction direction){       
-        switch (direction){
+    public void bewegen(Direction direction) {
+            switch (direction){
             case NORTH:
                 yPos-=MOVEMENT;
                 break;
@@ -49,5 +39,15 @@ public class Pacman extends Poppetje {
                 xPos+=MOVEMENT;
                 break;
         }
+        
     }
+    
+    @Override
+    public void draw(Graphics g) {
+        ImageIcon i = new ImageIcon("Plaatjes/Pacman.png");
+        Image img = i.getImage();
+        g.drawImage(img, 20,20,null);
+    }
+    
+
 }
