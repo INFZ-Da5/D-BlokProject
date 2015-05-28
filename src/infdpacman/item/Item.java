@@ -8,5 +8,5 @@ import java.awt.Graphics;
  */
 public interface Item {
     int punten = 0;
-    public abstract void draw(Graphics g);
+    public abstract void draw(Graphics g, int width, int height);
 }

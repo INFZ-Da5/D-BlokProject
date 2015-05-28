@@ -10,5 +10,5 @@ import java.awt.Graphics;
 public abstract class Poppetje {    
     public abstract void bewegen(Direction direction);
 
-    public abstract void draw(Graphics g);
+    public abstract void draw(Graphics g, int width, int height);
 }
