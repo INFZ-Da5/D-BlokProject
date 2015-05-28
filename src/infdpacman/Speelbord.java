@@ -1,5 +1,6 @@
 package infdpacman;
 
+import infdpacman.item.Bolletje;
 import infdpacman.poppetje.Pacman;
 import infdpacman.poppetje.Poppetje;
 import infdpacman.poppetje.Spook;
@@ -39,18 +40,6 @@ public class Speelbord extends JPanel implements KeyListener {
     }
     
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        draw(g);
-    }
-    
-    private void draw(Graphics g){
-        for(Poppetje poppetje: poppetjes){
-            poppetje.draw(g);
-        }
-    }
-    
-    @Override
     public void keyTyped(KeyEvent ke) {}
 
     @Override
@@ -76,18 +65,34 @@ public class Speelbord extends JPanel implements KeyListener {
     public void keyReleased(KeyEvent ke) {}
     
     private void movePacman(Direction direction){
-           p.bewegen(direction);
+        p.bewegen(direction);
         repaint();
     }
 
     private void initLevel() {
         Spook sp = new Spook();
         Muur m = new Muur();
-        vakjes[1][2].getInhoud().add(p);
+        Bolletje b = new Bolletje();
+        vakjes[2][4].getInhoud().add(p);
         vakjes[4][3].getInhoud().add(sp);
+        vakjes[4][4].getInhoud().add(sp);
+        vakjes[5][2].getInhoud().add(sp);
+        vakjes[5][1].getInhoud().add(b);
         
-        for(Vakje vakje : vakjes[0]){
-            vakje.getInhoud().add(m);
+        for (int row = 0; row < length; row++) {
+            for (int col = 0; col < height; col++) {
+                vakjes[row][0].getInhoud().add(m);
+                vakjes[0][col].getInhoud().add(m);
+                vakjes[row][length-1].getInhoud().add(m);
+                vakjes[height-1][col].getInhoud().add(m);
+            }
         }
+        
+        for (int row = 0; row < length; row++) {
+            for (int col = 0; col < height; col++) {
+                vakjes[row][col].vulVakje();
+            }
+        }
+        
     }
 }

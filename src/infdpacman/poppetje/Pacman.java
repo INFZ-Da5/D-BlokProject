@@ -13,8 +13,8 @@ public class Pacman extends Poppetje {
     public int levens;
     private final static int MOVEMENT = 20;//moet vakje worden niet pixels
     
-    //private int xPos;
-    //private int yPos;
+    private int xPos;
+    private int yPos;
     
     public Pacman(){
         //this.xPos = xPos;
@@ -23,7 +23,7 @@ public class Pacman extends Poppetje {
     
     @Override
     public void bewegen(Direction direction) {
-           /* switch (direction){
+            switch (direction){
             case NORTH:
                 yPos-=MOVEMENT;
                 break;
@@ -36,14 +36,15 @@ public class Pacman extends Poppetje {
             case EAST:
                 xPos+=MOVEMENT;
                 break;
-        }*/
+        }
         
     }
     
+
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics g,int width, int height) {
         ImageIcon i = new ImageIcon("Plaatjes/pacman.png");
         Image img = i.getImage();
-        g.drawImage(img, 20,20,null);
-    }   
+        g.drawImage(img, 0,0, width,height, null);    
+    }
 }
