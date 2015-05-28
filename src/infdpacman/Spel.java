@@ -24,7 +24,7 @@ public class Spel implements ActionListener {
         frame = new JFrame();
         frame.setSize(1280,720);
         frame.setLayout(new GridLayout(2,0));
-      //  currentSb = new Speelbord();
+        currentSb = new Speelbord();
 
         
         JPanel menu = new JPanel();
@@ -46,7 +46,7 @@ public class Spel implements ActionListener {
         menu.add(pauze);
         menu.add(reset);
         frame.add(menu);
-        //frame.add(currentSb);
+        frame.add(currentSb);
         
         frame.setVisible(true);      
     }
@@ -55,24 +55,13 @@ public class Spel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
-        
+        Speelbord level1 = new Speelbord();
         if (e.getActionCommand().equals(Actions.START.name())) {
-            if(currentSb == null){
-            Speelbord level1 = new Speelbord();
             currentSb = level1;
             frame.add(level1);
-            frame.validate();}
-           // frame.repaint();
             
         }else if(e.getActionCommand().equals(Actions.STOP.name())){
-            
-            
             frame.remove(currentSb);
-            currentSb = null;
-            frame.validate();
-            frame.repaint();
-            
         } else if(e.getActionCommand().equals(Actions.PAUZE.name())){
 
         }else if(e.getActionCommand().equals(Actions.RESET.name())){
