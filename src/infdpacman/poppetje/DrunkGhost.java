@@ -8,10 +8,10 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Lenovo
+ * @author CVD
  */
-public class Spook extends Poppetje {
-    ImageIcon normalGhost = new ImageIcon("Plaatjes/ghost.png");
+public class DrunkGhost extends Poppetje {
+    ImageIcon normalGhost = new ImageIcon("Plaatjes/drunkghost.png");
     ImageIcon fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");    
     ImageIcon currentImage = normalGhost;
     
@@ -28,5 +28,4 @@ public class Spook extends Poppetje {
         img.getScaledInstance(width,height,Image.SCALE_SMOOTH);
         g.drawImage(img, 0,0, width,height, null);   
     }
-    
 }

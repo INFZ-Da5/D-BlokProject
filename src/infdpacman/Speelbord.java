@@ -1,14 +1,11 @@
 package infdpacman;
 
 import infdpacman.item.Bolletje;
+import infdpacman.poppetje.DrunkGhost;
 import infdpacman.poppetje.Pacman;
 import infdpacman.poppetje.Poppetje;
 import infdpacman.poppetje.Spook;
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -16,22 +13,21 @@ import javax.swing.JPanel;
  *
  * @author Lenovo
  */
-public class Speelbord extends JPanel implements KeyListener {
+public class Speelbord extends JPanel  {
     int height = 8;
     int length = 8;
-    ArrayList<Poppetje> poppetjes = new ArrayList();
-    Pacman p = new Pacman();
     Vakje[][] vakjes = new Vakje[length][height];
-    
+    Vakje currentVakje;
+    Pacman p = new Pacman(this);
+
     public Speelbord(){
-        poppetjes.add(p);
         this.requestFocusInWindow();
+        this.addKeyListener(p);
         this.repaint();
-        this.setBackground(Color.green);
         this.setLayout(new GridLayout(length,height));
         
-        for (int row = 0; row < length; row++) {
-            for (int col = 0; col < height; col++) {
+        for (int row = 0; row < height; row++) {
+            for (int col = 0; col < length; col++) {
                 vakjes[row][col] = new Vakje();
                 this.add(vakjes[row][col]);
             }
@@ -39,60 +35,96 @@ public class Speelbord extends JPanel implements KeyListener {
         initLevel();
     }
     
-    @Override
-    public void keyTyped(KeyEvent ke) {}
-
-    @Override
-    public void keyPressed(KeyEvent ke) {
-        switch (ke.getKeyCode())
-        {
-            case KeyEvent.VK_DOWN:
-                movePacman(Direction.SOUTH);
-                break;
-            case KeyEvent.VK_UP:
-                movePacman(Direction.NORTH);
-                break;
-            case KeyEvent.VK_RIGHT:
-                movePacman(Direction.EAST);
-                break;
-            case KeyEvent.VK_LEFT:
-                movePacman(Direction.WEST);
-                break;
+    public void getCurrentVakje(Poppetje poppetje){
+        for (int i = 0; i<vakjes[0].length; i++){
+            for (int j = 0; j<vakjes.length; j++){
+                if(vakjes[i][j].getInhoud().contains(poppetje)){
+                    currentVakje = vakjes[i][j];
+                }
+            }
         }
     }
 
-    @Override
-    public void keyReleased(KeyEvent ke) {}
-    
-    private void movePacman(Direction direction){
-        p.bewegen(direction);
-        repaint();
+    public Vakje getCurrentVakje() {
+        return currentVakje;
     }
 
+    public void setCurrentVakje(Direction direction) {
+        switch (direction){
+            case NORTH:
+                currentVakje = vakjes[getGridPlace().getRow()-1][getGridPlace().getColumn()];
+                break;
+            case SOUTH:
+                currentVakje = vakjes[getGridPlace().getRow()+1][getGridPlace().getColumn()];
+                break;
+            case WEST:
+                currentVakje = vakjes[getGridPlace().getRow()][getGridPlace().getColumn()-1];
+                break;
+            case EAST:
+                currentVakje = vakjes[getGridPlace().getRow()][getGridPlace().getColumn()+1];
+                break;
+        }
+    }
+    
+    public GridPlace getGridPlace(){
+        int row = 0;
+        int column = 0;
+        for (int j = 0; j<vakjes[0].length; j++){
+            for (int i = 0; i<vakjes.length; i++){
+                if(vakjes[i][j].equals(currentVakje)){
+                    row = i;
+                    column = j;
+                }
+            }
+        }
+        return new GridPlace(row, column);
+    }
+    
+    public ArrayList getNeighbors(){
+        int row = getGridPlace().getRow();
+        int column = getGridPlace().getColumn();
+        ArrayList neighbors = new ArrayList();
+        
+        neighbors.add(vakjes[row][column-1]);
+        neighbors.add(vakjes[row][column+1]);
+        neighbors.add(vakjes[row+1][column]);
+        neighbors.add(vakjes[row-1][column]);
+       
+        return neighbors;
+    }
+    
     private void initLevel() {
         Spook sp = new Spook();
+        DrunkGhost dg = new DrunkGhost();
         Muur m = new Muur();
         Bolletje b = new Bolletje();
-        vakjes[2][4].getInhoud().add(p);
+        currentVakje = vakjes[2][4];
+      
+        currentVakje.getInhoud().add(p);
         vakjes[4][3].getInhoud().add(sp);
         vakjes[4][4].getInhoud().add(sp);
-        vakjes[5][2].getInhoud().add(sp);
+        vakjes[5][2].getInhoud().add(dg);
+        vakjes[6][6].getInhoud().add(dg);
         vakjes[5][1].getInhoud().add(b);
+        vakjes[2][5].getInhoud().add(m);
         
         for (int row = 0; row < length; row++) {
+            vakjes[row][0].getInhoud().add(m);
+            vakjes[row][length-1].getInhoud().add(m);
             for (int col = 0; col < height; col++) {
-                vakjes[row][0].getInhoud().add(m);
                 vakjes[0][col].getInhoud().add(m);
-                vakjes[row][length-1].getInhoud().add(m);
                 vakjes[height-1][col].getInhoud().add(m);
             }
         }
-        
+        fillVakjes();
+    }
+    
+    public void fillVakjes(){
         for (int row = 0; row < length; row++) {
             for (int col = 0; col < height; col++) {
                 vakjes[row][col].vulVakje();
             }
         }
-        
+        this.repaint();
     }
 }

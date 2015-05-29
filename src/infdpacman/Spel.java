@@ -1,8 +1,6 @@
 package infdpacman;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,10 +21,8 @@ public class Spel implements ActionListener {
     public void start(){
     
         frame = new JFrame();
-        frame.setSize(1280,720);
+        frame.setSize(720,480);
         frame.setLayout(new BorderLayout());
-       // currentSb = new Speelbord();
-
         
         JPanel menu = new JPanel();
         JButton start = new JButton("start");
@@ -47,7 +43,6 @@ public class Spel implements ActionListener {
         menu.add(pauze);
         menu.add(reset);
         frame.add(menu, BorderLayout.NORTH);
-       // frame.add(currentSb,BorderLayout.CENTER);
         frame.setVisible(true);      
     }
     
@@ -61,7 +56,9 @@ public class Spel implements ActionListener {
             Speelbord level1 = new Speelbord();
             currentSb = level1;
             frame.add(level1,BorderLayout.CENTER);      
-            frame.validate();}
+            level1.requestFocus();
+            frame.validate();
+            }
         }else if(e.getActionCommand().equals(Actions.STOP.name())){
             
             frame.remove(currentSb);
@@ -77,7 +74,6 @@ public class Spel implements ActionListener {
             currentSb = level1;          
             frame.add(level1,BorderLayout.CENTER);      
             frame.validate();
-
         }
     }
     

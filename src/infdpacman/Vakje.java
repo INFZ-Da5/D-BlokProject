@@ -33,11 +33,11 @@ public class Vakje extends JPanel{
         for(Muur muur: muren){
             muur.draw(g,this.getWidth(),this.getHeight());
         }
-        for(Poppetje poppetje: poppetjes){
-            poppetje.draw(g,this.getWidth(),this.getHeight());
-        }
         for(Item item: items){
             item.draw(g,this.getWidth(),this.getHeight());
+        }
+        for(Poppetje poppetje: poppetjes){
+            poppetje.draw(g,this.getWidth(),this.getHeight());
         }
     }
     
@@ -48,8 +48,35 @@ public class Vakje extends JPanel{
     public void setInhoud(LinkedList inhoud) {
         this.inhoud = inhoud;
     } 
+
+    public ArrayList<Muur> getMuren() {
+        return muren;
+    }
+
+    public void setMuren(ArrayList<Muur> muren) {
+        this.muren = muren;
+    }
+
+    public ArrayList<Poppetje> getPoppetjes() {
+        return poppetjes;
+    }
+
+    public void setPoppetjes(ArrayList<Poppetje> poppetjes) {
+        this.poppetjes = poppetjes;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
+    }
     
     public void vulVakje(){
+        muren.clear();
+        poppetjes.clear();
+        items.clear();
         for(Object obj : inhoud){
             if(obj instanceof Muur){
                 muren.add((Muur)obj);
@@ -62,7 +89,4 @@ public class Vakje extends JPanel{
             }
         }
     }
-    
-    
-    
 }
