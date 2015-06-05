@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 public abstract class GameElement {
     ImageIcon i;
     public GameElement(ImageIcon i){
-        i = this.i;
+        this.i = i;
     }
     public void draw(Graphics g,int width, int height) {
         Image img = i.getImage();

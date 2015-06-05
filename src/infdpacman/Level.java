@@ -1,10 +1,10 @@
 package infdpacman;
 
 import infdpacman.item.Pill;
-import infdpacman.poppetje.DrunkGhost;
-import infdpacman.poppetje.Pacman;
-import infdpacman.poppetje.Character;
-import infdpacman.poppetje.Ghost;
+import infdpacman.character.DrunkGhost;
+import infdpacman.character.Pacman;
+import infdpacman.character.Character;
+import infdpacman.character.Ghost;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JPanel;

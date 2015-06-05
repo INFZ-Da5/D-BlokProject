@@ -2,7 +2,7 @@ package infdpacman;
 
 import infdpacman.Wall;
 import infdpacman.item.Item;
-import infdpacman.poppetje.Character;
+import infdpacman.character.Character;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -19,6 +19,7 @@ public class EmptyCell extends JPanel{
     private LinkedList inhoud = new LinkedList(); 
     private Map<EmptyCell, Direction> neighbors = new HashMap<EmptyCell, Direction>();
     ArrayList<GameElement> gameElements = new ArrayList();
+    ArrayList<Wall> walls = new ArrayList();
     
     public EmptyCell(){
         this.setBackground(Color.BLACK);
@@ -34,6 +35,9 @@ public class EmptyCell extends JPanel{
         for(GameElement elem: gameElements){
             elem.draw(g,this.getWidth(),this.getHeight());
         }
+        for(Wall w: walls){
+            w.draw(g,this.getWidth(),this.getHeight());
+        }
     }
     
     public LinkedList getInhoud() {
@@ -46,8 +50,14 @@ public class EmptyCell extends JPanel{
     
     public void vulVakje(){
         gameElements.clear();
+        walls.clear();
         for(Object obj : inhoud){
-            gameElements.add((Character)obj);
+            if(obj instanceof Wall){
+                walls.add((Wall)obj);
+            }
+            else{
+                gameElements.add((GameElement)obj);
+            }
         }
     }
 }
