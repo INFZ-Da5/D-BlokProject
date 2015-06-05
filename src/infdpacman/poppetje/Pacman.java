@@ -47,16 +47,6 @@ public class Pacman extends Poppetje implements KeyListener {
         }
     }
     
-    public void movePanel(Vakje directionVakje, Direction direction){
-        Muur match = FindClassType.find(directionVakje.getInhoud(), Muur.class);
-        if(match == null && sb.getCurrentVakje().getInhoud().contains(this)){
-            sb.getCurrentVakje().getInhoud().remove(this);
-            sb.setCurrentVakje(direction);
-            sb.getCurrentVakje().getInhoud().add(this);
-            sb.fillVakjes();
-        }
-    }
-    
     @Override
     public void bewegen(Vakje directionVakje, Direction direction) {
         Muur match = FindClassType.find(directionVakje.getInhoud(), Muur.class);
@@ -78,7 +68,7 @@ public class Pacman extends Poppetje implements KeyListener {
         {
             case KeyEvent.VK_DOWN:
                 bewegen(vSouth, Direction.SOUTH);
-                currentImage = downImg;
+                currentImage = downImg; //method maken 
                 break;
             case KeyEvent.VK_UP:
                 bewegen(vNorth, Direction.NORTH);
