@@ -1,22 +1,17 @@
 package infdpacman.item;
 
-import java.awt.Graphics;
+import infdpacman.GameElement;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Lenovo
  */
-public abstract class Item {
+public abstract class Item extends GameElement{
     public int points;
-    public abstract void draw(Graphics g, int width, int height);
             
-            
-public Item(int points){
-
-this.points = points;
-
-}            
-            
-            
-            
+    public Item(ImageIcon i, int points){
+        super(i);
+        this.points = points;
+    }                        
 }

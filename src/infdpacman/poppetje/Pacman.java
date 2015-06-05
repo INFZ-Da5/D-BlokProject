@@ -2,9 +2,9 @@ package infdpacman.poppetje;
 
 import infdpacman.Direction;
 import infdpacman.FindClassType;
-import infdpacman.Muur;
-import infdpacman.Speelbord;
-import infdpacman.Vakje;
+import infdpacman.Wall;
+import infdpacman.Level;
+import infdpacman.EmptyCell;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -16,10 +16,10 @@ import javax.swing.ImageIcon;
  *
  * @author Lenovo
  */
-public class Pacman extends Poppetje implements KeyListener {
+public class Pacman extends Character implements KeyListener {
     public int levens;
-    private ArrayList<Vakje> neighbors = new ArrayList();
-    private Speelbord sb;
+    private ArrayList<EmptyCell> neighbors = new ArrayList();
+    private Level sb;
     ImageIcon leftImg = new ImageIcon("Plaatjes/pacmanleft.png");
     ImageIcon rightImg = new ImageIcon("Plaatjes/pacmanright.png");
     ImageIcon upImg = new ImageIcon("Plaatjes/pacmanup.png");
@@ -27,12 +27,13 @@ public class Pacman extends Poppetje implements KeyListener {
 
     ImageIcon currentImage = leftImg;
 
-    Vakje vWest;
-    Vakje vEast;
-    Vakje vSouth;
-    Vakje vNorth;
+    EmptyCell vWest;
+    EmptyCell vEast;
+    EmptyCell vSouth;
+    EmptyCell vNorth;
     
-    public Pacman(Speelbord sb){
+    public Pacman(Level sb){
+        super(new ImageIcon("Plaatjes/pacmanleft.png"));
         this.sb = sb;
     }
      
@@ -48,8 +49,8 @@ public class Pacman extends Poppetje implements KeyListener {
     }
     
     @Override
-    public void bewegen(Vakje directionVakje, Direction direction) {
-        Muur match = FindClassType.find(directionVakje.getInhoud(), Muur.class);
+    public void bewegen(EmptyCell directionVakje, Direction direction) {
+        Wall match = FindClassType.find(directionVakje.getInhoud(), Wall.class);
         if(match == null && sb.getCurrentVakje().getInhoud().contains(this)){
             sb.getCurrentVakje().getInhoud().remove(this);
             sb.setCurrentVakje(direction);

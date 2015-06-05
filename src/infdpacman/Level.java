@@ -1,10 +1,10 @@
 package infdpacman;
 
-import infdpacman.item.Bolletje;
+import infdpacman.item.Pill;
 import infdpacman.poppetje.DrunkGhost;
 import infdpacman.poppetje.Pacman;
-import infdpacman.poppetje.Poppetje;
-import infdpacman.poppetje.Spook;
+import infdpacman.poppetje.Character;
+import infdpacman.poppetje.Ghost;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JPanel;
@@ -13,14 +13,14 @@ import javax.swing.JPanel;
  *
  * @author Lenovo
  */
-public class Speelbord extends JPanel  {
+public class Level extends JPanel  {
     int height = 8;
     int length = 8;
-    Vakje[][] vakjes = new Vakje[length][height];
-    Vakje currentVakje;
+    EmptyCell[][] vakjes = new EmptyCell[length][height];
+    EmptyCell currentVakje;
     Pacman p = new Pacman(this);
 
-    public Speelbord(){
+    public Level(){
         this.requestFocusInWindow();
         this.addKeyListener(p);
         this.repaint();
@@ -28,14 +28,14 @@ public class Speelbord extends JPanel  {
         
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < length; col++) {
-                vakjes[row][col] = new Vakje();
+                vakjes[row][col] = new EmptyCell();
                 this.add(vakjes[row][col]);
             }
         }
         initLevel();
     }
     
-    public void getCurrentVakje(Poppetje poppetje){
+    public void getCurrentVakje(Character poppetje){
         for (int i = 0; i<vakjes[0].length; i++){
             for (int j = 0; j<vakjes.length; j++){
                 if(vakjes[i][j].getInhoud().contains(poppetje)){
@@ -45,7 +45,7 @@ public class Speelbord extends JPanel  {
         }
     }
 
-    public Vakje getCurrentVakje() {
+    public EmptyCell getCurrentVakje() {
         return currentVakje;
     }
 
@@ -94,10 +94,10 @@ public class Speelbord extends JPanel  {
     }
     
     private void initLevel() {
-        Spook sp = new Spook();
+        Ghost sp = new Ghost();
         DrunkGhost dg = new DrunkGhost();
-        Muur m = new Muur();
-        Bolletje b = new Bolletje();
+        Wall m = new Wall();
+        Pill b = new Pill();
         currentVakje = vakjes[2][4];
       
         currentVakje.getInhoud().add(p);

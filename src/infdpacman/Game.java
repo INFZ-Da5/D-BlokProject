@@ -12,11 +12,11 @@ import javax.swing.JPanel;
  *
  * @author Lenovo
  */
-public class Spel implements ActionListener {
+public class Game implements ActionListener {
     
     public ArrayList highscore;
     public JFrame frame;
-    public Speelbord currentSb;
+    public Level currentSb;
     
     public void start(){
     
@@ -53,7 +53,7 @@ public class Spel implements ActionListener {
         
         if (e.getActionCommand().equals(Actions.START.name())) {
             if(currentSb == null){
-            Speelbord level1 = new Speelbord();
+            Level level1 = new Level();
             currentSb = level1;
             frame.add(level1,BorderLayout.CENTER);      
             level1.requestFocus();
@@ -70,7 +70,7 @@ public class Spel implements ActionListener {
 
         }else if(e.getActionCommand().equals(Actions.RESET.name())){
             frame.remove(currentSb);
-            Speelbord level1 = new Speelbord();
+            Level level1 = new Level();
             currentSb = level1;          
             frame.add(level1,BorderLayout.CENTER);      
             frame.validate();
