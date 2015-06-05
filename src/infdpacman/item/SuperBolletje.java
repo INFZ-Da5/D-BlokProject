@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
  *
  * @author Lenovo
  */
-public class SuperBolletje implements Item {
+public class SuperBolletje extends Item {
     
     @Override
     public void draw(Graphics g, int width, int height) {
@@ -16,4 +16,9 @@ public class SuperBolletje implements Item {
         Image img = i.getImage();
         g.drawImage(img, 0, 0, width, height, null);    
     }
+    
+    public SuperBolletje(){ 
+        super(50);
+    }
+    
 }

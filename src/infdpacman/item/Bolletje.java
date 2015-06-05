@@ -8,12 +8,17 @@ import javax.swing.ImageIcon;
  *
  * @author Lenovo
  */
-public class Bolletje implements Item{
+public class Bolletje extends Item{
     
     @Override
     public void draw(Graphics g, int width, int height) {
         ImageIcon i = new ImageIcon("Plaatjes/bolletje.png");
         Image img = i.getImage();
         g.drawImage(img, 0, 0, width, height, null);    
+    }
+    
+    public Bolletje(){
+    
+    super(10);
     }
 }
