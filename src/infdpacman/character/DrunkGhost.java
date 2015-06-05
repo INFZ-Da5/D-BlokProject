@@ -20,7 +20,7 @@ public class DrunkGhost extends Character {
     }
     
     @Override
-    public void bewegen(EmptyCell directionVakje, Direction direction) {
+    public void move(EmptyCell directionVakje, Direction direction) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
  * @author Lenovo
  */
 public class Pacman extends Character implements KeyListener {
-    public int levens;
+    public int lives;
     private ArrayList<EmptyCell> neighbors = new ArrayList();
     private Level sb;
     ImageIcon leftImg = new ImageIcon("Plaatjes/pacmanleft.png");
@@ -49,7 +49,7 @@ public class Pacman extends Character implements KeyListener {
     }
     
     @Override
-    public void bewegen(EmptyCell directionVakje, Direction direction) {
+    public void move(EmptyCell directionVakje, Direction direction) {
         Wall match = FindClassType.find(directionVakje.getInhoud(), Wall.class);
         if(match == null && sb.getCurrentVakje().getInhoud().contains(this)){
             sb.getCurrentVakje().getInhoud().remove(this);
@@ -68,19 +68,19 @@ public class Pacman extends Character implements KeyListener {
         switch (ke.getKeyCode())
         {
             case KeyEvent.VK_DOWN:
-                bewegen(vSouth, Direction.SOUTH);
+                move(vSouth, Direction.SOUTH);
                 currentImage = downImg; //method maken 
                 break;
             case KeyEvent.VK_UP:
-                bewegen(vNorth, Direction.NORTH);
+                move(vNorth, Direction.NORTH);
                 currentImage = upImg;
                 break;
             case KeyEvent.VK_RIGHT:
-                bewegen(vEast, Direction.EAST);
+                move(vEast, Direction.EAST);
                 currentImage = rightImg;
                 break;
             case KeyEvent.VK_LEFT:
-                bewegen(vWest, Direction.WEST);
+                move(vWest, Direction.WEST);
                 currentImage = leftImg;
                break;
         }
