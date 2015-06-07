@@ -20,6 +20,7 @@ public abstract class Board extends JPanel  {
     Pacman p = new Pacman(this);
     
     public Board(){
+        initLevel();
         this.requestFocusInWindow();
         this.addKeyListener(p);
         this.repaint();
