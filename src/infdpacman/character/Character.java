@@ -15,7 +15,5 @@ public abstract class Character extends GameElement {
     public Character(ImageIcon i) {
         super(i);
     }
-    public abstract void move(EmptyCell directionVakje, Direction direction);
-
     
 }

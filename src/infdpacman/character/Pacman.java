@@ -4,7 +4,7 @@ import infdpacman.Direction;
 import infdpacman.FindClassType;
 import infdpacman.Wall;
 import infdpacman.Board;
-import infdpacman.Boardv2;
+import infdpacman.Board;
 import infdpacman.EmptyCell;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -20,7 +20,7 @@ import javax.swing.ImageIcon;
 public class Pacman extends Character implements KeyListener {
     public int lives;
     private ArrayList<EmptyCell> neighbors = new ArrayList();
-    private Boardv2 sb;
+    private Board sb;
     ImageIcon leftImg = new ImageIcon("Plaatjes/pacmanleft.png");
     ImageIcon rightImg = new ImageIcon("Plaatjes/pacmanright.png");
     ImageIcon upImg = new ImageIcon("Plaatjes/pacmanup.png");
@@ -33,11 +33,11 @@ public class Pacman extends Character implements KeyListener {
     EmptyCell vSouth;
     EmptyCell vNorth;
     
-    public Pacman(Boardv2 sb){
+    public Pacman(Board sb){
         super(new ImageIcon("Plaatjes/pacmanleft.png"));
         this.sb = sb;
     }
-     
+     /*
     public void movementCheck(){
         neighbors = sb.getNeighbors();
         //redundant -> always 4
@@ -59,29 +59,29 @@ public class Pacman extends Character implements KeyListener {
             sb.fillVakjes();
         }
     }
-    
+    */
     @Override
     public void keyTyped(KeyEvent ke) {}
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        movementCheck();
+        //movementCheck();
         switch (ke.getKeyCode())
         {
             case KeyEvent.VK_DOWN:
-                move(vSouth, Direction.SOUTH);
+                //move(vSouth, Direction.SOUTH);
                 currentImage = downImg; //method maken 
                 break;
             case KeyEvent.VK_UP:
-                move(vNorth, Direction.NORTH);
+                //move(vNorth, Direction.NORTH);
                 currentImage = upImg;
                 break;
             case KeyEvent.VK_RIGHT:
-                move(vEast, Direction.EAST);
+               // move(vEast, Direction.EAST);
                 currentImage = rightImg;
                 break;
             case KeyEvent.VK_LEFT:
-                move(vWest, Direction.WEST);
+                //move(vWest, Direction.WEST);
                 currentImage = leftImg;
                break;
         }

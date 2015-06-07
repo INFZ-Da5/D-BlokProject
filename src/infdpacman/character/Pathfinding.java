@@ -28,7 +28,7 @@ public class Pathfinding {
   public Pathfinding(Board level) {
     // create a copy of the array so that we can operate on this array
     //this.nodes = new ArrayList<Cell>(level.vakjes);
-   this.edges = new ArrayList(level.getNeighbors());
+   //this.edges = new ArrayList(level.getNeighbors());
   }
 
   public void execute(Cell source) {
