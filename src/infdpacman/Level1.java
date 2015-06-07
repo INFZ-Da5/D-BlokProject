@@ -45,7 +45,7 @@ class Level1 extends Board {
 
     @Override
     public void fillVakjes() {
-               for (int row = 0; row < height; row++) {
+        for (int row = 0; row < height; row++) {
             for (int col = 0; col < length; col++) {
                 if((int)grid[row][col] == 0){
                 grid[row][col] = new Wall();}
@@ -53,24 +53,20 @@ class Level1 extends Board {
                 if((int)grid[row][col] > 0){
                     LinkedList inhoud = new LinkedList();
                     EmptyCell cell = new EmptyCell();
-                grid[row][col] = cell;
-                cell.setInhoud(inhoud);
-                
-                switch((int)grid[row][col]){
-                    case 1: inhoud.add(new Pacman(this));
-                    case 2: inhoud.add(new Ghost());
-                    case 3: inhoud.add(new DrunkGhost());
-                    case 4: inhoud.add(new Pill());
-                    case 5: inhoud.add(new SuperPill());
-                    case 6: inhoud.add(new Banana());
-                
+                    grid[row][col] = cell;
+                    cell.setInhoud(inhoud);
+
+                    switch((int)grid[row][col]){
+                        case 1: inhoud.add(new Pacman(this));
+                        case 2: inhoud.add(new Ghost());
+                        case 3: inhoud.add(new DrunkGhost());
+                        case 4: inhoud.add(new Pill());
+                        case 5: inhoud.add(new SuperPill());
+                        case 6: inhoud.add(new Banana());
+
+                    }
                 }
-               
-                
-                
             }
-                
-            }
-    }
+        }
     } 
 }
