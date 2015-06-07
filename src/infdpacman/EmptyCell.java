@@ -13,21 +13,16 @@ import java.util.Map;
  */
 public class EmptyCell extends Cell{
     private LinkedList inhoud = new LinkedList(); 
-    private Map<EmptyCell, Direction> neighbors = new HashMap<EmptyCell, Direction>();
-    ArrayList<GameElement> gameElements = new ArrayList();
-    ArrayList<Wall> walls = new ArrayList();
+    private Map<EmptyCell, Direction> neighbors = new HashMap<>();
+    private ArrayList<GameElement> gameElements = new ArrayList();
     
     public EmptyCell(){
         this.setBackground(Color.BLACK);
     }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        draw(g);
-    }
     
-    private void draw(Graphics g){
+    //draw the object, not the arraylist --> cant with typecasting
+    @Override
+    public void draw(Graphics g){
         for(GameElement elem: gameElements){
             elem.draw(g,this.getWidth(),this.getHeight());
         }
@@ -44,7 +39,7 @@ public class EmptyCell extends Cell{
     public void vulVakje(){
         gameElements.clear();
         for(Object obj : inhoud){
-                gameElements.add((GameElement)obj);
+            gameElements.add((GameElement)obj);
         }
     }
 }

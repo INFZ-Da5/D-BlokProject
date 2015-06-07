@@ -13,14 +13,14 @@ import javax.swing.JPanel;
  *
  * @author Lenovo
  */
-public class Level extends JPanel  {
+public abstract class Board extends JPanel  {
     int height = 8;
     int length = 8;
     EmptyCell[][] vakjes = new EmptyCell[length][height];
     EmptyCell currentVakje;
     Pacman p = new Pacman(this);
 
-    public Level(){
+    public Board(){
         this.requestFocusInWindow();
         this.addKeyListener(p);
         this.repaint();
