@@ -14,23 +14,14 @@ import javax.swing.JPanel;
  * @author Lenovo
  */
 public abstract class Board extends JPanel  {
-    int height = 8;
-    int length = 8;
-    Cell[][] vakjes = new Cell[length][height];
+    int height;
+    int width;
     Pacman p = new Pacman(this);
     
     public Board(){
         this.requestFocusInWindow();
         this.addKeyListener(p);
         this.repaint();
-        this.setLayout(new GridLayout(length,height));
-        
-        for (int row = 0; row < height; row++) {
-            for (int col = 0; col < length; col++) {
-                vakjes[row][col] = new EmptyCell();
-                this.add(vakjes[row][col]);
-            }
-        }
     }
     
     public abstract void initLevel();

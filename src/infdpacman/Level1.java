@@ -5,6 +5,7 @@ import infdpacman.character.Pacman;
 import infdpacman.character.Ghost;
 import infdpacman.character.DrunkGhost;
 import infdpacman.item.*;
+import java.awt.GridLayout;
 
 /**
  *
@@ -33,6 +34,8 @@ class Level1 extends Board {
         { 0, 0, 0, 0, 0, 0, 0, 0, 0 }
     };
     
+    
+    
     public Level1() {
         initLevel();
         fillVakjes();
@@ -40,13 +43,15 @@ class Level1 extends Board {
 
     @Override
     public void initLevel() {
-        System.out.println("test");
+        width = grid[0].length;
+        height = grid.length;
+        this.setLayout(new GridLayout(width,height));
     }
 
     @Override
     public void fillVakjes() {
         for (int row = 0; row < height; row++) {
-            for (int col = 0; col < length; col++) {
+            for (int col = 0; col < width; col++) {
                 if((int)grid[row][col] == 0){
                 grid[row][col] = new Wall();}
                 
