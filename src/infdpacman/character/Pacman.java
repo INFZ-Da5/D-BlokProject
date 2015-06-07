@@ -4,6 +4,7 @@ import infdpacman.Direction;
 import infdpacman.FindClassType;
 import infdpacman.Wall;
 import infdpacman.Board;
+import infdpacman.Boardv2;
 import infdpacman.EmptyCell;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -19,7 +20,7 @@ import javax.swing.ImageIcon;
 public class Pacman extends Character implements KeyListener {
     public int lives;
     private ArrayList<EmptyCell> neighbors = new ArrayList();
-    private Board sb;
+    private Boardv2 sb;
     ImageIcon leftImg = new ImageIcon("Plaatjes/pacmanleft.png");
     ImageIcon rightImg = new ImageIcon("Plaatjes/pacmanright.png");
     ImageIcon upImg = new ImageIcon("Plaatjes/pacmanup.png");
@@ -32,7 +33,7 @@ public class Pacman extends Character implements KeyListener {
     EmptyCell vSouth;
     EmptyCell vNorth;
     
-    public Pacman(Board sb){
+    public Pacman(Boardv2 sb){
         super(new ImageIcon("Plaatjes/pacmanleft.png"));
         this.sb = sb;
     }

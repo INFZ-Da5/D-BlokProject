@@ -2,7 +2,7 @@
 package infdpacman.character;
 
 import infdpacman.Cell;
-import infdpacman.Level;
+import infdpacman.Board;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,7 +25,7 @@ public class Pathfinding {
   private Map<Cell, Cell> predecessors;
   private Map<Cell, Integer> distance;
 
-  public Pathfinding(Level level) {
+  public Pathfinding(Board level) {
     // create a copy of the array so that we can operate on this array
     //this.nodes = new ArrayList<Cell>(level.vakjes);
    this.edges = new ArrayList(level.getNeighbors());
