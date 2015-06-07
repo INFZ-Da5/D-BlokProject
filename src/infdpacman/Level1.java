@@ -51,28 +51,33 @@ class Level1 extends Board {
 
     @Override
     public void fillVakjes() {
-        Cell[][] cellgrid = new Cell[width][height];
-        
+        //Cell[][] cellgrid = new Cell[width][height];
+
         for (int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
+                Cell[][] cellgrid = new Cell[width][height];
                 if(grid[row][col] == 0){
                 cellgrid[row][col] = new Wall();}
                 
                 if(grid[row][col] != 0){
-                    LinkedList inhoud = new LinkedList();
+                     LinkedList inhoud = new LinkedList();
                     EmptyCell cell = new EmptyCell();
                     cellgrid[row][col] = cell;
+    
                     cell.setInhoud(inhoud);
+                    
+                 switch(grid[row][col]){
+                        case 1: inhoud.add(new Pacman(this)); break;
+                        case 2: inhoud.add(new Ghost()); break;
+                        case 3: inhoud.add(new DrunkGhost()); break;
+                        case 4: inhoud.add(new Pill()); break;
+                        case 5: inhoud.add(new SuperPill()); break;
+                        case 6: inhoud.add(new Banana()); break;
+                        
 
-                  /*  switch(grid[row][col]){
-                        case 1: inhoud.add(new Pacman(this));
-                        case 2: inhoud.add(new Ghost());
-                        case 3: inhoud.add(new DrunkGhost());
-                        case 4: inhoud.add(new Pill());
-                        case 5: inhoud.add(new SuperPill());
-                        case 6: inhoud.add(new Banana());
-
-                    }*/
+                    }
+                 
+                 
                 }
                 this.add(cellgrid[row][col]);
             }
