@@ -74,6 +74,7 @@ class Level1 extends Board {
 
                     }*/
                 }
+                this.add(cellgrid[row][col]);
             }
         }
     } 
