@@ -4,6 +4,7 @@ package infdpacman.character;
 import infdpacman.Cell;
 import infdpacman.Level;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 /**
  *
  * @author Lenovo
@@ -25,8 +27,8 @@ public class Pathfinding {
 
   public Pathfinding(Level level) {
     // create a copy of the array so that we can operate on this array
-    this.nodes = new ArrayList<Cell>(level.getNeighbors());
-   // this.edges = new ArrayList<Cellconnection>(level.getCellconnections());
+    //this.nodes = new ArrayList<Cell>(level.vakjes);
+   this.edges = new ArrayList(level.getNeighbors());
   }
 
   public void execute(Cell source) {
