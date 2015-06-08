@@ -23,8 +23,8 @@ public abstract class Board extends JPanel  {
     public abstract void fillVakjes();
 
     public void setNeigbors(Cell[][] cellgrid) {
-        for(int row = 0; row < cellgrid[0].length; row++){
-            for(int col = 0; col < cellgrid.length; col++){
+        for(int row = 0; row < cellgrid.length; row++){
+            for(int col = 0; col < cellgrid[0].length; col++){
                 if(cellgrid[row][col] instanceof EmptyCell){
                     Map<Direction, Cell> neighbors = ((EmptyCell)cellgrid[row][col]).getNeighbors();
                     neighbors.put(Direction.NORTH, cellgrid[row][col-1]);
