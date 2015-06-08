@@ -39,9 +39,29 @@ public class EmptyCell extends Cell{
     } 
 
     private void checkCollision() {
+        checkItemCollision();
+        checkGhostCollision();
+    }
+
+    private void checkGhostCollision() {
+        
+        if(FindClassType.containsInstance(inhoud, Pacman.class) 
+            && (FindClassType.containsInstance(inhoud, Item.class) || FindClassType.containsInstance(inhoud, Item.class)) ){
+                    //-leven
+            for (GameElement inhoud1 : inhoud) {
+                if(inhoud1 instanceof Pacman){
+                    //speler punten ((Item)inhoud1).points;
+                    ((Pacman)inhoud1).lives -= 1;
+                }
+            }
+        }
+    }
+    
+    private void checkItemCollision() {
         if(FindClassType.containsInstance(inhoud, Pacman.class) && FindClassType.containsInstance(inhoud, Item.class)){
             for (GameElement inhoud1 : inhoud) {
-                if(FindClassType.containsInstance(inhoud, Item.class)){
+                if(inhoud1 instanceof Item){
+                    //speler punten ((Item)inhoud1).points;
                     inhoud.remove(inhoud1);
                 }
             }

@@ -9,8 +9,10 @@ import infdpacman.cell.Wall;
 import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.gameelement.character.Pacman;
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.util.LinkedList;
+import javax.swing.JLabel;
 
 
 /**

@@ -1,13 +1,10 @@
 package infdpacman.gameelement.character;
 
 import infdpacman.enums.Direction;
-import infdpacman.view.Board;
-import infdpacman.cell.EmptyCell;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,8 +12,7 @@ import javax.swing.ImageIcon;
  * @author Lenovo
  */
 public class Pacman extends Character implements KeyListener {
-    public int lives;
-    private ArrayList<EmptyCell> neighbors = new ArrayList();
+    public int lives = 3;
     ImageIcon leftImg = new ImageIcon("Plaatjes/pacmanleft.png");
     ImageIcon rightImg = new ImageIcon("Plaatjes/pacmanright.png");
     ImageIcon upImg = new ImageIcon("Plaatjes/pacmanup.png");
@@ -33,7 +29,6 @@ public class Pacman extends Character implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        //movementCheck();
         switch (ke.getKeyCode())
         {
             case KeyEvent.VK_DOWN:

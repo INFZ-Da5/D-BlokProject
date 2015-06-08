@@ -10,8 +10,10 @@ import infdpacman.gameelement.character.Pacman;
 import infdpacman.gameelement.item.Banana;
 import infdpacman.gameelement.item.Pill;
 import infdpacman.gameelement.item.SuperPill;
+import java.awt.BorderLayout;
 import java.util.LinkedList;
 import java.util.Map;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**

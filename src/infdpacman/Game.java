@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -25,27 +26,29 @@ public class Game implements ActionListener {
     public void start(){
     
         frame = new JFrame();
-        frame.setSize(720,480);
+        frame.setSize(1280,720);
         frame.setLayout(new BorderLayout());
         
         JPanel menu = new JPanel();
         JButton start = new JButton("start");
-        start.setActionCommand(Actions.START.name());
-        start.addActionListener(this);
+            start.setActionCommand(Actions.START.name());
+            start.addActionListener(this);
         JButton stop = new JButton("stop");
-        stop.setActionCommand(Actions.STOP.name());
-        stop.addActionListener(this);
+            stop.setActionCommand(Actions.STOP.name());
+            stop.addActionListener(this);
         JButton pauze = new JButton("pauze");
-        pauze.setActionCommand(Actions.PAUZE.name());
-        pauze.addActionListener(this);
+            pauze.setActionCommand(Actions.PAUZE.name());
+            pauze.addActionListener(this);
         JButton reset = new JButton("opnieuw");
-        reset.setActionCommand(Actions.RESET.name());
-        reset.addActionListener(this);
-        
+            reset.setActionCommand(Actions.RESET.name());
+            reset.addActionListener(this);
+        //JLabel j = new JLabel("time");
+                
         menu.add(start);
         menu.add(stop);
         menu.add(pauze);
         menu.add(reset);
+        //menu.add(j);
         frame.add(menu, BorderLayout.NORTH);
         frame.setVisible(true);      
     }
