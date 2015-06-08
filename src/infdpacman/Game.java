@@ -22,6 +22,10 @@ public class Game implements ActionListener {
     public ArrayList highscore;
     public JFrame frame;
     public Board currentSb;
+    public Player p1 = new Player();
+    public JLabel s = new JLabel();
+    public JLabel j = new JLabel();
+    public int currentlives;
     
     public void start(){
     
@@ -42,15 +46,17 @@ public class Game implements ActionListener {
         JButton reset = new JButton("opnieuw");
             reset.setActionCommand(Actions.RESET.name());
             reset.addActionListener(this);
-        //JLabel j = new JLabel("time");
-                
+        
+         s.setText("" + p1.getScore());
         menu.add(start);
         menu.add(stop);
         menu.add(pauze);
         menu.add(reset);
-        //menu.add(j);
+        menu.add (s);
+        menu.add(j);
         frame.add(menu, BorderLayout.NORTH);
-        frame.setVisible(true);      
+        frame.setVisible(true);  
+        
     }
     
    
@@ -62,6 +68,9 @@ public class Game implements ActionListener {
             if(currentSb == null){
             Board level1 = new Level2();
             currentSb = level1;
+            p1.setLevel(currentSb);
+            currentlives = currentSb.getPacman().lives;
+            j.setText("" + currentSb.getPacman().lives);
             frame.add(level1,BorderLayout.CENTER);      
             level1.requestFocus();
             frame.validate();
@@ -87,7 +96,14 @@ public class Game implements ActionListener {
     
     
    
-    
+public void Lives(){
+
+if(currentlives != currentSb.getPacman().lives){
+            currentlives = currentSb.getPacman().lives;
+            j.setText("" + currentSb.getPacman().lives);
+}
+
+}
     
     
     

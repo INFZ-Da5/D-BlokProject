@@ -90,6 +90,7 @@ public abstract class Board extends JPanel  {
     public static void setPacmanCell(Cell pacmanCell) {
         Board.pacmanCell = pacmanCell;
     }
+<<<<<<< HEAD
     //moet in vakje! + is nog niet klaar
     public static Cell getCellOfCharacter(Character character) {
             if(character instanceof Pacman){
@@ -102,4 +103,12 @@ public abstract class Board extends JPanel  {
                 return pacmanCell;
             }
     } 
+=======
+    
+    public Pacman getPacman(){
+    
+    
+    return pacman;
+    }
+>>>>>>> origin/vakjes-versie
 }
