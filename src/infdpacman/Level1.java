@@ -74,6 +74,7 @@ class Level1 extends Board {
                         case 5: inhoud.add(new SuperPill()); break;
                         case 6: inhoud.add(new Banana()); break;
                         
+                        
 
                     }
                  

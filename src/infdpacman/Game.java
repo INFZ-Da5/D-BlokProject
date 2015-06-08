@@ -53,7 +53,7 @@ public class Game implements ActionListener {
         
         if (e.getActionCommand().equals(Actions.START.name())) {
             if(currentSb == null){
-            Board level1 = new Level1();
+            Board level1 = new Level2();
             currentSb = level1;
             frame.add(level1,BorderLayout.CENTER);      
             level1.requestFocus();
@@ -70,7 +70,7 @@ public class Game implements ActionListener {
 
         }else if(e.getActionCommand().equals(Actions.RESET.name())){
             frame.remove(currentSb);
-            Board level1 = new Level1();
+            Board level1 = new Level2();
             currentSb = level1;          
             frame.add(level1,BorderLayout.CENTER);      
             frame.validate();
