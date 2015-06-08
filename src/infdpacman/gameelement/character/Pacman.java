@@ -37,19 +37,19 @@ public class Pacman extends Character implements KeyListener {
         switch (ke.getKeyCode())
         {
             case KeyEvent.VK_DOWN:
-                move(Direction.SOUTH);
+                move(Direction.SOUTH, this);
                 currentImage = downImg; //method maken 
                 break;
             case KeyEvent.VK_UP:
-                move(Direction.NORTH);
+                move(Direction.NORTH, this);
                 currentImage = upImg;
                 break;
             case KeyEvent.VK_RIGHT:
-                move(Direction.EAST);
+                move(Direction.EAST, this);
                 currentImage = rightImg;
                 break;
             case KeyEvent.VK_LEFT:
-                move(Direction.WEST);
+                move(Direction.WEST, this);
                 currentImage = leftImg;
                break;
         }
