@@ -1,4 +1,4 @@
-package infdpacman;
+package infdpacman.enums;
 
 /**
  *

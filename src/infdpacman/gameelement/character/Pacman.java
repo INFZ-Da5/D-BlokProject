@@ -1,8 +1,8 @@
-package infdpacman.character;
+package infdpacman.gameelement.character;
 
-import infdpacman.Direction;
+import infdpacman.enums.Direction;
 import infdpacman.view.Board;
-import infdpacman.EmptyCell;
+import infdpacman.cell.EmptyCell;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -23,27 +23,10 @@ public class Pacman extends Character implements KeyListener {
     ImageIcon downImg = new ImageIcon("Plaatjes/pacmandown.png");
 
     ImageIcon currentImage = leftImg;
-
-    EmptyCell vWest;
-    EmptyCell vEast;
-    EmptyCell vSouth;
-    EmptyCell vNorth;
     
     public Pacman(){
         super(new ImageIcon("Plaatjes/pacmanleft.png"));
     }
-     /*
-    public void movementCheck(){
-        neighbors = sb.getNeighbors();
-        //redundant -> always 4
-        if(neighbors.size() == 4){
-            vWest = neighbors.get(0);
-            vEast = neighbors.get(1);
-            vSouth = neighbors.get(2);
-            vNorth = neighbors.get(3);
-        }
-    }
-    */
     
     @Override
     public void keyTyped(KeyEvent ke) {}
@@ -81,16 +64,5 @@ public class Pacman extends Character implements KeyListener {
         ImageIcon i = currentImage;
         Image img = i.getImage();
         g.drawImage(img, 0,0, width,height, null);    
-    }
-
-    @Override
-    public void move(Direction direction) {
-        /*
-        if(match == null && sb.getCurrentVakje().getInhoud().contains(this)){
-            sb.getCurrentVakje().getInhoud().remove(this);
-            sb.setCurrentVakje(direction);
-            sb.getCurrentVakje().getInhoud().add(this);
-            sb.fillVakjes();
-        }*/
     }
 }

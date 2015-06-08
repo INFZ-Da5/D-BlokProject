@@ -1,7 +1,7 @@
 
-package infdpacman.character;
+package infdpacman.utilities;
 
-import infdpacman.Cell;
+import infdpacman.cell.Cell;
 import infdpacman.view.Board;
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,6 +1,6 @@
-package infdpacman.item;
+package infdpacman.gameelement.item;
 
-import infdpacman.GameElement;
+import infdpacman.gameelement.GameElement;
 import javax.swing.ImageIcon;
 
 /**

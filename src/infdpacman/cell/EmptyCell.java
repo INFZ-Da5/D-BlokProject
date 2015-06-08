@@ -1,5 +1,8 @@
-package infdpacman;
+package infdpacman.cell;
 
+import infdpacman.enums.Direction;
+import infdpacman.gameelement.GameElement;
+import infdpacman.gameelement.character.Character;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.HashMap;
@@ -22,6 +25,7 @@ public class EmptyCell extends Cell{
     @Override
     public void draw(Graphics g){
         for (GameElement inhoud1 : inhoud) {
+            //character: instanceof werkt niet en isInstance geeft altijd true
             inhoud1.draw(g, this.getWidth(), this.getHeight());
         }
     }

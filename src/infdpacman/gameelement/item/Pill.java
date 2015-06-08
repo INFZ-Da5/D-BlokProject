@@ -1,4 +1,4 @@
-package infdpacman.item;
+package infdpacman.gameelement.item;
 
 import java.awt.Graphics;
 import java.awt.Image;

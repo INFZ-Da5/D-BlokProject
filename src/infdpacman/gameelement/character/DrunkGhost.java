@@ -1,6 +1,6 @@
-package infdpacman.character;
+package infdpacman.gameelement.character;
 
-import infdpacman.Direction;
+import infdpacman.enums.Direction;
 import javax.swing.ImageIcon;
 
 /**

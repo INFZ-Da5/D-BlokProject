@@ -1,9 +1,16 @@
 package infdpacman.view;
 
-import infdpacman.Cell;
-import infdpacman.Direction;
-import infdpacman.EmptyCell;
-import infdpacman.character.Pacman;
+import infdpacman.cell.Cell;
+import infdpacman.enums.Direction;
+import infdpacman.cell.EmptyCell;
+import infdpacman.cell.Wall;
+import infdpacman.gameelement.character.DrunkGhost;
+import infdpacman.gameelement.character.Ghost;
+import infdpacman.gameelement.character.Pacman;
+import infdpacman.gameelement.item.Banana;
+import infdpacman.gameelement.item.Pill;
+import infdpacman.gameelement.item.SuperPill;
+import java.util.LinkedList;
 import java.util.Map;
 import javax.swing.JPanel;
 
@@ -13,6 +20,7 @@ import javax.swing.JPanel;
  */
 public abstract class Board extends JPanel  {
     Pacman pacman = new Pacman();
+    Cell[][] cellgrid;
     
     public Board(){
         this.requestFocusInWindow();
@@ -20,9 +28,37 @@ public abstract class Board extends JPanel  {
         this.repaint();
     }
         
-    public abstract void fillVakjes();
+    public void fillCells(int [][] grid){
+        cellgrid = new Cell[grid.length][grid[0].length];
+        
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[0].length; col++) {
+                if(grid[row][col] == 0){
+                cellgrid[row][col] = new Wall();}
+                
+                if(grid[row][col] != 0){
+                    LinkedList inhoud = new LinkedList();
+                    EmptyCell cell = new EmptyCell();
+                    cellgrid[row][col] = cell;
+                    cell.setInhoud(inhoud);
 
-    public void setNeigbors(Cell[][] cellgrid) {
+                    switch(grid[row][col]){
+                        case 1: inhoud.add(pacman); break;
+                        case 2: inhoud.add(new Ghost()); break;
+                        case 3: inhoud.add(new DrunkGhost()); break;
+                        case 4: inhoud.add(new Pill()); break;
+                        case 5: inhoud.add(new SuperPill()); break;
+                        case 6: inhoud.add(new Banana()); break;
+
+                    }
+                }
+                this.add(cellgrid[row][col]);
+            }
+        }
+        setNeigbors();
+    }  
+
+    public void setNeigbors() {
         for(int row = 0; row < cellgrid.length; row++){
             for(int col = 0; col < cellgrid[0].length; col++){
                 if(cellgrid[row][col] instanceof EmptyCell){

@@ -1,4 +1,4 @@
-package infdpacman;
+package infdpacman.cell;
 
 import java.awt.Graphics;
 import java.awt.Image;

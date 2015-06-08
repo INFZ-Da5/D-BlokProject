@@ -1,5 +1,6 @@
 package infdpacman;
 
+import infdpacman.enums.Actions;
 import infdpacman.view.Board;
 import infdpacman.view.Level1;
 import infdpacman.view.Level2;

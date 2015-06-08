@@ -1,6 +1,6 @@
 
-package infdpacman.character;
-import infdpacman.Cell;
+package infdpacman.utilities;
+import infdpacman.cell.Cell;
 /**
  *
  * @author Lenovo
