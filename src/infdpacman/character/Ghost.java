@@ -1,5 +1,6 @@
 package infdpacman.character;
 
+import infdpacman.Direction;
 import javax.swing.ImageIcon;
 
 /**
@@ -13,6 +14,11 @@ public class Ghost extends Character {
 
     public Ghost() {
         super(new ImageIcon("Plaatjes/ghost.png"));
+    }
+
+    @Override
+    public void move(Direction direction) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

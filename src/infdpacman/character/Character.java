@@ -16,4 +16,6 @@ public abstract class Character extends GameElement {
         super(i);
     }
     
+    public abstract void move(Direction direction);
+    
 }

@@ -12,8 +12,8 @@ import java.util.Map;
  * @author Lenovo
  */
 public class EmptyCell extends Cell{
-    private List<GameElement> inhoud = new LinkedList<GameElement>(); 
-    private Map<Direction, EmptyCell> neighbors = new HashMap<>();
+    private List<GameElement> inhoud = new LinkedList<>(); 
+    private Map<Direction, Cell> neighbors = new HashMap<>();
     
     public EmptyCell(){
         this.setBackground(Color.BLACK);
@@ -25,7 +25,19 @@ public class EmptyCell extends Cell{
             inhoud1.draw(g, this.getWidth(), this.getHeight());
         }
     }
-    
+
+    public List<GameElement> getInhoud() {
+        return inhoud;
+    }
+
+    public Map<Direction, Cell> getNeighbors() {
+        return neighbors;
+    }
+
+    public void setNeighbors(Map<Direction, Cell> neighbors) {
+        this.neighbors = neighbors;
+    }
+        
     public void setInhoud(LinkedList inhoud) {
         this.inhoud = inhoud;
     } 

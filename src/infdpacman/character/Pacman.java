@@ -1,10 +1,7 @@
 package infdpacman.character;
 
 import infdpacman.Direction;
-import infdpacman.FindClassType;
-import infdpacman.Wall;
-import infdpacman.Board;
-import infdpacman.Board;
+import infdpacman.view.Board;
 import infdpacman.EmptyCell;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -20,7 +17,6 @@ import javax.swing.ImageIcon;
 public class Pacman extends Character implements KeyListener {
     public int lives;
     private ArrayList<EmptyCell> neighbors = new ArrayList();
-    private Board sb;
     ImageIcon leftImg = new ImageIcon("Plaatjes/pacmanleft.png");
     ImageIcon rightImg = new ImageIcon("Plaatjes/pacmanright.png");
     ImageIcon upImg = new ImageIcon("Plaatjes/pacmanup.png");
@@ -33,9 +29,8 @@ public class Pacman extends Character implements KeyListener {
     EmptyCell vSouth;
     EmptyCell vNorth;
     
-    public Pacman(Board sb){
+    public Pacman(){
         super(new ImageIcon("Plaatjes/pacmanleft.png"));
-        this.sb = sb;
     }
      /*
     public void movementCheck(){
@@ -48,18 +43,8 @@ public class Pacman extends Character implements KeyListener {
             vNorth = neighbors.get(3);
         }
     }
-    
-    @Override
-    public void move(EmptyCell directionVakje, Direction direction) {
-        Wall match = FindClassType.find(directionVakje.getInhoud(), Wall.class);
-        if(match == null && sb.getCurrentVakje().getInhoud().contains(this)){
-            sb.getCurrentVakje().getInhoud().remove(this);
-            sb.setCurrentVakje(direction);
-            sb.getCurrentVakje().getInhoud().add(this);
-            sb.fillVakjes();
-        }
-    }
     */
+    
     @Override
     public void keyTyped(KeyEvent ke) {}
 
@@ -69,19 +54,19 @@ public class Pacman extends Character implements KeyListener {
         switch (ke.getKeyCode())
         {
             case KeyEvent.VK_DOWN:
-                //move(vSouth, Direction.SOUTH);
+                move(Direction.SOUTH);
                 currentImage = downImg; //method maken 
                 break;
             case KeyEvent.VK_UP:
-                //move(vNorth, Direction.NORTH);
+                move(Direction.NORTH);
                 currentImage = upImg;
                 break;
             case KeyEvent.VK_RIGHT:
-               // move(vEast, Direction.EAST);
+                move(Direction.EAST);
                 currentImage = rightImg;
                 break;
             case KeyEvent.VK_LEFT:
-                //move(vWest, Direction.WEST);
+                move(Direction.WEST);
                 currentImage = leftImg;
                break;
         }
@@ -96,5 +81,16 @@ public class Pacman extends Character implements KeyListener {
         ImageIcon i = currentImage;
         Image img = i.getImage();
         g.drawImage(img, 0,0, width,height, null);    
+    }
+
+    @Override
+    public void move(Direction direction) {
+        /*
+        if(match == null && sb.getCurrentVakje().getInhoud().contains(this)){
+            sb.getCurrentVakje().getInhoud().remove(this);
+            sb.setCurrentVakje(direction);
+            sb.getCurrentVakje().getInhoud().add(this);
+            sb.fillVakjes();
+        }*/
     }
 }

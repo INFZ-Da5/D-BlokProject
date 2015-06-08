@@ -1,5 +1,7 @@
 package infdpacman;
 
+import infdpacman.view.Board;
+import infdpacman.view.Level1;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
