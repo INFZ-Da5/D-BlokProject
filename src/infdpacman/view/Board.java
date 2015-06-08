@@ -95,4 +95,10 @@ public abstract class Board extends JPanel  {
     public static void setPacmanCell(Cell pacmanCell) {
         Board.pacmanCell = pacmanCell;
     }
+    
+    public Pacman getPacman(){
+    
+    
+    return pacman;
+    }
 }
