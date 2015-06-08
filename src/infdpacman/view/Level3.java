@@ -1,7 +1,6 @@
 
 package infdpacman.view;
 import java.awt.GridLayout;
-import java.util.LinkedList;
 
 /**
  *

@@ -4,16 +4,15 @@ import infdpacman.cell.Cell;
 import infdpacman.enums.Direction;
 import infdpacman.cell.EmptyCell;
 import infdpacman.cell.Wall;
+import infdpacman.gameelement.character.Character;
 import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.gameelement.character.Pacman;
 import infdpacman.gameelement.item.Banana;
 import infdpacman.gameelement.item.Pill;
 import infdpacman.gameelement.item.SuperPill;
-import java.awt.BorderLayout;
 import java.util.LinkedList;
 import java.util.Map;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -87,12 +86,20 @@ public abstract class Board extends JPanel  {
             }
         }
     }
-
-    public static Cell getPacmanCell() {
-        return pacmanCell;
-    }
     
     public static void setPacmanCell(Cell pacmanCell) {
         Board.pacmanCell = pacmanCell;
     }
+    //moet in vakje! + is nog niet klaar
+    public static Cell getCellOfCharacter(Character character) {
+            if(character instanceof Pacman){
+                return pacmanCell;
+            }
+            else if(character instanceof Ghost){
+                return pacmanCell;
+            }
+            else{
+                return pacmanCell;
+            }
+    } 
 }
