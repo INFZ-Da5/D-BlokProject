@@ -1,13 +1,12 @@
 package infdpacman.cell;
 
-import infdpacman.enums.Direction;
 import infdpacman.gameelement.GameElement;
-import infdpacman.gameelement.character.Character;
 import infdpacman.gameelement.character.Pacman;
+import infdpacman.gameelement.item.Item;
 import infdpacman.gameelement.item.Pill;
+import infdpacman.utilities.FindClassType;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,6 +39,12 @@ public class EmptyCell extends Cell{
     } 
 
     private void checkCollision() {
-        
+        if(FindClassType.containsInstance(inhoud, Pacman.class) && FindClassType.containsInstance(inhoud, Item.class)){
+            for (GameElement inhoud1 : inhoud) {
+                if(FindClassType.containsInstance(inhoud, Item.class)){
+                    inhoud.remove(inhoud1);
+                }
+            }
+        }
     }
 }
