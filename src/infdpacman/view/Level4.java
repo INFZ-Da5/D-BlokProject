@@ -1,6 +1,8 @@
 
 package infdpacman.view;
 
+import java.awt.GridLayout;
+
 /**
  *
  * @author Lenovo
@@ -42,6 +44,9 @@ public class Level4 extends Board{
     
             };
     
-  
+      public Level4() {
+        this.setLayout(new GridLayout(grid.length,grid[0].length));
+         fillCells(grid);
+    }
     
 }
