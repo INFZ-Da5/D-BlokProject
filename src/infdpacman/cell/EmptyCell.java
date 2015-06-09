@@ -29,7 +29,6 @@ public class EmptyCell extends Cell{
     public void draw(Graphics g){
         checkCollision();
         for (GameElement inhoud1 : inhoud) {
-            //character: instanceof werkt niet en isInstance geeft altijd true
             if(FindClassType.containsInstance(inhoud, Item.class)){
                 inhoud1.draw(g, this.getWidth()/2, this.getHeight()/2);
             }
@@ -59,18 +58,15 @@ public class EmptyCell extends Cell{
                 if(inhoud1 instanceof Pacman){
                     if(((Pacman)inhoud1).onverslaanbaar == false){
                         inhoud.remove(inhoud1);
-                        Pacman pacman = new Pacman();
-                   // ((Pacman)inhoud1).lives -= 1;
-                   // System.out.println(((Pacman)inhoud1).lives);
-                    
-                    board.getStartPosition().getInhoud().add(pacman);
-                    pacman.lives -=1;
+                        ((Pacman)inhoud1).lives -= 1;
+                        ((EmptyCell)board.getPacmanCell()).getInhoud().add(board.getPacman());
+                        board.getPacman().setFirstMove(true);
                     }
                     else{
                         for(GameElement inhoud2: inhoud){
                             if(inhoud2 instanceof Ghost || inhoud2 instanceof DrunkGhost){
                                 inhoud.remove(inhoud2);
-                                board.total--;
+                                //board.total--;
                             }
                         }
                     }

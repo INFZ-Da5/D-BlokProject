@@ -20,13 +20,17 @@ public abstract class Character extends GameElement{
     public Character(ImageIcon i) {
         super(i);
     }
-    
+
+    public static void setFirstMove(boolean firstMove) {
+        Character.firstMove = firstMove;
+    }
+       
     public void move(Direction direction, Character character){
         //moet niet alleen pacman worden
         Cell c;
         if(firstMove){
             c = Board.getPacmanCell().getCellOfCharacter(character);
-            c.countPills();
+            //c.countPills(); stackoverflow
             System.out.println(c.getAmountOfPills());
         }
         else{
