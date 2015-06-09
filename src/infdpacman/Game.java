@@ -23,19 +23,13 @@ public class Game implements ActionListener {
     public ArrayList highscore;
     public JFrame frame;
     public Board currentSb;
-    public Player p1 = new Player();
+    public Player player = new Player();
     public JLabel s = new JLabel();
     public JLabel j = new JLabel();
-    public int currentlives;
     
     public Game(){
-    
-    Lives();
-    
-    
-    NextLevel();
-    
-    
+        Lives();    
+        //NextLevel();
     }
     
     public void start(){
@@ -58,7 +52,7 @@ public class Game implements ActionListener {
             reset.setActionCommand(Actions.RESET.name());
             reset.addActionListener(this);
         
-        s.setText("" + p1.getScore());
+        s.setText("" + player.getScore());
         menu.add(start);
         menu.add(stop);
         menu.add(pauze);
@@ -79,7 +73,7 @@ public class Game implements ActionListener {
             if(currentSb == null){
             Board level1 = new Level2();
             currentSb = level1;
-            p1.setLevel(currentSb);
+            player.setLevel(currentSb);
             //currentlives = currentSb.getPacman().lives;
             //j.setText("" + currentSb.getPacman().lives);
             frame.add(level1,BorderLayout.CENTER);      
@@ -107,34 +101,22 @@ public class Game implements ActionListener {
     
     
     
- /*  
 public void Lives(){
-
     if(currentSb != null){
-if(currentlives != currentSb.getPacman().lives){
-            currentlives = currentSb.getPacman().lives;
-            j.setText("" + currentSb.getPacman().lives);
-}
+        j.setText("Lives: " +currentSb.getPacman().lives);
     }
 }
     
-<<<<<<< HEAD
-    
     public void NextLevel(){
-    if(currentSb.total == 0 && currentSb != null){
-    Board level1 = new Level2();
+        if(currentSb.total == 0 && currentSb != null){
+            Board level1 = new Level2();
             currentSb = level1;
-            p1.setLevel(currentSb);
-            currentlives = currentSb.getPacman().lives;
-            j.setText("" + currentSb.getPacman().lives);
+            player.setLevel(currentSb);
+            j.setText("Lives: " +currentSb.getPacman().lives);
             frame.add(level1,BorderLayout.CENTER);      
             level1.requestFocus();
             frame.validate();
-=======
-   */ 
->>>>>>> origin/vakjes-versie
-    
-    }
+        }
     }
     
 }

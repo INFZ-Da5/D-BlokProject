@@ -15,6 +15,6 @@ public abstract class GameElement {
     }
     public void draw(Graphics g,int width, int height) {
         Image img = i.getImage();
-        g.drawImage(img, 0,0, width,height, null);    
+        g.drawImage(img, width/2,height/2, width,height, null);    
     }
 }

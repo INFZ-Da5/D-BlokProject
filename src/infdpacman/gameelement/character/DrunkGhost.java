@@ -19,11 +19,7 @@ public class DrunkGhost extends Character implements Runnable {
 
     public DrunkGhost() {
         super(new ImageIcon("Plaatjes/drunkghost.png"));
-<<<<<<< HEAD
-       // moveTimer();
-=======
         //new Thread(this).start();
->>>>>>> origin/vakjes-versie
     }
     
     public void moveGhost(){

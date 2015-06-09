@@ -4,7 +4,6 @@ import infdpacman.cell.Cell;
 import infdpacman.enums.Direction;
 import infdpacman.cell.EmptyCell;
 import infdpacman.cell.Wall;
-import infdpacman.gameelement.character.Character;
 import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.gameelement.character.Pacman;
@@ -34,7 +33,6 @@ public abstract class Board extends JPanel  {
         this.addKeyListener(pacman);
         this.repaint();
         total = 0;
-        countPills();
     }
     
     public void fillCells(int [][] grid){
@@ -76,83 +74,13 @@ public abstract class Board extends JPanel  {
                     neighbors.put(Direction.EAST, cellgrid[row][col+1]);
                     neighbors.put(Direction.SOUTH, cellgrid[row+1][col]);
                     neighbors.put(Direction.NORTH, cellgrid[row-1][col]);
-<<<<<<< HEAD
-                    ((EmptyCell)cellgrid[row][col]).setNeighbors(neighbors);  
-                }
-            }
-        }
-    }
-    //moet niet uit board maar uit vakje?
-    public void getPacmanPosition(){
-        for (Cell[] cellgrid1 : cellgrid) {
-            for (int col = 0; col < cellgrid[0].length; col++) {
-                if (cellgrid1[col] instanceof EmptyCell) {
-                    if(((EmptyCell) cellgrid1[col]).getInhoud().contains(pacman)){
-                        pacmanCell = cellgrid1[col];
-                        setPacman();
-                    }
-=======
                     cellgrid[row][col].setNeighbors(neighbors);  
->>>>>>> origin/vakjes-versie
                 }
             }
         }
-                 
     }
-<<<<<<< HEAD
-    
-    public static void setPacmanCell(Cell pacmanCell) {
-        Board.pacmanCell = pacmanCell;
-    }
-
-    //moet in vakje! + is nog niet klaar
-    public static Cell getCellOfCharacter(Character character) {
-            if(character instanceof Pacman){
-                return pacmanCell;
-            }
-            else if(character instanceof Ghost){
-                return pacmanCell;
-            }
-            else{
-                return pacmanCell;
-            }
-    } 
-    
     
     public Pacman getPacman(){ return pacman;}
-    
-    
-    
-    
-    public void setPacman(){
-
-        if(pacmanCell == null){
-        
-        ((EmptyCell)cellgrid[14][23]).getInhoud().add(pacman);
-        }
-        }
-    
-    public void countPills(){
-    
-    
-            for (Cell[] cellgrid1 : cellgrid) {
-            for (int col = 0; col < cellgrid[0].length; col++) {
-    
-    if (cellgrid1[col] instanceof EmptyCell) {
-    if(((EmptyCell) cellgrid1[col]).getInhoud() instanceof Pill || ((EmptyCell) cellgrid1[col]).getInhoud() instanceof SuperPill){
-    total++;
-    }
-    }
-    
-    
-    }
-    
-            }
-    }
-   
-    
-=======
->>>>>>> origin/vakjes-versie
 }
 
 

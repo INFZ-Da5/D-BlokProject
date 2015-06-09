@@ -1,20 +1,16 @@
 package infdpacman.cell;
 
-import infdpacman.enums.Direction;
 import infdpacman.gameelement.GameElement;
-import infdpacman.gameelement.character.Character;
 import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.gameelement.character.Pacman;
 import infdpacman.gameelement.item.Item;
-import infdpacman.gameelement.item.Pill;
 import infdpacman.utilities.FindClassType;
 import infdpacman.view.Board;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -34,7 +30,12 @@ public class EmptyCell extends Cell{
         checkCollision();
         for (GameElement inhoud1 : inhoud) {
             //character: instanceof werkt niet en isInstance geeft altijd true
-            inhoud1.draw(g, this.getWidth(), this.getHeight());
+            if(FindClassType.containsInstance(inhoud, Item.class)){
+                inhoud1.draw(g, this.getWidth()/2, this.getHeight()/2);
+            }
+            else{
+                 inhoud1.draw(g, this.getWidth(), this.getHeight());
+            }
         }
     }
 
@@ -54,20 +55,16 @@ public class EmptyCell extends Cell{
     private void checkGhostCollision() {
         if(FindClassType.containsInstance(inhoud, Pacman.class) 
             && (FindClassType.containsInstance(inhoud, Ghost.class) || FindClassType.containsInstance(inhoud, DrunkGhost.class)) ){
-                    //-leven
             for (GameElement inhoud1 : inhoud) {
                 if(inhoud1 instanceof Pacman){
-                    //speler punten ((Item)inhoud1).points;
                     if(((Pacman)inhoud1).onverslaanbaar == false){
                     ((Pacman)inhoud1).lives -= 1;
-                  System.out.println(((Pacman)inhoud1).lives);
-                 inhoud.remove(inhoud1);
-                  
-                }else{
+                    System.out.println(((Pacman)inhoud1).lives);
+                    inhoud.remove(inhoud1);
+                    }
+                    else{
                         for(GameElement inhoud2: inhoud){
-                    
                             if(inhoud2 instanceof Ghost || inhoud2 instanceof DrunkGhost){
-                    
                                 inhoud.remove(inhoud2);
                                 board.total--;
                             }

@@ -13,7 +13,6 @@ import javax.swing.ImageIcon;
  */
 public class Pacman extends Character implements KeyListener {
     public int lives = 3;
-    public int score = 0;
     public boolean onverslaanbaar;
     ImageIcon leftImg = new ImageIcon("Plaatjes/pacmanleft.png");
     ImageIcon rightImg = new ImageIcon("Plaatjes/pacmanright.png");
