@@ -22,12 +22,15 @@ import javax.swing.JPanel;
 public abstract class Board extends JPanel  {
     Pacman pacman = new Pacman();
     Cell[][] cellgrid;
+    public int total;
     private static Cell pacmanCell;
     
     public Board(){
         this.requestFocusInWindow();
         this.addKeyListener(pacman);
         this.repaint();
+        total = 0;
+        countPills();
     }
     
     public void fillCells(int [][] grid){
@@ -40,7 +43,7 @@ public abstract class Board extends JPanel  {
                 
                 if(grid[row][col] != 0){
                     LinkedList inhoud = new LinkedList();
-                    EmptyCell cell = new EmptyCell();
+                    EmptyCell cell = new EmptyCell(this);
                     cellgrid[row][col] = cell;
                     cell.setInhoud(inhoud);
 
@@ -81,6 +84,7 @@ public abstract class Board extends JPanel  {
                 if (cellgrid1[col] instanceof EmptyCell) {
                     if(((EmptyCell) cellgrid1[col]).getInhoud().contains(pacman)){
                         pacmanCell = cellgrid1[col];
+                        setPacman();
                     }
                 }
             }
@@ -103,4 +107,44 @@ public abstract class Board extends JPanel  {
                 return pacmanCell;
             }
     } 
+    
+    
+    public Pacman getPacman(){ return pacman;}
+    
+    
+    
+    
+    public void setPacman(){
+
+        if(pacmanCell == null){
+        
+        ((EmptyCell)cellgrid[14][23]).getInhoud().add(pacman);
+        }
+        }
+    
+    public void countPills(){
+    
+    
+            for (Cell[] cellgrid1 : cellgrid) {
+            for (int col = 0; col < cellgrid[0].length; col++) {
+    
+    if (cellgrid1[col] instanceof EmptyCell) {
+    if(((EmptyCell) cellgrid1[col]).getInhoud() instanceof Pill || ((EmptyCell) cellgrid1[col]).getInhoud() instanceof SuperPill){
+    total++;
+    }
+    }
+    
+    
+    }
+    
+            }
+    }
+   
+    
 }
+
+
+
+
+
+

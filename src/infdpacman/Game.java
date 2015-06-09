@@ -27,6 +27,16 @@ public class Game implements ActionListener {
     public JLabel j = new JLabel();
     public int currentlives;
     
+    public Game(){
+    
+    Lives();
+    
+    
+    NextLevel();
+    
+    
+    }
+    
     public void start(){
     
         frame = new JFrame();
@@ -74,6 +84,7 @@ public class Game implements ActionListener {
             frame.add(level1,BorderLayout.CENTER);      
             level1.requestFocus();
             frame.validate();
+            
             }
         }else if(e.getActionCommand().equals(Actions.STOP.name())){
             
@@ -98,14 +109,27 @@ public class Game implements ActionListener {
    
 public void Lives(){
 
+    if(currentSb != null){
 if(currentlives != currentSb.getPacman().lives){
             currentlives = currentSb.getPacman().lives;
             j.setText("" + currentSb.getPacman().lives);
 }
-
+    }
 }
     
     
+    public void NextLevel(){
+    if(currentSb.total == 0 && currentSb != null){
+    Board level1 = new Level2();
+            currentSb = level1;
+            p1.setLevel(currentSb);
+            currentlives = currentSb.getPacman().lives;
+            j.setText("" + currentSb.getPacman().lives);
+            frame.add(level1,BorderLayout.CENTER);      
+            level1.requestFocus();
+            frame.validate();
     
+    }
+    }
     
 }

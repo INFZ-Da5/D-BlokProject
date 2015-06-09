@@ -7,6 +7,7 @@ import infdpacman.gameelement.character.Pacman;
 import infdpacman.gameelement.item.Item;
 import infdpacman.gameelement.item.Pill;
 import infdpacman.utilities.FindClassType;
+import infdpacman.view.Board;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
@@ -18,9 +19,11 @@ import java.util.List;
  */
 public class EmptyCell extends Cell{
     private List<GameElement> inhoud = new LinkedList<>(); 
+    Board board;
     
-    public EmptyCell(){
+    public EmptyCell(Board board){
         this.setBackground(Color.BLACK);
+        this.board = board;
     }
     
     @Override
@@ -53,9 +56,21 @@ public class EmptyCell extends Cell{
             for (GameElement inhoud1 : inhoud) {
                 if(inhoud1 instanceof Pacman){
                     //speler punten ((Item)inhoud1).points;
+                    if(((Pacman)inhoud1).onverslaanbaar == false){
                     ((Pacman)inhoud1).lives -= 1;
                   System.out.println(((Pacman)inhoud1).lives);
+                 inhoud.remove(inhoud1);
                   
+                }else{
+                        for(GameElement inhoud2: inhoud){
+                    
+                            if(inhoud2 instanceof Ghost || inhoud2 instanceof DrunkGhost){
+                    
+                                inhoud.remove(inhoud2);
+                                board.total--;
+                            }
+                        }
+                    }
                 }
             }
         }

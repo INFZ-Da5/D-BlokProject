@@ -18,7 +18,7 @@ public class DrunkGhost extends Character {
 
     public DrunkGhost() {
         super(new ImageIcon("Plaatjes/drunkghost.png"));
-        moveTimer();
+       // moveTimer();
     }
     
     public void moveGhost(){
