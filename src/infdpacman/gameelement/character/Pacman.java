@@ -35,7 +35,7 @@ public class Pacman extends Character implements KeyListener {
         {
             case KeyEvent.VK_DOWN:
                 move(Direction.SOUTH, this);
-                currentImage = downImg; //method maken 
+                currentImage = downImg; //method maken
                 break;
             case KeyEvent.VK_UP:
                 move(Direction.NORTH, this);
@@ -50,6 +50,9 @@ public class Pacman extends Character implements KeyListener {
                 currentImage = leftImg;
                break;
         }
+        try {
+            Thread.sleep(100);
+        } catch(InterruptedException ie) {}
     }
 
     @Override

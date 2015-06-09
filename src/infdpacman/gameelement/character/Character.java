@@ -13,13 +13,10 @@ import javax.swing.ImageIcon;
  * @author Lenovo
  */
 
-/*
-Vanuit cell moet de cell waar pacman, ghost, drunkghost in staat gestuurd worden naar character
-Dit moet dus verwijderd worden uit board.
-*/
-public abstract class Character extends GameElement {    
+public abstract class Character extends GameElement{    
     static boolean firstMove = true;
     Cell lastCell;
+    
     public Character(ImageIcon i) {
         super(i);
     }

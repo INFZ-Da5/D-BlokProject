@@ -79,13 +79,7 @@ public class EmptyCell extends Cell{
         if(FindClassType.containsInstance(inhoud, Pacman.class) && FindClassType.containsInstance(inhoud, Item.class)){
             for (GameElement inhoud1 : inhoud) {
                 if(inhoud1 instanceof Item){
-                    /*for(GameElement inhoud2: inhoud){
-                        if(inhoud2 instanceof Pacman){
-                            
-                    ((Pacman)inhoud2).score = ((Pacman)inhoud2).score + ((Item)inhoud1).points;
-                      
-                        }  
-                    }*/
+                    //((Item)inhoud1).points; -->score moet aan player toegevoegd worden
                     inhoud.remove(inhoud1);
                 }
             }

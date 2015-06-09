@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
  *
  * @author CVD
  */
-public class DrunkGhost extends Character implements Runnable {
+public class DrunkGhost extends Character{
     ImageIcon normalGhost = new ImageIcon("Plaatjes/drunkghost.png");
     ImageIcon fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");    
     ImageIcon currentImage = normalGhost;
@@ -27,22 +27,16 @@ public class DrunkGhost extends Character implements Runnable {
     public void moveGhost(){
         for(Direction d : Direction.values()){
             if(lastDirection != d){
+                try {
+                    Thread.sleep(1000);
+                } catch(InterruptedException ie) {}
                 move(d, this);
                 lastDirection = d;
             }
         }
+        
     }
 
-    @Override
-    public void run() {
-        while(true){
-            try {
-                Thread.sleep(2000);
-            } catch(InterruptedException ie) {}
-            moveGhost();
-        }
-    }
-    
     @Override
     public void draw(Graphics g,int width, int height) {
         ImageIcon i = currentImage;
