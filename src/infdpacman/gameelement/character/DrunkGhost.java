@@ -1,6 +1,8 @@
 package infdpacman.gameelement.character;
 
 import infdpacman.enums.Direction;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.Timer;
 import java.util.logging.Level;
@@ -39,5 +41,12 @@ public class DrunkGhost extends Character implements Runnable {
             } catch(InterruptedException ie) {}
             moveGhost();
         }
+    }
+    
+    @Override
+    public void draw(Graphics g,int width, int height) {
+        ImageIcon i = currentImage;
+        Image img = i.getImage();
+        g.drawImage(img, 0,0, width,height, null);    
     }
 }
