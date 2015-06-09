@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
  * @author CVD
  */
 public class DrunkGhost extends Character{
+    private long lastPressProcessed = 0;
     ImageIcon normalGhost = new ImageIcon("Plaatjes/drunkghost.png");
     ImageIcon fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");    
     ImageIcon currentImage = normalGhost;
@@ -21,20 +22,19 @@ public class DrunkGhost extends Character{
 
     public DrunkGhost() {
         super(new ImageIcon("Plaatjes/drunkghost.png"));
-        //new Thread(this).start();
+        //moveGhost();
     }
     
     public void moveGhost(){
-        for(Direction d : Direction.values()){
-            if(lastDirection != d){
-                try {
-                    Thread.sleep(1000);
-                } catch(InterruptedException ie) {}
-                move(d, this);
-                lastDirection = d;
+        if(System.currentTimeMillis() - lastPressProcessed > 500) {
+            for(Direction d : Direction.values()){
+                if(lastDirection != d){
+                    move(d, this);
+                    lastDirection = d;
+                }
             }
+            lastPressProcessed = System.currentTimeMillis();
         }
-        
     }
 
     @Override

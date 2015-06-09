@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 public class Pacman extends Character implements KeyListener {
     public int lives = 3;
     public boolean onverslaanbaar;
+    private long lastPressProcessed = 0;
     ImageIcon leftImg = new ImageIcon("Plaatjes/pacmanleft.png");
     ImageIcon rightImg = new ImageIcon("Plaatjes/pacmanright.png");
     ImageIcon upImg = new ImageIcon("Plaatjes/pacmanup.png");
@@ -31,28 +32,28 @@ public class Pacman extends Character implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        switch (ke.getKeyCode())
-        {
-            case KeyEvent.VK_DOWN:
-                move(Direction.SOUTH, this);
-                currentImage = downImg; //method maken
-                break;
-            case KeyEvent.VK_UP:
-                move(Direction.NORTH, this);
-                currentImage = upImg;
-                break;
-            case KeyEvent.VK_RIGHT:
-                move(Direction.EAST, this);
-                currentImage = rightImg;
-                break;
-            case KeyEvent.VK_LEFT:
-                move(Direction.WEST, this);
-                currentImage = leftImg;
-               break;
-        }
-        try {
-            Thread.sleep(100);
-        } catch(InterruptedException ie) {}
+        if(System.currentTimeMillis() - lastPressProcessed > 500) {
+            switch (ke.getKeyCode())
+            {
+                case KeyEvent.VK_DOWN:
+                    move(Direction.SOUTH, this);
+                    currentImage = downImg; //method maken
+                    break;
+                case KeyEvent.VK_UP:
+                    move(Direction.NORTH, this);
+                    currentImage = upImg;
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    move(Direction.EAST, this);
+                    currentImage = rightImg;
+                    break;
+                case KeyEvent.VK_LEFT:
+                    move(Direction.WEST, this);
+                    currentImage = leftImg;
+                   break;
+            }
+        lastPressProcessed = System.currentTimeMillis();
+        } 
     }
 
     @Override
@@ -65,6 +66,4 @@ public class Pacman extends Character implements KeyListener {
         Image img = i.getImage();
         g.drawImage(img, 0,0, width,height, null);    
     }
-
-    
 }
