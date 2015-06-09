@@ -1,6 +1,8 @@
 package infdpacman.cell;
 
+import infdpacman.enums.Direction;
 import infdpacman.gameelement.GameElement;
+import infdpacman.gameelement.character.Character;
 import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.gameelement.character.Pacman;
@@ -12,6 +14,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -49,7 +52,6 @@ public class EmptyCell extends Cell{
     }
 
     private void checkGhostCollision() {
-        
         if(FindClassType.containsInstance(inhoud, Pacman.class) 
             && (FindClassType.containsInstance(inhoud, Ghost.class) || FindClassType.containsInstance(inhoud, DrunkGhost.class)) ){
                     //-leven
@@ -80,13 +82,13 @@ public class EmptyCell extends Cell{
         if(FindClassType.containsInstance(inhoud, Pacman.class) && FindClassType.containsInstance(inhoud, Item.class)){
             for (GameElement inhoud1 : inhoud) {
                 if(inhoud1 instanceof Item){
-                    for(GameElement inhoud2: inhoud){
+                    /*for(GameElement inhoud2: inhoud){
                         if(inhoud2 instanceof Pacman){
                             
                     ((Pacman)inhoud2).score = ((Pacman)inhoud2).score + ((Item)inhoud1).points;
                       
                         }  
-                    }
+                    }*/
                     inhoud.remove(inhoud1);
                 }
             }

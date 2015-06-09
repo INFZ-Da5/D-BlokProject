@@ -18,32 +18,28 @@ Vanuit cell moet de cell waar pacman, ghost, drunkghost in staat gestuurd worden
 Dit moet dus verwijderd worden uit board.
 */
 public abstract class Character extends GameElement {    
-    
+    static boolean firstMove = true;
+    Cell lastCell;
     public Character(ImageIcon i) {
         super(i);
     }
     
     public void move(Direction direction, Character character){
         //moet niet alleen pacman worden
-        Cell c = Board.getCellOfCharacter(character);
-
-        /*if(character instanceof Pacman){
-            c = Board.getPacmanCell();
-        }
-        else if(character instanceof Ghost){
-            c = Board.getPacmanCell();
+        Cell c;
+        if(firstMove){
+            c = Board.getPacmanCell().getCellOfCharacter(character);
         }
         else{
-            c = Board.getPacmanCell();           
-        }*/
-        
+            c = lastCell.getCellOfCharacter(character);            
+        }
         if(c.getNeighbors().containsKey(direction)){
             Cell c1 = c.getNeighbors().get(direction);
             if(!(c1 instanceof Wall)){
                 ((EmptyCell)c).getInhoud().remove(this);
                 ((EmptyCell)c1).getInhoud().add(this);
-                c.getNeighbors().replace(direction, c1);
-                Board.setPacmanCell(c1);
+                firstMove = false;
+                lastCell = c1;
             }
         }
     }

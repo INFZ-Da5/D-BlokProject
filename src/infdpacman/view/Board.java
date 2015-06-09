@@ -24,6 +24,10 @@ public abstract class Board extends JPanel  {
     Cell[][] cellgrid;
     public int total;
     private static Cell pacmanCell;
+
+    public static Cell getPacmanCell() {
+        return pacmanCell;
+    }
     
     public Board(){
         this.requestFocusInWindow();
@@ -67,11 +71,12 @@ public abstract class Board extends JPanel  {
         for(int row = 0; row < cellgrid.length; row++){
             for(int col = 0; col < cellgrid[0].length; col++){
                 if(cellgrid[row][col] instanceof EmptyCell){
-                    Map<Direction, Cell> neighbors = ((EmptyCell)cellgrid[row][col]).getNeighbors();
+                    Map<Direction, Cell> neighbors = cellgrid[row][col].getNeighbors();
                     neighbors.put(Direction.WEST, cellgrid[row][col-1]);
                     neighbors.put(Direction.EAST, cellgrid[row][col+1]);
                     neighbors.put(Direction.SOUTH, cellgrid[row+1][col]);
                     neighbors.put(Direction.NORTH, cellgrid[row-1][col]);
+<<<<<<< HEAD
                     ((EmptyCell)cellgrid[row][col]).setNeighbors(neighbors);  
                 }
             }
@@ -86,10 +91,15 @@ public abstract class Board extends JPanel  {
                         pacmanCell = cellgrid1[col];
                         setPacman();
                     }
+=======
+                    cellgrid[row][col].setNeighbors(neighbors);  
+>>>>>>> origin/vakjes-versie
                 }
             }
         }
+                 
     }
+<<<<<<< HEAD
     
     public static void setPacmanCell(Cell pacmanCell) {
         Board.pacmanCell = pacmanCell;
@@ -141,6 +151,8 @@ public abstract class Board extends JPanel  {
     }
    
     
+=======
+>>>>>>> origin/vakjes-versie
 }
 
 

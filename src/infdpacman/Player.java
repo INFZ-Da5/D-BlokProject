@@ -23,9 +23,9 @@ public class Player {
     }
     public int calcScore(){
     
- Pacman pacman = currentSb.getPacman();
+ /*Pacman pacman = currentSb.getPacman();
  score = score + pacman.score;
- 
+ */
  return score;
         }
     
