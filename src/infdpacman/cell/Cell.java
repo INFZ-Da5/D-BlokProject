@@ -19,6 +19,7 @@ public abstract class Cell extends JPanel{
     private Map<Direction, Cell> neighbors = new HashMap<>();
     private int amountOfPills = 0;
     
+ 
     public Map<Direction, Cell> getNeighbors() {
         return neighbors;
     }
@@ -63,7 +64,7 @@ public abstract class Cell extends JPanel{
                     value.countPills();
                 }
             }
-        }
+        }  System.out.println(amountOfPills);
     }
     
     @Override
