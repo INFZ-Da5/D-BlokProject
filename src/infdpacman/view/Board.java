@@ -87,52 +87,18 @@ public abstract class Board extends JPanel  {
     
     public Pacman getPacman(){ return pacman;}
     
-    
-    
-    public void findStartposition(){
-    
-        for(int row = 0; row < cellgrid.length; row++){
-            for(int col = 0; col < cellgrid[0].length; col++){
-                if(cellgrid[row][col] instanceof EmptyCell){
-    
-                  if(((EmptyCell)cellgrid[row][col]).getInhoud().contains(pacman)){
-                  
-                  startposition = (EmptyCell)cellgrid[row][col];
-                  
-                  }
-    
-                }
-            }
-        }
-    
-    }
-    
-    public EmptyCell getStartPosition(){
-    
-    return startposition;
-    }
-    
-    
-    
     public void countPills(){
-    
-     for(int row = 0; row < cellgrid.length; row++){
-            for(int col = 0; col < cellgrid[0].length; col++){
-                if(cellgrid[row][col] instanceof EmptyCell){
-    
-                  if(FindClassType.containsInstance(((EmptyCell)cellgrid[row][col]).getInhoud(), Item.class)){
-                  
-                  amountofPills++;
-                  
-                  }
-    
+        for (Cell[] cellgrid1 : cellgrid) {
+            for (int col = 0; col < cellgrid[0].length; col++) {
+                if (cellgrid1[col] instanceof EmptyCell) {
+                    if (FindClassType.containsInstance(((EmptyCell) cellgrid1[col]).getInhoud(), Item.class)) {
+                        amountofPills++;
+                    }
                 }
             }
         }
         System.out.println(amountofPills);
     }
-    
-    
 }
 
 
