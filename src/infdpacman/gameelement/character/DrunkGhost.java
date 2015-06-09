@@ -2,6 +2,7 @@ package infdpacman.gameelement.character;
 
 import infdpacman.enums.Direction;
 import java.awt.event.KeyEvent;
+import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -10,7 +11,7 @@ import javax.swing.ImageIcon;
  *
  * @author CVD
  */
-public class DrunkGhost extends Character {
+public class DrunkGhost extends Character implements Runnable {
     ImageIcon normalGhost = new ImageIcon("Plaatjes/drunkghost.png");
     ImageIcon fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");    
     ImageIcon currentImage = normalGhost;
@@ -18,7 +19,7 @@ public class DrunkGhost extends Character {
 
     public DrunkGhost() {
         super(new ImageIcon("Plaatjes/drunkghost.png"));
-        moveTimer();
+        //new Thread(this).start();
     }
     
     public void moveGhost(){
@@ -30,15 +31,13 @@ public class DrunkGhost extends Character {
         }
     }
 
-    private void moveTimer(){
-        while(true) {
-            long millis = System.currentTimeMillis();
-            moveGhost();
+    @Override
+    public void run() {
+        while(true){
             try {
-                Thread.sleep(1000 - millis % 1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(DrunkGhost.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                Thread.sleep(2000);
+            } catch(InterruptedException ie) {}
+            moveGhost();
         }
     }
 }

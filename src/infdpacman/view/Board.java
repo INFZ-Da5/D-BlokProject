@@ -23,6 +23,10 @@ public abstract class Board extends JPanel  {
     Pacman pacman = new Pacman();
     Cell[][] cellgrid;
     private static Cell pacmanCell;
+
+    public static Cell getPacmanCell() {
+        return pacmanCell;
+    }
     
     public Board(){
         this.requestFocusInWindow();
@@ -64,43 +68,15 @@ public abstract class Board extends JPanel  {
         for(int row = 0; row < cellgrid.length; row++){
             for(int col = 0; col < cellgrid[0].length; col++){
                 if(cellgrid[row][col] instanceof EmptyCell){
-                    Map<Direction, Cell> neighbors = ((EmptyCell)cellgrid[row][col]).getNeighbors();
+                    Map<Direction, Cell> neighbors = cellgrid[row][col].getNeighbors();
                     neighbors.put(Direction.WEST, cellgrid[row][col-1]);
                     neighbors.put(Direction.EAST, cellgrid[row][col+1]);
                     neighbors.put(Direction.SOUTH, cellgrid[row+1][col]);
                     neighbors.put(Direction.NORTH, cellgrid[row-1][col]);
-                    ((EmptyCell)cellgrid[row][col]).setNeighbors(neighbors);  
+                    cellgrid[row][col].setNeighbors(neighbors);  
                 }
             }
         }
+                 
     }
-    //moet niet uit board maar uit vakje?
-    public void getPacmanPosition(){
-        for (Cell[] cellgrid1 : cellgrid) {
-            for (int col = 0; col < cellgrid[0].length; col++) {
-                if (cellgrid1[col] instanceof EmptyCell) {
-                    if(((EmptyCell) cellgrid1[col]).getInhoud().contains(pacman)){
-                        pacmanCell = cellgrid1[col];
-                    }
-                }
-            }
-        }
-    }
-    
-    public static void setPacmanCell(Cell pacmanCell) {
-        Board.pacmanCell = pacmanCell;
-    }
-
-    //moet in vakje! + is nog niet klaar
-    public static Cell getCellOfCharacter(Character character) {
-            if(character instanceof Pacman){
-                return pacmanCell;
-            }
-            else if(character instanceof Ghost){
-                return pacmanCell;
-            }
-            else{
-                return pacmanCell;
-            }
-    } 
 }

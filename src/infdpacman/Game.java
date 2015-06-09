@@ -4,6 +4,7 @@ import infdpacman.enums.Actions;
 import infdpacman.view.Board;
 import infdpacman.view.Level1;
 import infdpacman.view.Level2;
+import infdpacman.view.Level5;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,7 +48,7 @@ public class Game implements ActionListener {
             reset.setActionCommand(Actions.RESET.name());
             reset.addActionListener(this);
         
-         s.setText("" + p1.getScore());
+        s.setText("" + p1.getScore());
         menu.add(start);
         menu.add(stop);
         menu.add(pauze);
@@ -69,8 +70,8 @@ public class Game implements ActionListener {
             Board level1 = new Level2();
             currentSb = level1;
             p1.setLevel(currentSb);
-            currentlives = currentSb.getPacman().lives;
-            j.setText("" + currentSb.getPacman().lives);
+            //currentlives = currentSb.getPacman().lives;
+            //j.setText("" + currentSb.getPacman().lives);
             frame.add(level1,BorderLayout.CENTER);      
             level1.requestFocus();
             frame.validate();
@@ -95,7 +96,7 @@ public class Game implements ActionListener {
     
     
     
-   
+ /*  
 public void Lives(){
 
 if(currentlives != currentSb.getPacman().lives){
@@ -105,7 +106,7 @@ if(currentlives != currentSb.getPacman().lives){
 
 }
     
-    
+   */ 
     
     
 }
