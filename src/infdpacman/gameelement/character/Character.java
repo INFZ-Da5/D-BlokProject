@@ -26,6 +26,8 @@ public abstract class Character extends GameElement{
         Cell c;
         if(firstMove){
             c = Board.getPacmanCell().getCellOfCharacter(character);
+            c.countPills();
+            System.out.println(c.getAmountOfPills());
         }
         else{
             c = lastCell.getCellOfCharacter(character);            
