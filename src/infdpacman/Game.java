@@ -80,7 +80,8 @@ public class Game implements ActionListener {
         both.add(menu);
         both.add(gameInfo);
         frame.add(both, BorderLayout.NORTH);
-        frame.setVisible(true);  
+        frame.setVisible(true); 
+        
     }
     
    
@@ -92,6 +93,7 @@ public class Game implements ActionListener {
             if(currentSb == null){
             Board level1 = new Level2();
             currentSb = level1;
+            currentSb.countPills();
             player.setLevel(currentSb);
             //currentlives = currentSb.getPacman().lives;
             //j.setText("" + currentSb.getPacman().lives);
@@ -107,6 +109,7 @@ public class Game implements ActionListener {
             currentSb = null;
             timer.cancel();
             timer.purge();
+            
             frame.validate();
             frame.repaint();
             

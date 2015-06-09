@@ -8,8 +8,10 @@ import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.gameelement.character.Pacman;
 import infdpacman.gameelement.item.Banana;
+import infdpacman.gameelement.item.Item;
 import infdpacman.gameelement.item.Pill;
 import infdpacman.gameelement.item.SuperPill;
+import infdpacman.utilities.FindClassType;
 import java.util.LinkedList;
 import java.util.Map;
 import javax.swing.JPanel;
@@ -24,6 +26,7 @@ public abstract class Board extends JPanel  {
     public int total;
     private static Cell pacmanCell;
     private EmptyCell startposition;
+    private int amountofPills;
 
     public static Cell getPacmanCell() {
         return pacmanCell;
@@ -34,6 +37,7 @@ public abstract class Board extends JPanel  {
         this.addKeyListener(pacman);
         this.repaint();
         total = 0;
+       
     }
     
     public void fillCells(int [][] grid){
@@ -106,6 +110,26 @@ public abstract class Board extends JPanel  {
     public EmptyCell getStartPosition(){
     
     return startposition;
+    }
+    
+    
+    
+    public void countPills(){
+    
+     for(int row = 0; row < cellgrid.length; row++){
+            for(int col = 0; col < cellgrid[0].length; col++){
+                if(cellgrid[row][col] instanceof EmptyCell){
+    
+                  if(FindClassType.containsInstance(((EmptyCell)cellgrid[row][col]).getInhoud(), Item.class)){
+                  
+                  amountofPills++;
+                  
+                  }
+    
+                }
+            }
+        }
+        System.out.println(amountofPills);
     }
     
     
