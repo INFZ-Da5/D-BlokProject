@@ -1,10 +1,7 @@
 package infdpacman.cell;
 
 import infdpacman.enums.Direction;
-import infdpacman.gameelement.character.Pacman;
 import infdpacman.gameelement.item.Item;
-import infdpacman.gameelement.item.Pill;
-import infdpacman.gameelement.item.SuperPill;
 import infdpacman.utilities.FindClassType;
 import java.awt.Graphics;
 import java.util.HashMap;
@@ -17,7 +14,7 @@ import javax.swing.JPanel;
  */
 public abstract class Cell extends JPanel{
     private Map<Direction, Cell> neighbors = new HashMap<>();
-    private int amountOfPills = 0;
+    private static int amountOfPills = 0;
     
     public Map<Direction, Cell> getNeighbors() {
         return neighbors;
@@ -47,23 +44,20 @@ public abstract class Cell extends JPanel{
         return null;
     }
     
-    //nu stopt hij dus als hij een pill heeft. Hij moet iedere pill vinden.
-    //alleen als je iedere keer neighbors checkt dan is het oneindig
+    //oneindig: degene die 
     public void countPills(){
         if((!(this instanceof Wall))&&FindClassType.containsInstance(((EmptyCell)this).getInhoud(), Item.class)){
             amountOfPills++;
         }
         else{
             for (Map.Entry<Direction, Cell> entry : neighbors.entrySet()) {
-                Cell value = entry.getValue();
-                if((!(value instanceof Wall))&&FindClassType.containsInstance(((EmptyCell)value).getInhoud(), Item.class)){
-                        amountOfPills++;
-                    }
-                else{
-                    value.countPills();
-                }
+                entry.getValue().countPills();
             }
         }
+    }
+
+    public int getAmountOfPills() {
+        return amountOfPills;
     }
     
     @Override

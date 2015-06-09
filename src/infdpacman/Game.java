@@ -9,10 +9,14 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 /**
  *
@@ -23,22 +27,27 @@ public class Game implements ActionListener {
     public ArrayList highscore;
     public JFrame frame;
     public Board currentSb;
-    public Player player = new Player();
-    public JLabel s = new JLabel();
-    public JLabel j = new JLabel();
+    public Player player;
+    public JPanel menu;
+    public JPanel gameInfo;
+    public JLabel scoreLabel;
+    public JLabel lifeLabel;
+    public JLabel timeLabel;
+    private int seconds = 0;
+    Timer timer;
     
     public Game(){
-        Lives();    
         //NextLevel();
     }
     
     public void start(){
-    
+        
         frame = new JFrame();
         frame.setSize(1280,720);
         frame.setLayout(new BorderLayout());
+        player = new Player();
         
-        JPanel menu = new JPanel();
+        menu = new JPanel();
         JButton start = new JButton("start");
             start.setActionCommand(Actions.START.name());
             start.addActionListener(this);
@@ -52,16 +61,26 @@ public class Game implements ActionListener {
             reset.setActionCommand(Actions.RESET.name());
             reset.addActionListener(this);
         
-        s.setText("" + player.getScore());
         menu.add(start);
         menu.add(stop);
         menu.add(pauze);
         menu.add(reset);
-        menu.add (s);
-        menu.add(j);
-        frame.add(menu, BorderLayout.NORTH);
-        frame.setVisible(true);  
         
+        gameInfo = new JPanel();
+        lifeLabel = new JLabel();
+        scoreLabel = new JLabel();
+        timeLabel = new JLabel();
+        
+        gameInfo.add(scoreLabel);
+        gameInfo.add(lifeLabel);
+        gameInfo.add(timeLabel);
+        gameInfo.setBorder(new TitledBorder(new EtchedBorder()));
+        
+        JPanel both = new JPanel();
+        both.add(menu);
+        both.add(gameInfo);
+        frame.add(both, BorderLayout.NORTH);
+        frame.setVisible(true);  
     }
     
    
@@ -78,6 +97,7 @@ public class Game implements ActionListener {
             //j.setText("" + currentSb.getPacman().lives);
             frame.add(level1,BorderLayout.CENTER);      
             level1.requestFocus();
+            startLevel();
             frame.validate();
             
             }
@@ -85,6 +105,8 @@ public class Game implements ActionListener {
             
             frame.remove(currentSb);
             currentSb = null;
+            timer.cancel();
+            timer.purge();
             frame.validate();
             frame.repaint();
             
@@ -101,9 +123,9 @@ public class Game implements ActionListener {
     
     
     
-public void Lives(){
+public void setLives(){
     if(currentSb != null){
-        j.setText("Lives: " +currentSb.getPacman().lives);
+        lifeLabel.setText("Lives: " + currentSb.getPacman().lives);
     }
 }
     
@@ -112,11 +134,28 @@ public void Lives(){
             Board level1 = new Level2();
             currentSb = level1;
             player.setLevel(currentSb);
-            j.setText("Lives: " +currentSb.getPacman().lives);
+            lifeLabel.setText("Lives: " +currentSb.getPacman().lives);
             frame.add(level1,BorderLayout.CENTER);      
             level1.requestFocus();
             frame.validate();
         }
+    }
+
+    private void startTimer() {
+        timer = new Timer();
+        TimerTask task = new TimerTask(){
+            public void run(){
+               seconds++; 
+               timeLabel.setText("Time: " + seconds);
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 1000);
+    }
+
+    private void startLevel() {
+        startTimer();
+        setLives();
+        scoreLabel.setText("score: " + player.getScore());
     }
     
 }
