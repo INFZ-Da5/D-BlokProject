@@ -23,6 +23,7 @@ public abstract class Board extends JPanel  {
     Cell[][] cellgrid;
     public int total;
     private static Cell pacmanCell;
+    private EmptyCell startposition;
 
     public static Cell getPacmanCell() {
         return pacmanCell;
@@ -81,6 +82,33 @@ public abstract class Board extends JPanel  {
     }
     
     public Pacman getPacman(){ return pacman;}
+    
+    
+    
+    public void findStartposition(){
+    
+        for(int row = 0; row < cellgrid.length; row++){
+            for(int col = 0; col < cellgrid[0].length; col++){
+                if(cellgrid[row][col] instanceof EmptyCell){
+    
+                  if(((EmptyCell)cellgrid[row][col]).getInhoud().contains(pacman)){
+                  
+                  startposition = (EmptyCell)cellgrid[row][col];
+                  
+                  }
+    
+                }
+            }
+        }
+    
+    }
+    
+    public EmptyCell getStartPosition(){
+    
+    return startposition;
+    }
+    
+    
 }
 
 

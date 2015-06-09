@@ -58,9 +58,13 @@ public class EmptyCell extends Cell{
             for (GameElement inhoud1 : inhoud) {
                 if(inhoud1 instanceof Pacman){
                     if(((Pacman)inhoud1).onverslaanbaar == false){
-                    ((Pacman)inhoud1).lives -= 1;
-                    System.out.println(((Pacman)inhoud1).lives);
-                    inhoud.remove(inhoud1);
+                        inhoud.remove(inhoud1);
+                        Pacman pacman = new Pacman();
+                   // ((Pacman)inhoud1).lives -= 1;
+                   // System.out.println(((Pacman)inhoud1).lives);
+                    
+                    board.getStartPosition().getInhoud().add(pacman);
+                    pacman.lives -=1;
                     }
                     else{
                         for(GameElement inhoud2: inhoud){

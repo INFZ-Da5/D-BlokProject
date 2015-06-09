@@ -16,6 +16,7 @@ public abstract class Cell extends JPanel{
     private Map<Direction, Cell> neighbors = new HashMap<>();
     private static int amountOfPills = 0;
     
+ 
     public Map<Direction, Cell> getNeighbors() {
         return neighbors;
     }
@@ -53,7 +54,7 @@ public abstract class Cell extends JPanel{
             for (Map.Entry<Direction, Cell> entry : neighbors.entrySet()) {
                 entry.getValue().countPills();
             }
-        }
+        }  System.out.println(amountOfPills);
     }
 
     public int getAmountOfPills() {
