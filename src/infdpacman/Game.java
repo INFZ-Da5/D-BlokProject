@@ -152,6 +152,7 @@ public class Game implements ActionListener {
                 timeLabel.setText("Time: " + seconds);
                 lifeLabel.setText("Lives: " +currentSb.getPacman().lives);
                 scoreLabel.setText("score: " + player.getScore());
+                moveGhosts();
                 NextLevel();
             }
         };
