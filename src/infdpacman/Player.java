@@ -9,25 +9,7 @@ import infdpacman.view.Board;
  */
 public class Player {
     private int score = 0;
-    Board currentSb;
-    
-    
-    public Player(){
-
-}
- 
-    public void setLevel(Board level){
-    
-    currentSb = level;
-    
-    }
-    public int calcScore(){
-    
- /*Pacman pacman = currentSb.getPacman();
- score = score + pacman.score;
- */
- return score;
-        }
+  
     
     
     
@@ -35,6 +17,13 @@ public class Player {
     public int getScore(){
     
     return score;
+    }
+    
+    
+    public void setScore(int score){
+    
+    this.score = score;
+    
     }
     
     

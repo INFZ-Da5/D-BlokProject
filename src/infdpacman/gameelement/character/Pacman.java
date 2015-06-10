@@ -19,13 +19,23 @@ public class Pacman extends Character implements KeyListener {
     ImageIcon rightImg = new ImageIcon("Plaatjes/pacmanright.png");
     ImageIcon upImg = new ImageIcon("Plaatjes/pacmanup.png");
     ImageIcon downImg = new ImageIcon("Plaatjes/pacmandown.png");
-
     ImageIcon currentImage = leftImg;
     
     public Pacman(){
         super(new ImageIcon("Plaatjes/pacmanleft.png"));
         onverslaanbaar = false;
     }
+    
+     public static void setFirstMove(boolean firstMove) {
+        Character.firstMove = firstMove;
+    }
+     
+     
+     public boolean getOnverslaanbaar(){
+     
+     return onverslaanbaar;
+     }
+    
     
     @Override
     public void keyTyped(KeyEvent ke) {}
