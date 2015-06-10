@@ -40,6 +40,7 @@ public class Pacman extends GameCharacter implements KeyListener {
      
      return onverslaanbaar;
      }
+<<<<<<< HEAD
 
     public Cell getCell() {
         return cell;
@@ -48,6 +49,11 @@ public class Pacman extends GameCharacter implements KeyListener {
     public void setCell(Cell cell) {
         this.cell = cell;
     }
+=======
+     
+     
+    
+>>>>>>> origin/vakjes-versie
     
     @Override
     public void keyTyped(KeyEvent ke) {}

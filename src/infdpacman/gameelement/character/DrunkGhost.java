@@ -23,6 +23,11 @@ public class DrunkGhost extends GameCharacter{
         this.cell = cell;
     }
     
+    public void setImage(ImageIcon img){
+    
+    currentImage = img;
+    }
+    
     public void moveGhost(){
         Direction d = Direction.getRandom();
         move(d, this);
