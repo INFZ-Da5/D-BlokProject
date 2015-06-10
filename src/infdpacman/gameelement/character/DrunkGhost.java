@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
  *
  * @author CVD
  */
-public class DrunkGhost extends Character{
+public class DrunkGhost extends GameCharacter{
     private long lastPressProcessed = 0;
     ImageIcon normalGhost = new ImageIcon("Plaatjes/drunkghost.png");
     ImageIcon fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");    

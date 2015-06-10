@@ -1,6 +1,9 @@
 package infdpacman;
 
 import infdpacman.enums.Actions;
+import infdpacman.gameelement.character.DrunkGhost;
+import infdpacman.gameelement.character.GameCharacter;
+import infdpacman.gameelement.character.Ghost;
 import infdpacman.view.Board;
 import infdpacman.view.Level1;
 import infdpacman.view.Level2;
@@ -145,11 +148,11 @@ public class Game implements ActionListener {
         timer = new Timer();
         TimerTask task = new TimerTask(){
             public void run(){
-               seconds++; 
-               timeLabel.setText("Time: " + seconds);
-               lifeLabel.setText("Lives: " +currentSb.getPacman().lives);
-               scoreLabel.setText("score: " + player.getScore());
-               NextLevel();
+                seconds++; 
+                timeLabel.setText("Time: " + seconds);
+                lifeLabel.setText("Lives: " +currentSb.getPacman().lives);
+                scoreLabel.setText("score: " + player.getScore());
+                NextLevel();
             }
         };
         timer.scheduleAtFixedRate(task, 0, 1000);
@@ -172,4 +175,14 @@ public class Game implements ActionListener {
         //OnverslaanbaarTimer(); 
     }
     
+    private void moveGhosts(){
+        for(GameCharacter g : (ArrayList<GameCharacter>)currentSb.getGhosts()){
+            if(g instanceof DrunkGhost){
+                ((DrunkGhost)g).moveGhost();
+            }
+            else{
+                ((Ghost)g).moveGhost();
+            }
+        }
+    }
 }

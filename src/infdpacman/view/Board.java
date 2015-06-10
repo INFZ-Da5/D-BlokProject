@@ -6,6 +6,7 @@ import infdpacman.cell.EmptyCell;
 import infdpacman.cell.Wall;
 import infdpacman.enums.Direction;
 import infdpacman.gameelement.character.DrunkGhost;
+import infdpacman.gameelement.character.GameCharacter;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.gameelement.character.Pacman;
 import infdpacman.gameelement.item.Banana;
@@ -13,6 +14,7 @@ import infdpacman.gameelement.item.Item;
 import infdpacman.gameelement.item.Pill;
 import infdpacman.gameelement.item.SuperPill;
 import infdpacman.utilities.FindClassType;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
 import javax.swing.JPanel;
@@ -22,18 +24,24 @@ import javax.swing.JPanel;
  * @author Lenovo
  */
 public abstract class Board extends JPanel  {
-    Pacman pacman = new Pacman();
+    Pacman pacman;
+    DrunkGhost dg1;
+    DrunkGhost dg2;
+    Ghost g1;
+    Ghost g2;
     Cell[][] cellgrid;
     public int total;
     private static Cell pacmanCell;
     public Player player;
     private int amountofPills;
+    ArrayList<GameCharacter> ghosts;
 
     public static Cell getPacmanCell() {
         return pacmanCell;
     }
     
     public Board(){
+        initCharacters();
         this.requestFocusInWindow();
         this.addKeyListener(pacman);
         this.repaint();
@@ -112,6 +120,20 @@ public abstract class Board extends JPanel  {
 
     public void setAmountofPills(int amountofPills) {
         this.amountofPills = amountofPills;
+    }
+
+    public ArrayList getGhosts() {
+        return ghosts;
+    }
+
+    private void initCharacters() {
+        ghosts = new ArrayList();
+        pacman = new Pacman();
+
+        ghosts.add(g1 = new Ghost());
+        ghosts.add(g2 = new Ghost());
+        ghosts.add(dg1 = new DrunkGhost());
+        ghosts.add(dg2 = new DrunkGhost());
     }
     
 }

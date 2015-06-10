@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
  *
  * @author Lenovo
  */
-public class Pacman extends Character implements KeyListener {
+public class Pacman extends GameCharacter implements KeyListener {
     public int lives = 3;
     public boolean onverslaanbaar;
     private long lastPressProcessed = 0;
@@ -29,7 +29,7 @@ public class Pacman extends Character implements KeyListener {
     }
     
      public static void setFirstMove(boolean firstMove) {
-        Character.firstMove = firstMove;
+        GameCharacter.firstMove = firstMove;
     }
      
      

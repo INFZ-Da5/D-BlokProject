@@ -9,13 +9,18 @@ import javax.swing.ImageIcon;
  *
  * @author Lenovo
  */
-public class Ghost extends Character {
+public class Ghost extends GameCharacter {
     ImageIcon normalGhost = new ImageIcon("Plaatjes/ghost.png");
     ImageIcon fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");    
     ImageIcon currentImage = normalGhost;
 
     public Ghost() {
         super(new ImageIcon("Plaatjes/ghost.png"));
+    }
+    
+    public void moveGhost(){
+        Direction d = Direction.getRandom();
+        move(d, this);
     }
     
     @Override

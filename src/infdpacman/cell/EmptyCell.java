@@ -35,7 +35,7 @@ public class EmptyCell extends Cell{
                 inhoud1.draw(g, this.getWidth()/2, this.getHeight()/2);
             }
             else{
-                 inhoud1.draw(g, this.getWidth(), this.getHeight());
+                inhoud1.draw(g, this.getWidth(), this.getHeight());
             }
         }
     }
