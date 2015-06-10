@@ -1,6 +1,5 @@
 package infdpacman.cell;
 
-import infdpacman.Player;
 import infdpacman.gameelement.GameElement;
 import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.GameCharacter;
@@ -63,15 +62,13 @@ public class EmptyCell extends Cell{
                     if(((Pacman)inhoud1).onverslaanbaar == false){
                         inhoud.remove(inhoud1);
                         ((Pacman)inhoud1).lives -= 1;
-                        ((EmptyCell)board.getPacmanCell()).getInhoud().add(board.getPacman());
-                        //board.getPacman().setFirstMove(true);
+                        ((EmptyCell)board.getPacman().getCell()).getInhoud().add(board.getPacman());
                     }
                     else{
                         for(GameElement inhoud2: inhoud){
                             if(inhoud2 instanceof Ghost || inhoud2 instanceof DrunkGhost){
                                 inhoud.remove(inhoud2);
                               ((EmptyCell)board.getGhostRespawnCell()).getInhoud().add(inhoud2);
-                                //board.total--;
                             }
                         }
                     }
@@ -85,25 +82,18 @@ public class EmptyCell extends Cell{
             for (GameElement inhoud1 : inhoud) {
                 if(inhoud1 instanceof Item){
                     board.player.setScore(board.player.getScore() + ((Item)inhoud1).points );
- ;
-                    //((Item)inhoud1).points; -->score moet aan player toegevoegd worden
                     inhoud.remove(inhoud1);
                     board.setAmountofPills(board.getAmountofPills()-1);
                     if(inhoud1 instanceof SuperPill){
-                    
                     board.getPacman().onverslaanbaar = true;
                         System.out.println(board.getPacman().getOnverslaanbaar());
                         for(GameCharacter gc: board.getGhosts()){
-                        
-                        if(gc instanceof DrunkGhost){
-                        ((DrunkGhost)gc).setImage(new ImageIcon("Plaatjes/fleeghost.png"));
-                        }
-                        
-                        if(gc instanceof Ghost){
-                        ((Ghost)gc).setImage(new ImageIcon("Plaatjes/fleeghost.png"));
-                        }
-                        
-                        
+                            if(gc instanceof DrunkGhost){
+                                ((DrunkGhost)gc).setImage(new ImageIcon("Plaatjes/fleeghost.png"));
+                            }
+                            if(gc instanceof Ghost){
+                                ((Ghost)gc).setImage(new ImageIcon("Plaatjes/fleeghost.png"));
+                            }
                         }
                     }
                 }

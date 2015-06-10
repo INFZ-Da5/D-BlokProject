@@ -30,17 +30,10 @@ public class Pacman extends GameCharacter implements KeyListener {
         this.cell = cell;
         onverslaanbaar = false;
     }
-    
-    /*public static void setFirstMove(boolean firstMove) {
-        GameCharacter.firstMove = firstMove;
-    }*/
      
-     
-     public boolean getOnverslaanbaar(){
-     
-     return onverslaanbaar;
-     }
-<<<<<<< HEAD
+    public boolean getOnverslaanbaar(){
+        return onverslaanbaar;
+    }
 
     public Cell getCell() {
         return cell;
@@ -49,12 +42,7 @@ public class Pacman extends GameCharacter implements KeyListener {
     public void setCell(Cell cell) {
         this.cell = cell;
     }
-=======
-     
-     
-    
->>>>>>> origin/vakjes-versie
-    
+       
     @Override
     public void keyTyped(KeyEvent ke) {}
 
