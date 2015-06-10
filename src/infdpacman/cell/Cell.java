@@ -30,31 +30,26 @@ public abstract class Cell extends JPanel{
             return this;
         }
         else{
-            for (Map.Entry<Direction, Cell> entry : neighbors.entrySet()) {
-                Cell value = entry.getValue();
-                if(!(value instanceof Wall)){
-                    if(((EmptyCell)value).getInhoud().contains(character)){
-                        return value;
-                    }
-                }
-                else{
-                    return value.getCellOfCharacter(character);
+            Cell value = null;
+            for (Map.Entry<Direction, Cell> entry : this.neighbors.entrySet()) {
+                value = entry.getValue();
+                if((!(value instanceof Wall))&&((EmptyCell)value).getInhoud().contains(character)){
+                    return value;
                 }
             }
+            for (Map.Entry<Direction, Cell> entry : value.neighbors.entrySet()) {
+                Cell v = entry.getValue();
+                if((!(v instanceof Wall))&&((EmptyCell)v).getInhoud().contains(character)){
+                    return v;
+                }
+            }
+            /*
+            for (Map.Entry<Direction, Cell> entry : this.neighbors.entrySet()) {
+                value = entry.getValue();
+                return value.getCellOfCharacter(character);
+            }*/
         }
         return null;
-    }
-    
-    //oneindig: degene die 
-    public void countPills(){
-        if((!(this instanceof Wall))&&FindClassType.containsInstance(((EmptyCell)this).getInhoud(), Item.class)){
-            amountOfPills++;
-        }
-        else{
-            for (Map.Entry<Direction, Cell> entry : neighbors.entrySet()) {
-                entry.getValue().countPills();
-            }
-        }  System.out.println(amountOfPills);
     }
 
     public int getAmountOfPills() {

@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
 
 public abstract class GameCharacter extends GameElement{    
     static boolean firstMove = true;
-    Cell lastCell;
+    //Cell lastCell;
     
     public GameCharacter(ImageIcon i) {
         super(i);
@@ -28,19 +28,19 @@ public abstract class GameCharacter extends GameElement{
     public void move(Direction direction, GameCharacter character){
         //moet niet alleen pacman worden
         Cell c;
-        if(firstMove){
+        //if(firstMove){
             c = Board.getPacmanCell().getCellOfCharacter(character);
-        }
-        else{
-            c = lastCell.getCellOfCharacter(character);            
-        }
+        //}
+        //else{
+         //   c = lastCell.getCellOfCharacter(character);            
+        //}
         if(c.getNeighbors().containsKey(direction)){
             Cell c1 = c.getNeighbors().get(direction);
             if(!(c1 instanceof Wall)){
                 ((EmptyCell)c).getInhoud().remove(this);
                 ((EmptyCell)c1).getInhoud().add(this);
                 firstMove = false;
-                lastCell = c1;
+                //lastCell = c1;
             }
         }
     }
