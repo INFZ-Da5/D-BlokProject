@@ -135,7 +135,7 @@ public class Game implements ActionListener {
             currentSb = level1;
             currentSb.setPlayer(player);
             currentSb.countPills();
-            currentSb.getPacman().setFirstMove(true);
+            //currentSb.getPacman().setFirstMove(true);
             lifeLabel.setText("Lives: " +currentSb.getPacman().lives);
             frame.add(currentSb,BorderLayout.CENTER);      
             currentSb.requestFocus();
@@ -152,7 +152,7 @@ public class Game implements ActionListener {
                 timeLabel.setText("Time: " + seconds);
                 lifeLabel.setText("Lives: " +currentSb.getPacman().lives);
                 scoreLabel.setText("score: " + player.getScore());
-                //moveGhosts();
+                moveGhosts();
                 NextLevel();
             }
         };

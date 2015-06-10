@@ -26,7 +26,9 @@ import javax.swing.JPanel;
 public abstract class Board extends JPanel  {
     Pacman pacman;
     DrunkGhost dg1;
+    DrunkGhost dg2;
     Ghost g1;
+    Ghost g2;
     Cell[][] cellgrid;
     public int total;
     private static Cell pacmanCell;
@@ -41,7 +43,6 @@ public abstract class Board extends JPanel  {
     public Board(){
         initCharacters();
         this.requestFocusInWindow();
-        this.addKeyListener(pacman);
         this.repaint();
         total = 0;
     }
@@ -68,9 +69,9 @@ public abstract class Board extends JPanel  {
                     cell.setInhoud(inhoud);
 
                     switch(grid[row][col]){
-                        case 1: inhoud.add(pacman); pacmanCell = cell; break;
-                        case 2: inhoud.add(ghosts.get(0)); break;
-                        case 3: inhoud.add(ghosts.get(1)); break;
+                        case 1: inhoud.add(pacman = new Pacman(cell)); this.addKeyListener(pacman);break;
+                        case 2: inhoud.add(g1 = new Ghost(cell)); ghosts.add(g1);break;
+                        case 3: inhoud.add(dg1 = new DrunkGhost(cell)); ghosts.add(dg1);break;
                         case 4: inhoud.add(new Pill());break;
                         case 5: inhoud.add(new SuperPill()); break;
                         case 6: inhoud.add(new Banana()); break;
@@ -125,11 +126,10 @@ public abstract class Board extends JPanel  {
 
     private void initCharacters() {
         ghosts = new ArrayList();
-        pacman = new Pacman();
 
-        ghosts.add(g1 = new Ghost());
+        //ghosts.add(g1 = new Ghost());
         //ghosts.add(g2 = new Ghost());
-        ghosts.add(dg1 = new DrunkGhost());
+        //ghosts.add(dg1 = new DrunkGhost());
         //ghosts.add(dg2 = new DrunkGhost());
     }
     

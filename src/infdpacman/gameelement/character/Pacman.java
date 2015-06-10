@@ -1,5 +1,6 @@
 package infdpacman.gameelement.character;
 
+import infdpacman.cell.Cell;
 import infdpacman.enums.Direction;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -15,6 +16,7 @@ public class Pacman extends GameCharacter implements KeyListener {
     public int lives = 3;
     public boolean onverslaanbaar;
     private long lastPressProcessed = 0;
+    private Cell cell;
     Direction lastDirection;
 
     ImageIcon leftImg = new ImageIcon("Plaatjes/pacmanleft.png");
@@ -23,21 +25,29 @@ public class Pacman extends GameCharacter implements KeyListener {
     ImageIcon downImg = new ImageIcon("Plaatjes/pacmandown.png");
     ImageIcon currentImage = leftImg;
     
-    public Pacman(){
+    public Pacman(Cell cell){
         super(new ImageIcon("Plaatjes/pacmanleft.png"));
+        this.cell = cell;
         onverslaanbaar = false;
     }
     
-     public static void setFirstMove(boolean firstMove) {
+    /*public static void setFirstMove(boolean firstMove) {
         GameCharacter.firstMove = firstMove;
-    }
+    }*/
      
      
      public boolean getOnverslaanbaar(){
      
      return onverslaanbaar;
      }
-    
+
+    public Cell getCell() {
+        return cell;
+    }
+
+    public void setCell(Cell cell) {
+        this.cell = cell;
+    }
     
     @Override
     public void keyTyped(KeyEvent ke) {}
@@ -60,7 +70,7 @@ public class Pacman extends GameCharacter implements KeyListener {
                     currentImage = rightImg;
                     break;
                 case KeyEvent.VK_LEFT:
-                    move(Direction.WEST, this);
+                    move(Direction.WEST, this); 
                     currentImage = leftImg;
                    break;
             }

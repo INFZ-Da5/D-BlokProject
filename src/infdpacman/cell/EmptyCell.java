@@ -62,7 +62,7 @@ public class EmptyCell extends Cell{
                         inhoud.remove(inhoud1);
                         ((Pacman)inhoud1).lives -= 1;
                         ((EmptyCell)board.getPacmanCell()).getInhoud().add(board.getPacman());
-                        board.getPacman().setFirstMove(true);
+                        //board.getPacman().setFirstMove(true);
                     }
                     else{
                         for(GameElement inhoud2: inhoud){

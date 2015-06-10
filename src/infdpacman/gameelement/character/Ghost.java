@@ -1,5 +1,6 @@
 package infdpacman.gameelement.character;
 
+import infdpacman.cell.Cell;
 import infdpacman.enums.Direction;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -13,14 +14,24 @@ public class Ghost extends GameCharacter {
     ImageIcon normalGhost = new ImageIcon("Plaatjes/ghost.png");
     ImageIcon fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");    
     ImageIcon currentImage = normalGhost;
-
-    public Ghost() {
+    private Cell cell;
+   
+    public Ghost(Cell cell) {
         super(new ImageIcon("Plaatjes/ghost.png"));
+        this.cell = cell;
     }
     
     public void moveGhost(){
         Direction d = Direction.getRandom();
         move(d, this);
+    }
+
+    public Cell getCell() {
+        return cell;
+    }
+
+    public void setCell(Cell cell) {
+        this.cell = cell;
     }
     
     @Override

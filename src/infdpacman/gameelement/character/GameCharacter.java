@@ -14,32 +14,29 @@ import javax.swing.ImageIcon;
  */
 
 public abstract class GameCharacter extends GameElement{    
-    static boolean firstMove = true;
+    //static boolean firstMove = true;
     //Cell lastCell;
     
     public GameCharacter(ImageIcon i) {
         super(i);
     }
-
+    public abstract Cell getCell();
+    public abstract void setCell(Cell cell);
+    
+/*
     public static void setFirstMove(boolean firstMove) {
         GameCharacter.firstMove = firstMove;
-    }
+    }*/
        
     public void move(Direction direction, GameCharacter character){
-        //moet niet alleen pacman worden
-        Cell c;
-        //if(firstMove){
-            c = Board.getPacmanCell().getCellOfCharacter(character);
-        //}
-        //else{
-         //   c = lastCell.getCellOfCharacter(character);            
-        //}
-        if(c.getNeighbors().containsKey(direction)){
-            Cell c1 = c.getNeighbors().get(direction);
-            if(!(c1 instanceof Wall)){
-                ((EmptyCell)c).getInhoud().remove(this);
-                ((EmptyCell)c1).getInhoud().add(this);
-                firstMove = false;
+        Cell cell = character.getCell();
+        //c = Board.getPacmanCell().getCellOfCharacter(character);
+        if(cell.getNeighbors().containsKey(direction)){
+            Cell nextCell = cell.getNeighbors().get(direction);
+            if(!(nextCell instanceof Wall)){
+                ((EmptyCell)cell).getInhoud().remove(this);
+                ((EmptyCell)nextCell).getInhoud().add(this);
+                character.setCell(nextCell);
                 //lastCell = c1;
             }
         }
