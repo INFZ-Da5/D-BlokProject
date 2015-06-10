@@ -33,9 +33,14 @@ public abstract class Board extends JPanel  {
     public Player player;
     private int amountofPills;
     ArrayList<GameCharacter> ghosts;
+    private static Cell GhostRespawnCell;
 
     public static Cell getPacmanCell() {
         return pacmanCell;    
+    }
+    
+    public static Cell getGhostRespawnCell() {
+        return GhostRespawnCell;    
     }
     
     public Board(){
@@ -52,7 +57,10 @@ public abstract class Board extends JPanel  {
     this.player = player;
     }
     
+    public Cell[][] getGrid(){
     
+    return cellgrid;
+    }
     public void fillCells(int [][] grid){
         cellgrid = new Cell[grid.length][grid[0].length];
         
@@ -69,7 +77,7 @@ public abstract class Board extends JPanel  {
 
                     switch(grid[row][col]){
                         case 1: inhoud.add(pacman); pacmanCell = cell; break;
-                        case 2: inhoud.add(ghosts.get(0)); break;
+                        case 2: inhoud.add(ghosts.get(0)); GhostRespawnCell = cell; break;
                         case 3: inhoud.add(ghosts.get(1)); break;
                         case 4: inhoud.add(new Pill());break;
                         case 5: inhoud.add(new SuperPill()); break;
@@ -119,7 +127,7 @@ public abstract class Board extends JPanel  {
         this.amountofPills = amountofPills;
     }
 
-    public ArrayList getGhosts() {
+    public ArrayList<GameCharacter> getGhosts() {
         return ghosts;
     }
 

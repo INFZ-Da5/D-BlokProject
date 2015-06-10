@@ -18,6 +18,14 @@ public class Ghost extends GameCharacter {
         super(new ImageIcon("Plaatjes/ghost.png"));
     }
     
+    public void setImage(ImageIcon img){
+    
+    currentImage = img;
+    }
+    
+    
+    
+    
     public void moveGhost(){
         Direction d = Direction.getRandom();
         move(d, this);

@@ -68,6 +68,7 @@ public class EmptyCell extends Cell{
                         for(GameElement inhoud2: inhoud){
                             if(inhoud2 instanceof Ghost || inhoud2 instanceof DrunkGhost){
                                 inhoud.remove(inhoud2);
+                              ((EmptyCell)board.getGhostRespawnCell()).getInhoud().add(inhoud2);
                                 //board.total--;
                             }
                         }

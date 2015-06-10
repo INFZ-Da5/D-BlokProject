@@ -37,6 +37,8 @@ public class Pacman extends GameCharacter implements KeyListener {
      
      return onverslaanbaar;
      }
+     
+     
     
     
     @Override
