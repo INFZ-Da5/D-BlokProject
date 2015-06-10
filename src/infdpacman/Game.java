@@ -7,7 +7,6 @@ import infdpacman.gameelement.character.Ghost;
 import infdpacman.view.Board;
 import infdpacman.view.Level1;
 import infdpacman.view.Level2;
-import infdpacman.view.Level5;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -136,7 +135,6 @@ public class Game implements ActionListener {
             currentSb = level1;
             currentSb.setPlayer(player);
             currentSb.countPills();
-            //currentSb.getPacman().setFirstMove(true);
             lifeLabel.setText("Lives: " +currentSb.getPacman().lives);
             frame.add(currentSb,BorderLayout.CENTER);      
             currentSb.requestFocus();

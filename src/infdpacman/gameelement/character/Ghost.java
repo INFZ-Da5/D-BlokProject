@@ -22,13 +22,9 @@ public class Ghost extends GameCharacter {
     }
     
     public void setImage(ImageIcon img){
-    
-    currentImage = img;
+        currentImage = img;
     }
-    
-    
-    
-    
+
     public void moveGhost(){
         Direction d = Direction.getRandom();
         move(d, this);
