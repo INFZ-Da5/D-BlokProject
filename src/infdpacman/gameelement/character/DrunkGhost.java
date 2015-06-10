@@ -18,6 +18,22 @@ public class DrunkGhost extends Character{
 
     public DrunkGhost() {
         super(new ImageIcon("Plaatjes/drunkghost.png"));
+        lastPressProcessed = System.currentTimeMillis();
+        //moveGhost();
+    }
+    
+    public void moveGhost(){
+        while(true){
+            if(System.currentTimeMillis() - lastPressProcessed > 5000) {
+                for(Direction d : Direction.values()){
+                    if(lastDirection != d){
+                        move(Direction.NORTH, this);
+                        lastDirection = d;
+                    }
+                }
+                lastPressProcessed = System.currentTimeMillis();
+            }
+        }
     }
 
     @Override

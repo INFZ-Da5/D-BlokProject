@@ -36,7 +36,6 @@ public abstract class Board extends JPanel  {
         this.addKeyListener(pacman);
         this.repaint();
         total = 0;
-       
     }
     
     public void fillCells(int [][] grid){
