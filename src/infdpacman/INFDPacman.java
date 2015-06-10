@@ -11,7 +11,7 @@ public class INFDPacman {
      */
     public static void main(String[] args) {
        Game spel  = new Game();
-       spel.start();
+       spel.init();
     }
     
 }
