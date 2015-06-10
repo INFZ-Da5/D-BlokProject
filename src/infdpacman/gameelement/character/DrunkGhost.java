@@ -18,23 +18,26 @@ public class DrunkGhost extends Character{
 
     public DrunkGhost() {
         super(new ImageIcon("Plaatjes/drunkghost.png"));
-        lastPressProcessed = System.currentTimeMillis();
-        //moveGhost();
     }
     
     public void moveGhost(){
+        Direction d = Direction.getRandom();
+        move(d, this);
+    }
+    /*
+    public void moveGhost(){
+        lastPressProcessed = System.currentTimeMillis();
         while(true){
             if(System.currentTimeMillis() - lastPressProcessed > 5000) {
-                for(Direction d : Direction.values()){
-                    if(lastDirection != d){
-                        move(Direction.NORTH, this);
-                        lastDirection = d;
-                    }
+                Direction d = Direction.getRandom();
+                if(lastDirection != d){
+                    move(d, this);
+                    lastDirection = d;
                 }
                 lastPressProcessed = System.currentTimeMillis();
             }
         }
-    }
+    }*/
 
     @Override
     public void draw(Graphics g,int width, int height) {

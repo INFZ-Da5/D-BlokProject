@@ -89,20 +89,16 @@ public class Game implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
         if (e.getActionCommand().equals(Actions.START.name())) {
             if(currentSb == null){
             Board level1 = new Level1();
             currentSb = level1;
             currentSb.countPills();
             currentSb.setPlayer(player);
-            //currentlives = currentSb.getPacman().lives;
-            //j.setText("" + currentSb.getPacman().lives);
             frame.add(level1,BorderLayout.CENTER);      
             level1.requestFocus();
             startLevel();
             frame.validate();
-            
             
             }
         }else if(e.getActionCommand().equals(Actions.STOP.name())){
@@ -125,14 +121,6 @@ public class Game implements ActionListener {
             frame.validate();
         }
     }
-    
-    
-    
-public void setLives(){
-    if(currentSb != null){
-        lifeLabel.setText("Lives: " + currentSb.getPacman().lives);
-    }
-}
     
     public void NextLevel(){
         if(currentSb != null){
@@ -181,9 +169,7 @@ public void setLives(){
 
     private void startLevel() {
         startTimer();
-        OnverslaanbaarTimer(); 
-        setLives();
-        scoreLabel.setText("score: " + player.getScore());
+        //OnverslaanbaarTimer(); 
     }
     
 }
