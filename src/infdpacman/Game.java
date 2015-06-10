@@ -40,7 +40,7 @@ public class Game implements ActionListener {
         
     }
     
-    public void start(){
+    public void init(){
         
         frame = new JFrame();
         frame.setSize(1280,720);
