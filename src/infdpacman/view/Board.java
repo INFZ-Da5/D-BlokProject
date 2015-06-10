@@ -25,7 +25,6 @@ public abstract class Board extends JPanel  {
     Cell[][] cellgrid;
     public int total;
     private static Cell pacmanCell;
-    private EmptyCell startposition;
     private int amountofPills;
 
     public static Cell getPacmanCell() {

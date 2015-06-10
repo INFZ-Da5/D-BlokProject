@@ -27,7 +27,7 @@ public abstract class Cell extends JPanel{
      
     public Cell getCellOfCharacter(infdpacman.gameelement.character.Character character) {
         if((!(this instanceof Wall))&&((EmptyCell)this).getInhoud().contains(character)){
-                return this;
+            return this;
         }
         else{
             for (Map.Entry<Direction, Cell> entry : neighbors.entrySet()) {

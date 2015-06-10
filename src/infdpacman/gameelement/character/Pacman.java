@@ -15,6 +15,8 @@ public class Pacman extends Character implements KeyListener {
     public int lives = 3;
     public boolean onverslaanbaar;
     private long lastPressProcessed = 0;
+    Direction lastDirection;
+
     ImageIcon leftImg = new ImageIcon("Plaatjes/pacmanleft.png");
     ImageIcon rightImg = new ImageIcon("Plaatjes/pacmanright.png");
     ImageIcon upImg = new ImageIcon("Plaatjes/pacmanup.png");
@@ -25,6 +27,24 @@ public class Pacman extends Character implements KeyListener {
     public Pacman(){
         super(new ImageIcon("Plaatjes/pacmanleft.png"));
         onverslaanbaar = false;
+    
+    
+    //lastPressProcessed = System.currentTimeMillis();
+       // moveGhost();
+    }
+    
+    public void moveGhost(){
+        while(true){
+            if(System.currentTimeMillis() - lastPressProcessed > 1500) {
+                for(Direction d : Direction.values()){
+                    if(lastDirection != d){
+                        move(d, this);
+                        lastDirection = d;
+                    }
+                }
+                lastPressProcessed = System.currentTimeMillis();
+            }
+        }
     }
     
     @Override
