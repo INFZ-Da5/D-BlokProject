@@ -167,6 +167,7 @@ public class Game implements ActionListener {
             public void run(){
                 
               currentSb.getPacman().onverslaanbaar = false;
+                System.out.println(currentSb.getPacman().onverslaanbaar);
               for(GameCharacter gc: currentSb.getGhosts()){
               if(gc instanceof Ghost){
               ((Ghost)gc).setImage(new ImageIcon("Plaatjes/ghost.png"));
@@ -174,8 +175,8 @@ public class Game implements ActionListener {
               
               if(gc instanceof DrunkGhost){
            ((DrunkGhost)gc).setImage(new ImageIcon("Plaatjes/drunkghost.png"));
-              }
-              }
+              }}
+              
             }
         };
         timer.scheduleAtFixedRate(task, 0, 5000);
@@ -183,7 +184,7 @@ public class Game implements ActionListener {
 
     private void startLevel() {
         startTimer();
-        //OnverslaanbaarTimer(); 
+        OnverslaanbaarTimer(); 
     }
     
     private void moveGhosts(){

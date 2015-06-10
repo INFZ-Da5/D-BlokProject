@@ -3,6 +3,7 @@ package infdpacman.cell;
 import infdpacman.Player;
 import infdpacman.gameelement.GameElement;
 import infdpacman.gameelement.character.DrunkGhost;
+import infdpacman.gameelement.character.GameCharacter;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.gameelement.character.Pacman;
 import infdpacman.gameelement.item.Item;
@@ -13,6 +14,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -91,6 +93,18 @@ public class EmptyCell extends Cell{
                     
                     board.getPacman().onverslaanbaar = true;
                         System.out.println(board.getPacman().getOnverslaanbaar());
+                        for(GameCharacter gc: board.getGhosts()){
+                        
+                        if(gc instanceof DrunkGhost){
+                        ((DrunkGhost)gc).setImage(new ImageIcon("Plaatjes/fleeghost.png"));
+                        }
+                        
+                        if(gc instanceof Ghost){
+                        ((Ghost)gc).setImage(new ImageIcon("Plaatjes/fleeghost.png"));
+                        }
+                        
+                        
+                        }
                     }
                 }
             }
