@@ -128,18 +128,17 @@ public abstract class Board extends JPanel  {
     
     
     public Cell getRandomCell(){
-    
-    double row1 = Math.random();
-    double col1 = Math.random();
-    
-    double row2 = Math.floor(row1 * cellgrid.length);
-    double col2 = Math.floor(row2 * cellgrid[0].length );
-    
-    if(cellgrid[(int)row2][(int)col2] instanceof EmptyCell){
-    return cellgrid[(int)row2][(int)col2];
-    }else{   
-        
-    return getRandomCell();
+        double row1 = Math.random();
+        double col1 = Math.random();
+
+        double row2 = Math.floor(row1 * cellgrid.length);
+        double col2 = Math.floor(row2 * cellgrid[0].length );
+
+        if(cellgrid[(int)row2][(int)col2] instanceof EmptyCell){
+        return cellgrid[(int)row2][(int)col2];
+        }else{   
+
+        return getRandomCell();
     }
     
     
