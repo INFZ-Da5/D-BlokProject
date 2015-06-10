@@ -37,7 +37,7 @@ public class Game implements ActionListener {
     Timer timer;
     
     public Game(){
-        //NextLevel();
+        
     }
     
     public void start(){
@@ -82,6 +82,7 @@ public class Game implements ActionListener {
         frame.add(both, BorderLayout.NORTH);
         frame.setVisible(true); 
         
+        
     }
     
    
@@ -91,16 +92,17 @@ public class Game implements ActionListener {
         
         if (e.getActionCommand().equals(Actions.START.name())) {
             if(currentSb == null){
-            Board level1 = new Level2();
+            Board level1 = new Level1();
             currentSb = level1;
             currentSb.countPills();
-            player.setLevel(currentSb);
+            currentSb.setPlayer(player);
             //currentlives = currentSb.getPacman().lives;
             //j.setText("" + currentSb.getPacman().lives);
             frame.add(level1,BorderLayout.CENTER);      
             level1.requestFocus();
             startLevel();
             frame.validate();
+            
             
             }
         }else if(e.getActionCommand().equals(Actions.STOP.name())){
@@ -133,14 +135,21 @@ public void setLives(){
 }
     
     public void NextLevel(){
-        if(currentSb.total == 0 && currentSb != null){
+        if(currentSb != null){
+            if(currentSb.getAmountofPills() == 0){
+            frame.remove(currentSb);
+            frame.repaint();
+            frame.validate();
             Board level1 = new Level2();
             currentSb = level1;
-            player.setLevel(currentSb);
+            currentSb.setPlayer(player);
+            currentSb.countPills();
+            currentSb.getPacman().setFirstMove(true);
             lifeLabel.setText("Lives: " +currentSb.getPacman().lives);
-            frame.add(level1,BorderLayout.CENTER);      
-            level1.requestFocus();
+            frame.add(currentSb,BorderLayout.CENTER);      
+            currentSb.requestFocus();
             frame.validate();
+            }
         }
     }
 
@@ -150,13 +159,29 @@ public void setLives(){
             public void run(){
                seconds++; 
                timeLabel.setText("Time: " + seconds);
+               lifeLabel.setText("Lives: " +currentSb.getPacman().lives);
+               scoreLabel.setText("score: " + player.getScore());
+               NextLevel();
             }
         };
         timer.scheduleAtFixedRate(task, 0, 1000);
     }
+    
+    
+       private void OnverslaanbaarTimer() {
+        timer = new Timer();
+        TimerTask task = new TimerTask(){
+            public void run(){
+                
+              currentSb.getPacman().onverslaanbaar = false;
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 5000);
+    }
 
     private void startLevel() {
         startTimer();
+        OnverslaanbaarTimer(); 
         setLives();
         scoreLabel.setText("score: " + player.getScore());
     }

@@ -1,9 +1,10 @@
 package infdpacman.view;
 
+import infdpacman.Player;
 import infdpacman.cell.Cell;
-import infdpacman.enums.Direction;
 import infdpacman.cell.EmptyCell;
 import infdpacman.cell.Wall;
+import infdpacman.enums.Direction;
 import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.gameelement.character.Pacman;
@@ -25,6 +26,7 @@ public abstract class Board extends JPanel  {
     Cell[][] cellgrid;
     public int total;
     private static Cell pacmanCell;
+    public Player player;
     private int amountofPills;
 
     public static Cell getPacmanCell() {
@@ -37,6 +39,13 @@ public abstract class Board extends JPanel  {
         this.repaint();
         total = 0;
     }
+    
+    
+    public void setPlayer(Player player){
+    
+    this.player = player;
+    }
+    
     
     public void fillCells(int [][] grid){
         cellgrid = new Cell[grid.length][grid[0].length];
@@ -95,8 +104,16 @@ public abstract class Board extends JPanel  {
                 }
             }
         }
-        System.out.println(amountofPills);
     }
+
+    public int getAmountofPills() {
+        return amountofPills;
+    }
+
+    public void setAmountofPills(int amountofPills) {
+        this.amountofPills = amountofPills;
+    }
+    
 }
 
 

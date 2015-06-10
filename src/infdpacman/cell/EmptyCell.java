@@ -1,10 +1,12 @@
 package infdpacman.cell;
 
+import infdpacman.Player;
 import infdpacman.gameelement.GameElement;
 import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.gameelement.character.Pacman;
 import infdpacman.gameelement.item.Item;
+import infdpacman.gameelement.item.SuperPill;
 import infdpacman.utilities.FindClassType;
 import infdpacman.view.Board;
 import java.awt.Color;
@@ -79,8 +81,16 @@ public class EmptyCell extends Cell{
         if(FindClassType.containsInstance(inhoud, Pacman.class) && FindClassType.containsInstance(inhoud, Item.class)){
             for (GameElement inhoud1 : inhoud) {
                 if(inhoud1 instanceof Item){
+                    board.player.setScore(board.player.getScore() + ((Item)inhoud1).points );
+ ;
                     //((Item)inhoud1).points; -->score moet aan player toegevoegd worden
                     inhoud.remove(inhoud1);
+                    board.setAmountofPills(board.getAmountofPills()-1);
+                    if(inhoud1 instanceof SuperPill){
+                    
+                    board.getPacman().onverslaanbaar = true;
+                        System.out.println(board.getPacman().getOnverslaanbaar());
+                    }
                 }
             }
         }
