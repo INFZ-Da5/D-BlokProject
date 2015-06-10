@@ -62,13 +62,13 @@ public class EmptyCell extends Cell{
                     if(((Pacman)inhoud1).onverslaanbaar == false){
                         inhoud.remove(inhoud1);
                         ((Pacman)inhoud1).lives -= 1;
-                        ((EmptyCell)board.getPacman().getCell()).getInhoud().add(board.getPacman());
+                        ((EmptyCell)board.getPacmanRespawnCell()).getInhoud().add(board.getPacman());
                     }
                     else{
                         for(GameElement inhoud2: inhoud){
                             if(inhoud2 instanceof Ghost || inhoud2 instanceof DrunkGhost){
                                 inhoud.remove(inhoud2);
-                              ((EmptyCell)board.getRandomCell()).getInhoud().add(inhoud2);
+                              ((EmptyCell)board.getGhostRespawnCell()).getInhoud().add(inhoud2);
                             }
                         }
                     }
