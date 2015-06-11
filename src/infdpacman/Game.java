@@ -48,7 +48,6 @@ public class Game implements ActionListener {
     public Game(){
         levels = new ArrayList();
         fillLevelList();
-        board = levels.get(2);
     }
     
     public static Player getPlayer(){
@@ -151,7 +150,7 @@ public class Game implements ActionListener {
                 lifeLabel.setText("Lives: " +board.getPacman().lives);
                 scoreLabel.setText("score: " + player.getScore());
                 checkForCherrySpawn();
-                //moveGhosts();
+                moveGhosts();
                 seconds+=0.5; 
                 checkIfLevelCompleted();
             }
