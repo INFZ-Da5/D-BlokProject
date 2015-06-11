@@ -128,9 +128,7 @@ public class Game implements ActionListener {
     public void setLevel(){
         if(board == null){
             board = levels.get(0);
-            startTimer();
-            onverslaanbaarTimer();
-            ghostTimer();
+            startTimers();
             timerStarted = true;
         }
         else{
@@ -152,7 +150,7 @@ public class Game implements ActionListener {
         startLevel();
     }
 
-    private void startTimer() {
+    private void gameTimer() {
         timer = new Timer();
         TimerTask task = new TimerTask(){
             public void run(){
@@ -198,9 +196,7 @@ public class Game implements ActionListener {
     
     private void startLevel() {
         if(!timerStarted){
-            startTimer();
-            onverslaanbaarTimer();
-            ghostTimer();
+            startTimers();
         }
         frame.add(board,BorderLayout.CENTER);      
         board.requestFocus();
@@ -240,7 +236,7 @@ public class Game implements ActionListener {
         levels.add(new Level4());
     }
     
-     private void gameOver(){
+     private void gameOverTimer(){
         timer = new Timer();
         TimerTask task = new TimerTask(){
             public void run(){
@@ -256,6 +252,12 @@ public class Game implements ActionListener {
             }
         }; 
         timer.scheduleAtFixedRate(task, 0, 1000);
-        }
-        
+    }
+
+    private void startTimers() {
+        gameTimer();
+        onverslaanbaarTimer();
+        ghostTimer();
+        gameOverTimer();
+    }
 }
