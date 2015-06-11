@@ -36,8 +36,8 @@ public abstract class Board extends JPanel  {
 
     private int amountOfPills;
     private int amountOfPillsInGame;
-    private static Cell GhostRespawnCell;
-    private static Cell pacmanRespawnCell;
+    private Cell GhostRespawnCell;
+    private Cell pacmanRespawnCell;
 
     public Board(){
         ghosts = new ArrayList();
@@ -45,11 +45,11 @@ public abstract class Board extends JPanel  {
         this.repaint();
     }
 
-    public static Cell getPacmanRespawnCell() {
+    public Cell getPacmanRespawnCell() {
         return pacmanRespawnCell;    
     }
     
-    public static Cell getGhostRespawnCell() {
+    public Cell getGhostRespawnCell() {
         return GhostRespawnCell;    
     }
 

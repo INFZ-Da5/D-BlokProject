@@ -5,11 +5,11 @@ import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.GameCharacter;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.view.Board;
-import infdpacman.view.Level5;
+import infdpacman.view.Level4;
 import infdpacman.view.Level1;
 import infdpacman.view.Level2;
 import infdpacman.view.Level3;
-import infdpacman.view.Level4;
+import infdpacman.view.Level5;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -147,10 +147,9 @@ public class Game implements ActionListener {
         TimerTask task = new TimerTask(){
             public void run(){
                 timeLabel.setText("Time: " + seconds);
-                lifeLabel.setText("Lives: " +board.getPacman().lives);
+                lifeLabel.setText("Lives: " + board.getPacman().lives);
                 scoreLabel.setText("score: " + player.getScore());
                 checkForCherrySpawn();
-                moveGhosts();
                 seconds+=0.5; 
                 checkIfLevelCompleted();
             }
@@ -159,7 +158,7 @@ public class Game implements ActionListener {
     } 
     
     
-       private void OnverslaanbaarTimer() {
+    private void OnverslaanbaarTimer() {
         timer = new Timer();
         TimerTask task = new TimerTask(){
             public void run(){
@@ -177,6 +176,21 @@ public class Game implements ActionListener {
         timer.scheduleAtFixedRate(task, 0, 5000);
     }
 
+    private void ghostTimer(int ms) {
+        timer = new Timer();
+        TimerTask task = new TimerTask(){
+            public void run(){
+                timeLabel.setText("Time: " + seconds);
+                lifeLabel.setText("Lives: " + board.getPacman().lives);
+                scoreLabel.setText("score: " + player.getScore());
+                checkForCherrySpawn();
+                seconds+=0.5; 
+                checkIfLevelCompleted();
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, ms);
+    }
+    
     private void startLevel() {
         if(!timerStarted){
             startTimer();
@@ -187,6 +201,7 @@ public class Game implements ActionListener {
         frame.validate();
         cherrySpawned = false;
     }
+    
     
     private void moveGhosts(){
         for(GameCharacter g : (ArrayList<GameCharacter>)board.getGhosts()){
@@ -215,8 +230,8 @@ public class Game implements ActionListener {
         levels.add(new Level1());
         levels.add(new Level2());
         levels.add(new Level3());
-        levels.add(new Level4());
         levels.add(new Level5());
+        levels.add(new Level4());
     }
         
 }

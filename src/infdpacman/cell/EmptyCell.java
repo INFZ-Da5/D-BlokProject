@@ -14,7 +14,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.List;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -51,7 +50,6 @@ public class EmptyCell extends Cell{
     } 
 
     private void checkCollision() {
-        
         checkGhostCollision();
         checkItemCollision();
     }
@@ -62,28 +60,26 @@ public class EmptyCell extends Cell{
             for (GameElement inhoud1 : inhoud) {
                 if(inhoud1 instanceof Pacman){
                     if(((Pacman)inhoud1).onverslaanbaar == false){
-                         ((Pacman)inhoud1).lives -= 1;
+                        ((Pacman)inhoud1).lives -= 1;
                         inhoud.remove((Pacman)inhoud1);
                        
                         ((EmptyCell)board.getPacmanRespawnCell()).getInhoud().add(board.getPacman());
                         board.getPacman().setCell((EmptyCell)board.getPacmanRespawnCell());
-
                     }
                     else{
                         for(GameElement inhoud2: inhoud){
                             if(inhoud2 instanceof Ghost || inhoud2 instanceof DrunkGhost){
                                 inhoud.remove(inhoud2);
-                              ((EmptyCell)board.getGhostRespawnCell()).getInhoud().add(inhoud2);
-                              
-                              if(inhoud2 instanceof Ghost){
-                              ((Ghost)inhoud2).setCell((EmptyCell)board.getGhostRespawnCell());
-                               Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)inhoud2).points);
-                              }
-                              
-                                if(inhoud2 instanceof DrunkGhost){
-                              ((DrunkGhost)inhoud2).setCell((EmptyCell)board.getGhostRespawnCell());
-                               Game.getPlayer().setScore(Game.getPlayer().getScore() + ((DrunkGhost)inhoud2).points);
-                              }
+                                ((EmptyCell)board.getGhostRespawnCell()).getInhoud().add(inhoud2);
+                                
+                                if(inhoud2 instanceof Ghost){
+                                    ((Ghost)inhoud2).setCell((EmptyCell)board.getGhostRespawnCell());
+                                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)inhoud2).points);
+                                }
+                                else if(inhoud2 instanceof DrunkGhost){
+                                    ((DrunkGhost)inhoud2).setCell((EmptyCell)board.getGhostRespawnCell());
+                                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((DrunkGhost)inhoud2).points);
+                                }
                             }
                         }
                     }
@@ -100,8 +96,7 @@ public class EmptyCell extends Cell{
                     inhoud.remove(inhoud1);
                     board.setAmountOfPills(board.getAmountOfPills()-1);
                     if(inhoud1 instanceof SuperPill){
-                    board.getPacman().onverslaanbaar = true;
-                        System.out.println(board.getPacman().getOnverslaanbaar());
+                        board.getPacman().onverslaanbaar = true;
                         for(GameCharacter gc: board.getGhosts()){
                             if(gc instanceof DrunkGhost){
                                 ((DrunkGhost)gc).flee();
