@@ -32,7 +32,7 @@ public class EmptyCell extends Cell{
     public void draw(Graphics g){
         checkCollision();
         for (GameElement inhoud1 : inhoud) {
-            if(FindClassType.containsInstance(inhoud, Item.class)){
+            if(inhoud1 instanceof Item){
                 inhoud1.draw(g, this.getWidth()/2, this.getHeight()/2);
             }
             else{
@@ -81,7 +81,7 @@ public class EmptyCell extends Cell{
         if(FindClassType.containsInstance(inhoud, Pacman.class) && FindClassType.containsInstance(inhoud, Item.class)){
             for (GameElement inhoud1 : inhoud) {
                 if(inhoud1 instanceof Item){
-                    board.player.setScore(board.player.getScore() + ((Item)inhoud1).points );
+                    //board.player.setScore(board.player.getScore() + ((Item)inhoud1).points ); player hoort niet bij een board!
                     inhoud.remove(inhoud1);
                     board.setAmountofPills(board.getAmountofPills()-1);
                     if(inhoud1 instanceof SuperPill){

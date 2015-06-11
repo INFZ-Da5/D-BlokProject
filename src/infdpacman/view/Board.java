@@ -5,18 +5,22 @@ import infdpacman.cell.Cell;
 import infdpacman.cell.EmptyCell;
 import infdpacman.cell.Wall;
 import infdpacman.enums.Direction;
+import infdpacman.gameelement.GameElement;
 import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.GameCharacter;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.gameelement.character.Pacman;
 import infdpacman.gameelement.item.Banana;
+import infdpacman.gameelement.item.Cherry;
 import infdpacman.gameelement.item.Item;
 import infdpacman.gameelement.item.Pill;
 import infdpacman.gameelement.item.SuperPill;
 import infdpacman.utilities.FindClassType;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import javax.swing.JPanel;
 
 /**
@@ -32,8 +36,8 @@ public abstract class Board extends JPanel  {
     Cell[][] cellgrid;
     ArrayList<GameCharacter> ghosts;
 
-    public Player player;
     private int amountofPills;
+    private int amountofPillsInGame;
     private static Cell GhostRespawnCell;
     private static Cell pacmanRespawnCell;
 
@@ -42,7 +46,6 @@ public abstract class Board extends JPanel  {
         this.requestFocusInWindow();
         this.repaint();
     }
-    
 
     public static Cell getPacmanRespawnCell() {
         return pacmanRespawnCell;    
@@ -50,10 +53,6 @@ public abstract class Board extends JPanel  {
     
     public static Cell getGhostRespawnCell() {
         return GhostRespawnCell;    
-    }
-    
-    public void setPlayer(Player player){
-        this.player = player;
     }
 
     public void fillCells(int [][] grid){
@@ -83,6 +82,7 @@ public abstract class Board extends JPanel  {
             }
         }
         setNeigbors();
+        countPills();
     }  
 
     public void setNeigbors() {
@@ -107,11 +107,12 @@ public abstract class Board extends JPanel  {
             for (int col = 0; col < cellgrid[0].length; col++) {
                 if (cellgrid1[col] instanceof EmptyCell) {
                     if (FindClassType.containsInstance(((EmptyCell) cellgrid1[col]).getInhoud(), Item.class)) {
-                        amountofPills++;
+                        amountofPillsInGame++;
                     }
                 }
             }
         }
+        amountofPills = amountofPillsInGame;
     }
 
     public int getAmountofPills() {
@@ -125,23 +126,31 @@ public abstract class Board extends JPanel  {
     public ArrayList<GameCharacter> getGhosts() {
         return ghosts;
     }
-    
-    
-    public Cell getRandomCell(){
-        double row1 = Math.random();
-        double col1 = Math.random();
 
-        double row2 = Math.floor(row1 * cellgrid.length);
-        double col2 = Math.floor(row2 * cellgrid[0].length );
-
-        if(cellgrid[(int)row2][(int)col2] instanceof EmptyCell){
-        return cellgrid[(int)row2][(int)col2];
-        }else{   
-
-        return getRandomCell();
+    public int getAmountofPillsInGame() {
+        return amountofPillsInGame;
     }
-    
-    
+        
+    public boolean spawnCherry(){
+        Random rd = new Random();
+        rd.nextInt(cellgrid.length);
+
+        double row = rd.nextInt(cellgrid.length);
+        double col = rd.nextInt(cellgrid.length);
+        
+        if(cellgrid[(int)row][(int)col] instanceof EmptyCell){
+        LinkedList<GameElement> l = (LinkedList<GameElement>) ((EmptyCell)cellgrid[(int)row][(int)col]).getInhoud();
+            if(l.isEmpty()){
+                l.add(new Cherry());
+                ((EmptyCell)cellgrid[(int)row][(int)col]).setInhoud(l);
+            }
+            else{
+                spawnCherry();
+            }
+        }else{   
+            spawnCherry();
+        }
+        return true;
     }
     
 }

@@ -5,8 +5,11 @@ import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.GameCharacter;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.view.Board;
+import infdpacman.view.Level5;
 import infdpacman.view.Level1;
 import infdpacman.view.Level2;
+import infdpacman.view.Level3;
+import infdpacman.view.Level4;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,24 +30,31 @@ import javax.swing.border.TitledBorder;
  */
 public class Game implements ActionListener {
     
-    public ArrayList highscore;
-    public JFrame frame;
-    public Board currentSb;
-    public Player player;
-    public JPanel menu;
-    public JPanel gameInfo;
-    public JLabel scoreLabel;
-    public JLabel lifeLabel;
-    public JLabel timeLabel;
-    private int seconds = 0;
-    Timer timer;
+    private ArrayList highscore;
+    private ArrayList<Board> levels;
+    private JFrame frame;
+    private Board board;
+    private static  Player player;
+    private JPanel menu;
+    private JPanel gameInfo;
+    private JLabel scoreLabel;
+    private JLabel lifeLabel;
+    private JLabel timeLabel;
+    private double seconds = 0;
+    private boolean cherrySpawned;
+    private Timer timer;
     
     public Game(){
-        
+        levels = new ArrayList();
+        fillLevelList();
+        board = levels.get(3);
+    }
+    
+    public static Player getPlayer(){
+        return player;
     }
     
     public void init(){
-        
         frame = new JFrame();
         frame.setSize(1280,720);
         frame.setLayout(new BorderLayout());
@@ -84,8 +94,6 @@ public class Game implements ActionListener {
         both.add(gameInfo);
         frame.add(both, BorderLayout.NORTH);
         frame.setVisible(true); 
-        
-        
     }
     
    
@@ -93,80 +101,66 @@ public class Game implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(Actions.START.name())) {
-            if(currentSb == null){
-            Board level1 = new Level1();
-            currentSb = level1;
-            currentSb.countPills();
-            currentSb.setPlayer(player);
-            frame.add(level1,BorderLayout.CENTER);      
-            level1.requestFocus();
-            startLevel();
-            frame.validate();
-            
-            }
+            setLevel();
         }else if(e.getActionCommand().equals(Actions.STOP.name())){
-            
-            frame.remove(currentSb);
-            currentSb = null;
+            frame.remove(board);
+            board = null;
             timer.cancel();
             timer.purge();
-            
             frame.validate();
             frame.repaint();
-            
         } else if(e.getActionCommand().equals(Actions.PAUZE.name())){
 
         }else if(e.getActionCommand().equals(Actions.RESET.name())){
-            frame.remove(currentSb);
-            Board level1 = new Level2();
-            currentSb = level1;          
+            frame.remove(board);
+            Board level1 = new Level1();
+            board = level1;          
             frame.add(level1,BorderLayout.CENTER);      
             frame.validate();
         }
     }
     
-    public void NextLevel(){
-        if(currentSb != null){
-            if(currentSb.getAmountofPills() == 0){
-            frame.remove(currentSb);
-            frame.repaint();
-            frame.validate();
-            Board level1 = new Level2();
-            currentSb = level1;
-            currentSb.setPlayer(player);
-            currentSb.countPills();
-            lifeLabel.setText("Lives: " +currentSb.getPacman().lives);
-            frame.add(currentSb,BorderLayout.CENTER);      
-            currentSb.requestFocus();
-            frame.validate();
+    public void setLevel(){
+        if(board == null){
+            board = levels.get(0);
+        }
+        else{
+            for(Board level : levels){
+                if(board == level){
+                    if(levels.size() < levels.indexOf(level)+1){
+                        frame.remove(board);
+                        board = levels.get(levels.indexOf(level)+1);
+                    }
+                    //else: you win bla bla highscore shizzle
+                }
             }
         }
+        startLevel();
     }
 
     private void startTimer() {
         timer = new Timer();
         TimerTask task = new TimerTask(){
             public void run(){
-                seconds++; 
+                checkIfLevelCompleted();
                 timeLabel.setText("Time: " + seconds);
-                lifeLabel.setText("Lives: " +currentSb.getPacman().lives);
+                lifeLabel.setText("Lives: " +board.getPacman().lives);
                 scoreLabel.setText("score: " + player.getScore());
+                //checkForCherrySpawn();
                 moveGhosts();
-                NextLevel();
+                seconds+=0.5; 
             }
         };
-        timer.scheduleAtFixedRate(task, 0, 1000);
-    }
+        timer.scheduleAtFixedRate(task, 0, 500);
+    } 
     
     
        private void OnverslaanbaarTimer() {
         timer = new Timer();
         TimerTask task = new TimerTask(){
             public void run(){
-                
-              currentSb.getPacman().onverslaanbaar = false;
-                System.out.println(currentSb.getPacman().onverslaanbaar);
-              for(GameCharacter gc: currentSb.getGhosts()){
+              board.getPacman().onverslaanbaar = false;
+              for(GameCharacter gc: board.getGhosts()){
               if(gc instanceof Ghost){
               ((Ghost)gc).setImage(new ImageIcon("Plaatjes/ghost.png"));
               }
@@ -181,12 +175,16 @@ public class Game implements ActionListener {
     }
 
     private void startLevel() {
+        frame.add(board,BorderLayout.CENTER);      
+        board.requestFocus();
+        frame.validate();
+        cherrySpawned = false;
         startTimer();
         OnverslaanbaarTimer(); 
     }
     
     private void moveGhosts(){
-        for(GameCharacter g : (ArrayList<GameCharacter>)currentSb.getGhosts()){
+        for(GameCharacter g : (ArrayList<GameCharacter>)board.getGhosts()){
             if(g instanceof DrunkGhost){
                 ((DrunkGhost)g).moveGhost();
             }
@@ -195,4 +193,25 @@ public class Game implements ActionListener {
             }
         }
     }
+    
+    private void checkForCherrySpawn() {
+        if(board.getAmountofPills() == (board.getAmountofPillsInGame()/2) && !cherrySpawned){
+            cherrySpawned = board.spawnCherry();
+        }
+    }
+    
+    private void checkIfLevelCompleted(){
+        if(board.getAmountofPills() == 0){
+            setLevel();
+        }
+    }
+
+    private void fillLevelList() {
+        levels.add(new Level1());
+        levels.add(new Level2());
+        levels.add(new Level3());
+        levels.add(new Level4());
+        levels.add(new Level5());
+    }
+        
 }
