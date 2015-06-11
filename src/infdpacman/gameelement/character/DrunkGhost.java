@@ -16,6 +16,7 @@ public class DrunkGhost extends GameCharacter{
     ImageIcon fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");    
     ImageIcon currentImage = normalGhost;
     Direction lastDirection;
+    public int points = 200;
     private Cell cell;
     
     public DrunkGhost(Cell cell) {
