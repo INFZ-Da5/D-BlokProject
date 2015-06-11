@@ -42,12 +42,13 @@ public class Game implements ActionListener {
     private JLabel timeLabel;
     private double seconds = 0;
     private boolean cherrySpawned;
+    private boolean timerStarted = false;
     private Timer timer;
     
     public Game(){
         levels = new ArrayList();
         fillLevelList();
-        board = levels.get(3);
+        board = levels.get(2);
     }
     
     public static Player getPlayer(){
@@ -123,13 +124,17 @@ public class Game implements ActionListener {
     public void setLevel(){
         if(board == null){
             board = levels.get(0);
+            startTimer();
+            OnverslaanbaarTimer();
+            timerStarted = true;
         }
         else{
             for(Board level : levels){
                 if(board == level){
-                    if(levels.size() < levels.indexOf(level)+1){
+                    if(levels.indexOf(level)+1 < levels.size()){
                         frame.remove(board);
                         board = levels.get(levels.indexOf(level)+1);
+                        break;
                     }
                     //else: you win bla bla highscore shizzle
                 }
@@ -142,13 +147,13 @@ public class Game implements ActionListener {
         timer = new Timer();
         TimerTask task = new TimerTask(){
             public void run(){
-                checkIfLevelCompleted();
                 timeLabel.setText("Time: " + seconds);
                 lifeLabel.setText("Lives: " +board.getPacman().lives);
                 scoreLabel.setText("score: " + player.getScore());
-                //checkForCherrySpawn();
-                moveGhosts();
+                checkForCherrySpawn();
+                //moveGhosts();
                 seconds+=0.5; 
+                checkIfLevelCompleted();
             }
         };
         timer.scheduleAtFixedRate(task, 0, 500);
@@ -162,11 +167,10 @@ public class Game implements ActionListener {
               board.getPacman().onverslaanbaar = false;
               for(GameCharacter gc: board.getGhosts()){
               if(gc instanceof Ghost){
-              ((Ghost)gc).setImage(new ImageIcon("Plaatjes/ghost.png"));
+                ((Ghost)gc).normal();
               }
-              
-              if(gc instanceof DrunkGhost){
-           ((DrunkGhost)gc).setImage(new ImageIcon("Plaatjes/drunkghost.png"));
+              else if(gc instanceof DrunkGhost){
+                ((DrunkGhost)gc).normal();
               }}
               
             }
@@ -175,12 +179,14 @@ public class Game implements ActionListener {
     }
 
     private void startLevel() {
+        if(!timerStarted){
+            startTimer();
+            OnverslaanbaarTimer();
+        }
         frame.add(board,BorderLayout.CENTER);      
         board.requestFocus();
         frame.validate();
         cherrySpawned = false;
-        startTimer();
-        OnverslaanbaarTimer(); 
     }
     
     private void moveGhosts(){
@@ -195,13 +201,13 @@ public class Game implements ActionListener {
     }
     
     private void checkForCherrySpawn() {
-        if(board.getAmountofPills() == (board.getAmountofPillsInGame()/2) && !cherrySpawned){
+        if(board.getAmountOfPills() == (board.getAmountofPillsInGame()/2) && !cherrySpawned){
             cherrySpawned = board.spawnCherry();
         }
     }
     
     private void checkIfLevelCompleted(){
-        if(board.getAmountofPills() == 0){
+        if(board.getAmountOfPills() == 0){
             setLevel();
         }
     }

@@ -98,16 +98,16 @@ public class EmptyCell extends Cell{
                 if(inhoud1 instanceof Item){
                     Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Item)inhoud1).points );
                     inhoud.remove(inhoud1);
-                    board.setAmountofPills(board.getAmountofPills()-1);
+                    board.setAmountOfPills(board.getAmountOfPills()-1);
                     if(inhoud1 instanceof SuperPill){
                     board.getPacman().onverslaanbaar = true;
                         System.out.println(board.getPacman().getOnverslaanbaar());
                         for(GameCharacter gc: board.getGhosts()){
                             if(gc instanceof DrunkGhost){
-                                ((DrunkGhost)gc).setImage(new ImageIcon("Plaatjes/fleeghost.png"));
+                                ((DrunkGhost)gc).flee();
                             }
                             if(gc instanceof Ghost){
-                                ((Ghost)gc).setImage(new ImageIcon("Plaatjes/fleeghost.png"));
+                                ((Ghost)gc).flee();
                             }
                         }
                     }

@@ -24,9 +24,12 @@ public class DrunkGhost extends GameCharacter{
         this.cell = cell;
     }
     
-    public void setImage(ImageIcon img){
+    public void flee(){
+        currentImage = fleeGhost;
+    }
     
-    currentImage = img;
+    public void normal(){
+        currentImage = normalGhost;
     }
     
     public void moveGhost(){

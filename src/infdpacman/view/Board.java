@@ -1,6 +1,5 @@
 package infdpacman.view;
 
-import infdpacman.Player;
 import infdpacman.cell.Cell;
 import infdpacman.cell.EmptyCell;
 import infdpacman.cell.Wall;
@@ -18,7 +17,6 @@ import infdpacman.gameelement.item.SuperPill;
 import infdpacman.utilities.FindClassType;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import javax.swing.JPanel;
@@ -36,8 +34,8 @@ public abstract class Board extends JPanel  {
     Cell[][] cellgrid;
     ArrayList<GameCharacter> ghosts;
 
-    private int amountofPills;
-    private int amountofPillsInGame;
+    private int amountOfPills;
+    private int amountOfPillsInGame;
     private static Cell GhostRespawnCell;
     private static Cell pacmanRespawnCell;
 
@@ -107,20 +105,20 @@ public abstract class Board extends JPanel  {
             for (int col = 0; col < cellgrid[0].length; col++) {
                 if (cellgrid1[col] instanceof EmptyCell) {
                     if (FindClassType.containsInstance(((EmptyCell) cellgrid1[col]).getInhoud(), Item.class)) {
-                        amountofPillsInGame++;
+                        amountOfPillsInGame++;
                     }
                 }
             }
         }
-        amountofPills = amountofPillsInGame;
+        amountOfPills = amountOfPillsInGame;
     }
 
-    public int getAmountofPills() {
-        return amountofPills;
+    public int getAmountOfPills() {
+        return amountOfPills;
     }
 
-    public void setAmountofPills(int amountofPills) {
-        this.amountofPills = amountofPills;
+    public void setAmountOfPills(int amountofPills) {
+        this.amountOfPills = amountofPills;
     }
 
     public ArrayList<GameCharacter> getGhosts() {
@@ -128,7 +126,7 @@ public abstract class Board extends JPanel  {
     }
 
     public int getAmountofPillsInGame() {
-        return amountofPillsInGame;
+        return amountOfPillsInGame;
     }
         
     public boolean spawnCherry(){
@@ -143,6 +141,7 @@ public abstract class Board extends JPanel  {
             if(l.isEmpty()){
                 l.add(new Cherry());
                 ((EmptyCell)cellgrid[(int)row][(int)col]).setInhoud(l);
+                amountOfPills++;
             }
             else{
                 spawnCherry();
