@@ -1,5 +1,6 @@
 package infdpacman.cell;
 
+import infdpacman.Game;
 import infdpacman.gameelement.GameElement;
 import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.GameCharacter;
@@ -76,12 +77,12 @@ public class EmptyCell extends Cell{
                               
                               if(inhoud2 instanceof Ghost){
                               ((Ghost)inhoud2).setCell((EmptyCell)board.getGhostRespawnCell());
-                               board.player.setScore(board.player.getScore() + ((Ghost)inhoud2).points);
+                               Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)inhoud2).points);
                               }
                               
                                 if(inhoud2 instanceof DrunkGhost){
                               ((DrunkGhost)inhoud2).setCell((EmptyCell)board.getGhostRespawnCell());
-                               board.player.setScore(board.player.getScore() + ((DrunkGhost)inhoud2).points);
+                               Game.getPlayer().setScore(Game.getPlayer().getScore() + ((DrunkGhost)inhoud2).points);
                               }
                             }
                         }
@@ -95,7 +96,7 @@ public class EmptyCell extends Cell{
         if(FindClassType.containsInstance(inhoud, Pacman.class) && FindClassType.containsInstance(inhoud, Item.class)){
             for (GameElement inhoud1 : inhoud) {
                 if(inhoud1 instanceof Item){
-                    //board.player.setScore(board.player.getScore() + ((Item)inhoud1).points ); player hoort niet bij een board!
+                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Item)inhoud1).points );
                     inhoud.remove(inhoud1);
                     board.setAmountofPills(board.getAmountofPills()-1);
                     if(inhoud1 instanceof SuperPill){
