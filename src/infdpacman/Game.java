@@ -17,10 +17,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -52,7 +52,6 @@ public class Game implements ActionListener {
         ghostTimerMs = 800;
         levels = new ArrayList();
         fillLevelList();
-        board = levels.get(4);
     }
     
     public static Player getPlayer(){
@@ -240,5 +239,23 @@ public class Game implements ActionListener {
         levels.add(new Level5());
         levels.add(new Level4());
     }
+    
+     private void gameOver(){
+        timer = new Timer();
+        TimerTask task = new TimerTask(){
+            public void run(){
+                if(board.getPacman().lives == 0){
+                JOptionPane.showMessageDialog(null, "Game Over!", "gameover", JOptionPane.ERROR_MESSAGE);
+                frame.remove(board);
+                board = null;
+                timer.cancel();
+                timer.purge();
+                frame.validate();
+                frame.repaint();
+                }
+            }
+        }; 
+        timer.scheduleAtFixedRate(task, 0, 1000);
+        }
         
 }
