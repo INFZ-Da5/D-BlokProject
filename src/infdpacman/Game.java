@@ -142,7 +142,7 @@ public class Game implements ActionListener {
                     }
                     else{
                        frame.remove(board);
-                       frame.add(winner);
+                       frame.add(winner, BorderLayout.CENTER);
                     }
                 }
             }
