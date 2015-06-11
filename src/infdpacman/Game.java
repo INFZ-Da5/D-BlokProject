@@ -10,6 +10,7 @@ import infdpacman.view.Level1;
 import infdpacman.view.Level2;
 import infdpacman.view.Level3;
 import infdpacman.view.Level5;
+import infdpacman.view.Winner;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,6 +38,7 @@ public class Game implements ActionListener {
     private static  Player player;
     private JPanel menu;
     private JPanel gameInfo;
+    private Winner winner;
     private JLabel scoreLabel;
     private JLabel lifeLabel;
     private JLabel timeLabel;
@@ -44,10 +46,13 @@ public class Game implements ActionListener {
     private boolean cherrySpawned;
     private boolean timerStarted = false;
     private Timer timer;
+    private int ghostTimerMs;
     
     public Game(){
+        ghostTimerMs = 800;
         levels = new ArrayList();
         fillLevelList();
+        board = levels.get(4);
     }
     
     public static Player getPlayer(){
@@ -59,7 +64,8 @@ public class Game implements ActionListener {
         frame.setSize(1280,720);
         frame.setLayout(new BorderLayout());
         player = new Player();
-        
+        winner = new Winner();
+
         menu = new JPanel();
         JButton start = new JButton("start");
             start.setActionCommand(Actions.START.name());
@@ -124,7 +130,8 @@ public class Game implements ActionListener {
         if(board == null){
             board = levels.get(0);
             startTimer();
-            OnverslaanbaarTimer();
+            onverslaanbaarTimer();
+            ghostTimer();
             timerStarted = true;
         }
         else{
@@ -133,9 +140,13 @@ public class Game implements ActionListener {
                     if(levels.indexOf(level)+1 < levels.size()){
                         frame.remove(board);
                         board = levels.get(levels.indexOf(level)+1);
+                        ghostTimerMs -= 100;
                         break;
                     }
-                    //else: you win bla bla highscore shizzle
+                    else{
+                       frame.remove(board);
+                       frame.add(winner);
+                    }
                 }
             }
         }
@@ -158,7 +169,7 @@ public class Game implements ActionListener {
     } 
     
     
-    private void OnverslaanbaarTimer() {
+    private void onverslaanbaarTimer() {
         timer = new Timer();
         TimerTask task = new TimerTask(){
             public void run(){
@@ -176,25 +187,21 @@ public class Game implements ActionListener {
         timer.scheduleAtFixedRate(task, 0, 5000);
     }
 
-    private void ghostTimer(int ms) {
+    private void ghostTimer() {
         timer = new Timer();
         TimerTask task = new TimerTask(){
-            public void run(){
-                timeLabel.setText("Time: " + seconds);
-                lifeLabel.setText("Lives: " + board.getPacman().lives);
-                scoreLabel.setText("score: " + player.getScore());
-                checkForCherrySpawn();
-                seconds+=0.5; 
-                checkIfLevelCompleted();
+            public void run(){ 
+                moveGhosts();
             }
         };
-        timer.scheduleAtFixedRate(task, 0, ms);
+        timer.scheduleAtFixedRate(task, 0, ghostTimerMs);
     }
     
     private void startLevel() {
         if(!timerStarted){
             startTimer();
-            OnverslaanbaarTimer();
+            onverslaanbaarTimer();
+            ghostTimer();
         }
         frame.add(board,BorderLayout.CENTER);      
         board.requestFocus();
