@@ -45,13 +45,20 @@ public class Game implements ActionListener {
     private double seconds = 0;
     private boolean cherrySpawned;
     private boolean timerStarted = false;
-    private Timer timer;
+    private Timer gametimer;
+    private Timer ghosttimer;
+    private Timer onverslaanbaartimer;
+    private Timer gameovertimer;
+    private boolean pauze = false;
+
+    
     private int ghostTimerMs;
     
     public Game(){
         ghostTimerMs = 800;
         levels = new ArrayList();
         fillLevelList();
+       
     }
     
     public static Player getPlayer(){
@@ -107,22 +114,41 @@ public class Game implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(Actions.START.name())) {
             setLevel();
-        }else if(e.getActionCommand().equals(Actions.STOP.name())){
+            frame.validate();
+            frame.repaint();
+        }else if(e.getActionCommand().equals(Actions.STOP.name())){            
             frame.remove(board);
-            board = null;
-            timer.cancel();
-            timer.purge();
+            levels.clear();
+            fillLevelList();
+            board = null;          
+            stopTimers();
+            seconds = 0;
+            player.setScore(0);
             frame.validate();
             frame.repaint();
         } else if(e.getActionCommand().equals(Actions.PAUZE.name())){
-
+           stopTimers();
+           board = null;
         }else if(e.getActionCommand().equals(Actions.RESET.name())){
             frame.remove(board);
-            Board level1 = new Level1();
-            board = level1;          
-            frame.add(level1,BorderLayout.CENTER);      
+            board = null; 
+            levels.clear();
+            fillLevelList();
+            stopTimers();
+            seconds = 0;
+            player.setScore(0);
+            setLevel();
             frame.validate();
+            frame.repaint();
         }
+    }
+    
+    public void stopTimers(){
+        
+            gametimer.cancel();          
+            onverslaanbaartimer.cancel();
+            ghosttimer.cancel();
+            gameovertimer.cancel();
     }
     
     public void setLevel(){
@@ -130,6 +156,7 @@ public class Game implements ActionListener {
             board = levels.get(0);
             startTimers();
             timerStarted = true;
+
         }
         else{
             for(Board level : levels){
@@ -151,7 +178,7 @@ public class Game implements ActionListener {
     }
 
     private void gameTimer() {
-        timer = new Timer();
+        gametimer = new Timer();
         TimerTask task = new TimerTask(){
             public void run(){
                 timeLabel.setText("Time: " + seconds);
@@ -162,12 +189,12 @@ public class Game implements ActionListener {
                 checkIfLevelCompleted();
             }
         };
-        timer.scheduleAtFixedRate(task, 0, 500);
+        gametimer.scheduleAtFixedRate(task, 0, 500);
     } 
     
     
     private void onverslaanbaarTimer() {
-        timer = new Timer();
+        onverslaanbaartimer = new Timer();
         TimerTask task = new TimerTask(){
             public void run(){
               board.getPacman().onverslaanbaar = false;
@@ -181,17 +208,17 @@ public class Game implements ActionListener {
               
             }
         };
-        timer.scheduleAtFixedRate(task, 0, 5000);
+        onverslaanbaartimer.scheduleAtFixedRate(task, 0, 5000);
     }
 
     private void ghostTimer() {
-        timer = new Timer();
+        ghosttimer = new Timer();
         TimerTask task = new TimerTask(){
             public void run(){ 
                 moveGhosts();
             }
         };
-        timer.scheduleAtFixedRate(task, 0, ghostTimerMs);
+        ghosttimer.scheduleAtFixedRate(task, 0, ghostTimerMs);
     }
     
     private void startLevel() {
@@ -237,21 +264,21 @@ public class Game implements ActionListener {
     }
     
      private void gameOverTimer(){
-        timer = new Timer();
+        gameovertimer = new Timer();
         TimerTask task = new TimerTask(){
             public void run(){
                 if(board.getPacman().lives == 0){
                 JOptionPane.showMessageDialog(null, "Game Over!", "gameover", JOptionPane.ERROR_MESSAGE);
                 frame.remove(board);
                 board = null;
-                timer.cancel();
-                timer.purge();
+                gameovertimer.cancel();
+                gameovertimer.purge();
                 frame.validate();
                 frame.repaint();
                 }
             }
         }; 
-        timer.scheduleAtFixedRate(task, 0, 1000);
+        gameovertimer.scheduleAtFixedRate(task, 0, 1000);
     }
 
     private void startTimers() {
