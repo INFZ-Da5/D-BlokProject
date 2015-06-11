@@ -14,6 +14,7 @@ public class Ghost extends GameCharacter {
     ImageIcon normalGhost = new ImageIcon("Plaatjes/ghost.png");
     ImageIcon fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");    
     ImageIcon currentImage = normalGhost;
+    public int points = 200;
     private Cell cell;
    
     public Ghost(Cell cell) {
