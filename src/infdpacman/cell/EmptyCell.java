@@ -14,13 +14,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
  * @author Lenovo
  */
 public class EmptyCell extends Cell{
-    private List<GameElement> inhoud = new LinkedList<>(); 
+    private List<GameElement> content = new LinkedList<>(); 
     Board board;
     
     public EmptyCell(Board board){
@@ -31,80 +33,43 @@ public class EmptyCell extends Cell{
     @Override
     public void draw(Graphics g){
         checkCollision();
-        for (GameElement inhoud1 : inhoud) {
-            if(inhoud1 instanceof Item){
-                inhoud1.draw(g, this.getWidth()/2, this.getHeight()/2);
+        for (GameElement content1 : content) {
+            if(content1 instanceof Item){
+                content1.draw(g, this.getWidth()/2, this.getHeight()/2);
             }
             else{
-                inhoud1.draw(g, this.getWidth(), this.getHeight());
+                content1.draw(g, this.getWidth(), this.getHeight());
             }
         }
     }
 
     public List<GameElement> getInhoud() {
-        return inhoud;
+        return content;
     }
         
-    public void setInhoud(LinkedList inhoud) {
-        this.inhoud = inhoud;
+    public void setInhoud(LinkedList content) {
+        this.content = content;
     } 
 
     private void checkCollision() {
-        
-        
-        if(board.getPacman().onverslaanbaar = true){
-            onverslaanbaarCollision();
+        if(board.getPacman().invincible){
+            invincibleCollision();
         }else{
-        checkGhostCollision();
+            checkGhostCollision();
         }
         checkItemCollision();
     }
 
     private void checkGhostCollision() {
-        if(FindClassType.containsInstance(inhoud, Pacman.class) 
-            && (FindClassType.containsInstance(inhoud, Ghost.class) || FindClassType.containsInstance(inhoud, DrunkGhost.class)) ){
-            for (GameElement inhoud1 : inhoud) {
-                if(inhoud1 instanceof Pacman){
-<<<<<<< HEAD
-                    if(((Pacman)inhoud1).invincible == false){
-=======
-                   
->>>>>>> origin/vakjes-versie
-                        ((Pacman)inhoud1).lives -= 1;
-                        inhoud.remove((Pacman)inhoud1);
-                       
+        if(FindClassType.containsInstance(content, Pacman.class) 
+            && (FindClassType.containsInstance(content, Ghost.class) || FindClassType.containsInstance(content, DrunkGhost.class)) ){
+            for (GameElement content1 : content) {
+                if(content1 instanceof Pacman){
+                    if(!((Pacman)content1).invincible){
+                        ((Pacman)content1).lives -= 1;
+                        content.remove(content1);
                         ((EmptyCell)board.getPacmanRespawnCell()).getInhoud().add(board.getPacman());
                         board.getPacman().setCell((EmptyCell)board.getPacmanRespawnCell());
-                    
-                   
-                }
-            }
-        }
-    }
-    
-    
-    
-    private void onverslaanbaarCollision(){
-
-
-        if(FindClassType.containsInstance(inhoud, Pacman.class) 
-           && (FindClassType.containsInstance(inhoud, Ghost.class) || FindClassType.containsInstance(inhoud, DrunkGhost.class)) ){
-            for (GameElement inhoud1 : inhoud) {
-                if(inhoud1 instanceof Pacman){
-                    for(GameElement inhoud2: inhoud){
-                            if(inhoud2 instanceof Ghost || inhoud2 instanceof DrunkGhost){
-                                inhoud.remove(inhoud2);
-                                ((EmptyCell)board.getGhostRespawnCell()).getInhoud().add(inhoud2);
-                                
-                                if(inhoud2 instanceof Ghost){
-                                    ((Ghost)inhoud2).setCell((EmptyCell)board.getGhostRespawnCell());
-                                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)inhoud2).points);
-                                }
-                                else if(inhoud2 instanceof DrunkGhost){
-                                    ((DrunkGhost)inhoud2).setCell((EmptyCell)board.getGhostRespawnCell());
-                                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((DrunkGhost)inhoud2).points);
-                                }
-                            }
                     }
                 }
             }
@@ -113,26 +78,77 @@ public class EmptyCell extends Cell{
     
     
     
-    
+    private void invincibleCollision(){
+        if(FindClassType.containsInstance(content, Pacman.class) 
+           && (FindClassType.containsInstance(content, Ghost.class) || FindClassType.containsInstance(content, DrunkGhost.class)) ){
+            for (GameElement content1 : content) {
+                if(content1 instanceof Pacman){
+                    for(GameElement content2: content){
+                            if(content2 instanceof Ghost || content2 instanceof DrunkGhost){
+                                content.remove(content2);
+                                ((EmptyCell)board.getGhostRespawnCell()).getInhoud().add(content2);
+                                
+                                if(content2 instanceof Ghost){
+                                    ((Ghost)content2).setCell((EmptyCell)board.getGhostRespawnCell());
+                                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)content2).points);
+                                }
+                                else if(content2 instanceof DrunkGhost){
+                                    ((DrunkGhost)content2).setCell((EmptyCell)board.getGhostRespawnCell());
+                                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((DrunkGhost)content2).points);
+                                }
+                            }
+                    }
+                }
+            }
+        }
+    }
     
     private void checkItemCollision() {
-        if(FindClassType.containsInstance(inhoud, Pacman.class) && FindClassType.containsInstance(inhoud, Item.class)){
-            for (GameElement inhoud1 : inhoud) {
-                if(inhoud1 instanceof Item){
-                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Item)inhoud1).points );
-                    inhoud.remove(inhoud1);
+        if(FindClassType.containsInstance(content, Pacman.class) && FindClassType.containsInstance(content, Item.class)){
+            for (GameElement content1 : content) {
+                if(content1 instanceof Item){
+                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Item)content1).points );
+                    content.remove(content1);
                     board.setAmountOfPills(board.getAmountOfPills()-1);
-                    if(inhoud1 instanceof SuperPill){
+                    if(content1 instanceof SuperPill){
                         board.getPacman().invincible = true;
-                        for(GameCharacter gc: board.getGhosts()){
-                            if(gc instanceof DrunkGhost){
-                                ((DrunkGhost)gc).flee();
-                            }
-                            if(gc instanceof Ghost){
-                                ((Ghost)gc).flee();
-                            }
-                        }
+                        invincibleTimer(new Timer());
                     }
+                }
+            }
+        }
+    }
+    
+    private void invincibleTimer(Timer t) {
+        setGhostImage();
+        TimerTask task = new TimerTask(){
+            public void run(){
+                t.cancel();
+                board.getPacman().invincible = false;
+                setGhostImage();
+            }
+        };
+        t.scheduleAtFixedRate(task, 5000, 1);
+
+    }
+    private void setGhostImage(){
+        if(board.getPacman().invincible){
+            for(GameCharacter gc: board.getGhosts()){
+                if(gc instanceof Ghost){
+                  ((Ghost)gc).flee();
+                }
+                else if(gc instanceof DrunkGhost){
+                  ((DrunkGhost)gc).flee();
+                }
+            }
+        }
+        else{
+            for(GameCharacter gc: board.getGhosts()){
+                if(gc instanceof Ghost){
+                  ((Ghost)gc).normal();
+                }
+                else if(gc instanceof DrunkGhost){
+                  ((DrunkGhost)gc).normal();
                 }
             }
         }

@@ -16,16 +16,5 @@ public class FindClassType {
             }
         }
         return false;
-    }
-    
-    
-     public static <E> void removeInstance(List<E> list, Class<? extends E> classType) {
-        for (E e : list) {
-            if (classType.isInstance(e)) {
-                list.remove(e);
-            }
-        }
-        
-    }
-    
+    }    
 }

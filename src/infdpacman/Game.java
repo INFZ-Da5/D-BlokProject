@@ -226,9 +226,6 @@ public class Game implements ActionListener {
                     checkForCherrySpawn();
                     seconds+=0.5; 
                     checkIfLevelCompleted();
-                    if(board.getPacman().invincible == true){
-                        invincibleTimer(new Timer());
-                    }
                 }
             }
         };
@@ -236,27 +233,6 @@ public class Game implements ActionListener {
     } 
     
     
-    private void invincibleTimer(Timer t) {
-        TimerTask task = new TimerTask(){
-            public void run(){
-                if(stopTimers){
-                    t.cancel();
-                }
-                else{
-                    
-                    for(GameCharacter gc: board.getGhosts()){
-                    if(gc instanceof Ghost){
-                      ((Ghost)gc).normal();
-                    }
-                    else if(gc instanceof DrunkGhost){
-                      ((DrunkGhost)gc).normal();
-                    }}
-                }
-            }
-        };
-        t.scheduleAtFixedRate(task, 0, 5000);
-    }
-
     private void ghostTimer(Timer t) {
         TimerTask task = new TimerTask(){
             public void run(){ 
