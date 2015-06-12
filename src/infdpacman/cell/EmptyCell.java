@@ -59,7 +59,7 @@ public class EmptyCell extends Cell{
             && (FindClassType.containsInstance(inhoud, Ghost.class) || FindClassType.containsInstance(inhoud, DrunkGhost.class)) ){
             for (GameElement inhoud1 : inhoud) {
                 if(inhoud1 instanceof Pacman){
-                    if(((Pacman)inhoud1).onverslaanbaar == false){
+                    if(((Pacman)inhoud1).invincible == false){
                         ((Pacman)inhoud1).lives -= 1;
                         inhoud.remove((Pacman)inhoud1);
                        
@@ -96,7 +96,7 @@ public class EmptyCell extends Cell{
                     inhoud.remove(inhoud1);
                     board.setAmountOfPills(board.getAmountOfPills()-1);
                     if(inhoud1 instanceof SuperPill){
-                        board.getPacman().onverslaanbaar = true;
+                        board.getPacman().invincible = true;
                         for(GameCharacter gc: board.getGhosts()){
                             if(gc instanceof DrunkGhost){
                                 ((DrunkGhost)gc).flee();

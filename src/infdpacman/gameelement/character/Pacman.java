@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
  */
 public class Pacman extends GameCharacter implements KeyListener {
     public int lives = 3;
-    public boolean onverslaanbaar;
+    public boolean invincible;
     private long lastPressProcessed = 0;
     private Cell cell;
     Direction lastDirection;
@@ -28,11 +28,11 @@ public class Pacman extends GameCharacter implements KeyListener {
     public Pacman(Cell cell){
         super(new ImageIcon("Plaatjes/pacmanleft.png"));
         this.cell = cell;
-        onverslaanbaar = false;
+        invincible = false;
     }
      
     public boolean getOnverslaanbaar(){
-        return onverslaanbaar;
+        return invincible;
     }
 
     public Cell getCell() {
@@ -48,7 +48,7 @@ public class Pacman extends GameCharacter implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        if(System.currentTimeMillis() - lastPressProcessed > 500) {
+        if(System.currentTimeMillis() - lastPressProcessed > 250) {
             switch (ke.getKeyCode())
             {
                 case KeyEvent.VK_DOWN:

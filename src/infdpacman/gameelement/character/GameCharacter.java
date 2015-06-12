@@ -5,7 +5,6 @@ import infdpacman.cell.EmptyCell;
 import infdpacman.cell.Wall;
 import infdpacman.enums.Direction;
 import infdpacman.gameelement.GameElement;
-import infdpacman.view.Board;
 import javax.swing.ImageIcon;
 
 /**
