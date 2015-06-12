@@ -12,16 +12,24 @@ import javax.swing.ImageIcon;
  */
 public class DrunkGhost extends GameCharacter{
     private long lastPressProcessed = 0;
-    ImageIcon normalGhost = new ImageIcon("Plaatjes/drunkghost.png");
-    ImageIcon fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");    
-    ImageIcon currentImage = normalGhost;
-    Direction lastDirection;
-    public int points = 200;
+    private ImageIcon normalGhost = new ImageIcon("Plaatjes/drunkghost.png");
+    private ImageIcon fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");    
+    private ImageIcon currentImage = normalGhost;
+    private Direction lastDirection;
+    private int points = 200;
     private Cell cell;
     
     public DrunkGhost(Cell cell) {
         super(new ImageIcon("Plaatjes/drunkghost.png"));
         this.cell = cell;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
     
     public void flee(){

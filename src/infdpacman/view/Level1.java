@@ -8,7 +8,7 @@ import java.awt.GridLayout;
  * @author Lenovo
  */
 public class Level1 extends Board {
-    int [][] grid = new int[][] {
+    private int [][] grid = new int[][] {
         {0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0, 0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0},
         {0, 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 4, 0, 0, 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 4, 0},
         {0, 4,  0,  0,  0,  0,  4,  0,  0,  0,  0,  0, 4, 0, 0, 4,  0,  0,  0,  0,  0,  4,  0,  0,  0,  0, 4, 0},

@@ -18,7 +18,7 @@ public class Level4 extends Board {
         5 = superpill
         6 = banana
     */
-    int [][] grid = new int[][] {
+    private int [][] grid = new int[][] {
         { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 0, 4, 4, 4, 0, 4, 4, 4, 0 },
         { 0, 5, 4, 4, 3, 4, 4, 5, 0 },

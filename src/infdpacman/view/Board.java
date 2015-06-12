@@ -26,13 +26,11 @@ import javax.swing.JPanel;
  * @author Lenovo
  */
 public abstract class Board extends JPanel  {
-    Pacman pacman;
-    DrunkGhost dg1;
-    DrunkGhost dg2;
-    Ghost g1;
-    Ghost g2;
-    Cell[][] cellgrid;
-    ArrayList<GameCharacter> ghosts;
+    private Pacman pacman;
+    private DrunkGhost dg1;
+    private Ghost g1;
+    private Cell[][] cellgrid;
+    private ArrayList<GameCharacter> ghosts;
 
     private int amountOfPills;
     private int amountOfPillsInGame;

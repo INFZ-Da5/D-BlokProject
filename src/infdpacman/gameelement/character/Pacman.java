@@ -17,13 +17,13 @@ public class Pacman extends GameCharacter implements KeyListener {
     public boolean invincible;
     private long lastPressProcessed = 0;
     private Cell cell;
-    Direction lastDirection;
+    private Direction lastDirection;
 
-    ImageIcon leftImg = new ImageIcon("Plaatjes/pacmanleft.png");
-    ImageIcon rightImg = new ImageIcon("Plaatjes/pacmanright.png");
-    ImageIcon upImg = new ImageIcon("Plaatjes/pacmanup.png");
-    ImageIcon downImg = new ImageIcon("Plaatjes/pacmandown.png");
-    ImageIcon currentImage = leftImg;
+    private ImageIcon leftImg = new ImageIcon("Plaatjes/pacmanleft.png");
+    private ImageIcon rightImg = new ImageIcon("Plaatjes/pacmanright.png");
+    private ImageIcon upImg = new ImageIcon("Plaatjes/pacmanup.png");
+    private ImageIcon downImg = new ImageIcon("Plaatjes/pacmandown.png");
+    private ImageIcon currentImage = leftImg;
     
     public Pacman(Cell cell){
         super(new ImageIcon("Plaatjes/pacmanleft.png"));

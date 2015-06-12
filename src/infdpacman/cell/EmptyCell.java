@@ -23,7 +23,7 @@ import java.util.TimerTask;
  */
 public class EmptyCell extends Cell{
     private List<GameElement> content = new LinkedList<>(); 
-    Board board;
+    private Board board;
     
     public EmptyCell(Board board){
         this.setBackground(Color.BLACK);
@@ -90,11 +90,11 @@ public class EmptyCell extends Cell{
                                 
                                 if(content2 instanceof Ghost){
                                     ((Ghost)content2).setCell((EmptyCell)board.getGhostRespawnCell());
-                                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)content2).points);
+                                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)content2).getPoints());
                                 }
                                 else if(content2 instanceof DrunkGhost){
                                     ((DrunkGhost)content2).setCell((EmptyCell)board.getGhostRespawnCell());
-                                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((DrunkGhost)content2).points);
+                                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((DrunkGhost)content2).getPoints());
                                 }
                             }
                     }

@@ -7,7 +7,7 @@ import java.awt.GridLayout;
  * @author CVD
  */
 public class Level5 extends Board{
-    int [][] grid = new int[][] {
+    private int [][] grid = new int[][] {
         { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
         { 0, 4, 4, 4, 4, 4, 4, 4, 0 },
         { 0, 4, 4, 4, 4, 4, 4, 4, 0 },
