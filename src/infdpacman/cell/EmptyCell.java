@@ -50,7 +50,13 @@ public class EmptyCell extends Cell{
     } 
 
     private void checkCollision() {
+        
+        
+        if(board.getPacman().onverslaanbaar = true){
+            onverslaanbaarCollision();
+        }else{
         checkGhostCollision();
+        }
         checkItemCollision();
     }
 
@@ -59,15 +65,29 @@ public class EmptyCell extends Cell{
             && (FindClassType.containsInstance(inhoud, Ghost.class) || FindClassType.containsInstance(inhoud, DrunkGhost.class)) ){
             for (GameElement inhoud1 : inhoud) {
                 if(inhoud1 instanceof Pacman){
-                    if(((Pacman)inhoud1).onverslaanbaar == false){
+                   
                         ((Pacman)inhoud1).lives -= 1;
                         inhoud.remove((Pacman)inhoud1);
                        
                         ((EmptyCell)board.getPacmanRespawnCell()).getInhoud().add(board.getPacman());
                         board.getPacman().setCell((EmptyCell)board.getPacmanRespawnCell());
-                    }
-                    else{
-                        for(GameElement inhoud2: inhoud){
+                    
+                   
+                }
+            }
+        }
+    }
+    
+    
+    
+    private void onverslaanbaarCollision(){
+
+
+        if(FindClassType.containsInstance(inhoud, Pacman.class) 
+           && (FindClassType.containsInstance(inhoud, Ghost.class) || FindClassType.containsInstance(inhoud, DrunkGhost.class)) ){
+            for (GameElement inhoud1 : inhoud) {
+                if(inhoud1 instanceof Pacman){
+                    for(GameElement inhoud2: inhoud){
                             if(inhoud2 instanceof Ghost || inhoud2 instanceof DrunkGhost){
                                 inhoud.remove(inhoud2);
                                 ((EmptyCell)board.getGhostRespawnCell()).getInhoud().add(inhoud2);
@@ -81,12 +101,15 @@ public class EmptyCell extends Cell{
                                     Game.getPlayer().setScore(Game.getPlayer().getScore() + ((DrunkGhost)inhoud2).points);
                                 }
                             }
-                        }
                     }
                 }
             }
         }
     }
+    
+    
+    
+    
     
     private void checkItemCollision() {
         if(FindClassType.containsInstance(inhoud, Pacman.class) && FindClassType.containsInstance(inhoud, Item.class)){
