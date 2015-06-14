@@ -41,12 +41,12 @@ public class Game implements ActionListener {
     private int ghostTimerMs;
    
     private Winner winner;
-    private static JFrame frame;
-    private static JPanel menu;
-    private static JPanel gameInfo;
-    private static JLabel scoreLabel;
-    private static JLabel lifeLabel;
-    private static JLabel timeLabel;
+    private JFrame frame;
+    private JPanel menu;
+    private JPanel gameInfo;
+    private JLabel scoreLabel;
+    private JLabel lifeLabel;
+    private JLabel timeLabel;
 
     public Game(){
         player = new Player();
