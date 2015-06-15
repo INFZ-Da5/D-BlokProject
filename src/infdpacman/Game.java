@@ -42,7 +42,7 @@ public class Game implements ActionListener {
    
     private Winner winner;
     private JFrame frame;
-    private JPanel menu;
+    private JPanel inGameMenu;
     private JPanel gameInfo;
     private JLabel scoreLabel;
     private JLabel lifeLabel;
@@ -64,7 +64,7 @@ public class Game implements ActionListener {
         frame.setSize(1280,720);
         frame.setLayout(new BorderLayout());
 
-        menu = new JPanel();
+        inGameMenu = new JPanel();
 
         JButton start = new JButton("start");
             start.setActionCommand(Actions.START.name());
@@ -79,10 +79,10 @@ public class Game implements ActionListener {
             reset.setActionCommand(Actions.RESET.name());
             reset.addActionListener(this);
         
-        menu.add(start);
-        menu.add(stop);
-        menu.add(pauze);
-        menu.add(reset);
+        inGameMenu.add(start);
+        inGameMenu.add(stop);
+        inGameMenu.add(pauze);
+        inGameMenu.add(reset);
         
         gameInfo = new JPanel();
         lifeLabel = new JLabel();
@@ -95,7 +95,7 @@ public class Game implements ActionListener {
         gameInfo.setBorder(new TitledBorder(new EtchedBorder()));
         
         JPanel both = new JPanel();
-        both.add(menu);
+        both.add(inGameMenu);
         both.add(gameInfo);
         frame.add(both, BorderLayout.NORTH);
         frame.setVisible(true); 

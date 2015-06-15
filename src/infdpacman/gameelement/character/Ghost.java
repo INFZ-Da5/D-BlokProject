@@ -2,8 +2,11 @@ package infdpacman.gameelement.character;
 
 import infdpacman.cell.Cell;
 import infdpacman.enums.Direction;
+import infdpacman.utilities.dijkstra.DijkstraAlgorithm;
+import infdpacman.view.Board;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.LinkedList;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,11 +18,17 @@ public class Ghost extends GameCharacter {
     private ImageIcon fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");    
     private ImageIcon currentImage = normalGhost;
     private int points = 200;
+    private boolean flee;
     private Cell cell;
+    private Board board;
+    DijkstraAlgorithm dijkstra;
+    LinkedList<Cell> path;
    
-    public Ghost(Cell cell) {
+    public Ghost(Cell cell, Board board) {
         super(new ImageIcon("Plaatjes/ghost.png"));
         this.cell = cell;
+        this.board = board;
+        flee = false;
     }
 
     public int getPoints() {
@@ -32,17 +41,31 @@ public class Ghost extends GameCharacter {
     
     public void flee(){
         currentImage = fleeGhost;
+        flee = true;
     }
     
     public void normal(){
         currentImage = normalGhost;
+        flee = false;
     }
 
     public void moveGhost(){
-        Direction d = Direction.getRandom();
-        move(d, this);
+        calculateRoute();
+        moveGhost(this, path.getFirst());
+        path.removeFirst();
     }
 
+    public void calculateRoute(){
+        dijkstra = new DijkstraAlgorithm(board);
+        dijkstra.execute(cell);
+        if(flee){
+            path = dijkstra.getPath(cell);
+        }
+        else{
+            path = dijkstra.getPath(board.getPacman().getCell());
+        }
+    }
+    
     public Cell getCell() {
         return cell;
     }

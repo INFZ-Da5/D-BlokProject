@@ -11,5 +11,5 @@ package infdpacman.enums;
  * @author Lenovo
  */
 public enum Actions {
-    START,STOP,PAUZE,RESET
+    START,STOP,PAUZE,RESET,SETTINGS,QUIT
 }

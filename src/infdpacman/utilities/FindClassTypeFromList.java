@@ -8,7 +8,7 @@ import java.util.List;
  */
 
 //wat is E, ff opzoeken 
-public class FindClassType {
+public class FindClassTypeFromList {
     public static <E> boolean containsInstance(List<E> list, Class<? extends E> classType) {
         for (E e : list) {
             if (classType.isInstance(e)) {

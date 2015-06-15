@@ -9,6 +9,8 @@ package infdpacman.utilities.dijkstra;
  *
  * @author CVD
  */
+import infdpacman.cell.Cell;
+import infdpacman.view.Board;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,20 +22,20 @@ import java.util.Set;
 
 public class DijkstraAlgorithm {
 
-  private final List<Vertex> nodes;
+  private final List<Cell> nodes;
   private final List<Edge> edges;
-  private Set<Vertex> settledNodes;
-  private Set<Vertex> unSettledNodes;
-  private Map<Vertex, Vertex> predecessors; //voorgangers
-  private Map<Vertex, Integer> distance;
+  private Set<Cell> settledNodes;
+  private Set<Cell> unSettledNodes;
+  private Map<Cell, Cell> predecessors; //voorgangers
+  private Map<Cell, Integer> distance;
 
-  public DijkstraAlgorithm(Graph graph) {
+  public DijkstraAlgorithm(Board graph) {
     // create a copy of the array so that we can operate on this array
-    this.nodes = new ArrayList<>(graph.getVertexes());
+    this.nodes = new ArrayList<>(graph.getNodes());
     this.edges = new ArrayList<>(graph.getEdges());
   }
 
-  public void execute(Vertex source) {
+  public void execute(Cell source) {
     settledNodes = new HashSet<>();
     unSettledNodes = new HashSet<>();
     distance = new HashMap<>();
@@ -41,16 +43,16 @@ public class DijkstraAlgorithm {
     distance.put(source, 0);
     unSettledNodes.add(source);
     while (unSettledNodes.size() > 0) {
-      Vertex node = getMinimum(unSettledNodes);
+      Cell node = getMinimum(unSettledNodes);
       settledNodes.add(node);
       unSettledNodes.remove(node);
       findMinimalDistances(node);
     }
   }
 
-  private void findMinimalDistances(Vertex node) {
-    List<Vertex> adjacentNodes = getNeighbors(node); //aangrenzend
-    for (Vertex target : adjacentNodes) {
+  private void findMinimalDistances(Cell node) {
+    List<Cell> adjacentNodes = getNeighbors(node); //aangrenzend
+    for (Cell target : adjacentNodes) {
       if (getShortestDistance(target) > getShortestDistance(node)
           + getDistance(node, target)) {
         distance.put(target, getShortestDistance(node)
@@ -62,7 +64,7 @@ public class DijkstraAlgorithm {
 
   }
 
-  private int getDistance(Vertex node, Vertex target) {
+  private int getDistance(Cell node, Cell target) {
     for (Edge edge : edges) {
       if (edge.getSource().equals(node)
           && edge.getDestination().equals(target)) {
@@ -72,8 +74,8 @@ public class DijkstraAlgorithm {
     throw new RuntimeException("Should not happen");
   }
 
-  private List<Vertex> getNeighbors(Vertex node) {
-    List<Vertex> neighbors = new ArrayList<>();
+  private List<Cell> getNeighbors(Cell node) {
+    List<Cell> neighbors = new ArrayList<>();
     for (Edge edge : edges) {
       if (edge.getSource().equals(node)
           && !isSettled(edge.getDestination())) {
@@ -83,9 +85,9 @@ public class DijkstraAlgorithm {
     return neighbors;
   }
 
-  private Vertex getMinimum(Set<Vertex> vertexes) {
-    Vertex minimum = null;
-    for (Vertex vertex : vertexes) {
+  private Cell getMinimum(Set<Cell> vertexes) {
+    Cell minimum = null;
+    for (Cell vertex : vertexes) {
       if (minimum == null) {
         minimum = vertex;
       } else {
@@ -97,11 +99,11 @@ public class DijkstraAlgorithm {
     return minimum;
   }
 
-  private boolean isSettled(Vertex vertex) {
+  private boolean isSettled(Cell vertex) {
     return settledNodes.contains(vertex);
   }
 
-  private int getShortestDistance(Vertex destination) {
+  private int getShortestDistance(Cell destination) {
     Integer d = distance.get(destination);
     if (d == null) {
       return Integer.MAX_VALUE;
@@ -114,9 +116,9 @@ public class DijkstraAlgorithm {
    * This method returns the path from the source to the selected target and
    * NULL if no path exists
    */
-  public LinkedList<Vertex> getPath(Vertex target) {
-    LinkedList<Vertex> path = new LinkedList<>();
-    Vertex step = target;
+  public LinkedList<Cell> getPath(Cell target) {
+    LinkedList<Cell> path = new LinkedList<>();
+    Cell step = target;
     // check if a path exists
     if (predecessors.get(step) == null) {
       return null;
@@ -128,6 +130,7 @@ public class DijkstraAlgorithm {
     }
     // Put it into the correct order
     Collections.reverse(path);
+    path.removeFirst();
     return path;
   }
 

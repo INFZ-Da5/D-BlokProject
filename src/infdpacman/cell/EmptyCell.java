@@ -8,7 +8,7 @@ import infdpacman.gameelement.character.Ghost;
 import infdpacman.gameelement.character.Pacman;
 import infdpacman.gameelement.item.Item;
 import infdpacman.gameelement.item.SuperPill;
-import infdpacman.utilities.FindClassType;
+import infdpacman.utilities.FindClassTypeFromList;
 import infdpacman.view.Board;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -61,8 +61,8 @@ public class EmptyCell extends Cell{
     }
 
     private void checkGhostCollision() {
-        if(FindClassType.containsInstance(content, Pacman.class) 
-            && (FindClassType.containsInstance(content, Ghost.class) || FindClassType.containsInstance(content, DrunkGhost.class)) ){
+        if(FindClassTypeFromList.containsInstance(content, Pacman.class) 
+            && (FindClassTypeFromList.containsInstance(content, Ghost.class) || FindClassTypeFromList.containsInstance(content, DrunkGhost.class)) ){
             for (GameElement content1 : content) {
                 if(content1 instanceof Pacman){
                     if(!((Pacman)content1).invincible){
@@ -79,8 +79,8 @@ public class EmptyCell extends Cell{
     
     
     private void invincibleCollision(){
-        if(FindClassType.containsInstance(content, Pacman.class) 
-           && (FindClassType.containsInstance(content, Ghost.class) || FindClassType.containsInstance(content, DrunkGhost.class)) ){
+        if(FindClassTypeFromList.containsInstance(content, Pacman.class) 
+           && (FindClassTypeFromList.containsInstance(content, Ghost.class) || FindClassTypeFromList.containsInstance(content, DrunkGhost.class)) ){
             for (GameElement content1 : content) {
                 if(content1 instanceof Pacman){
                     for(GameElement content2: content){
@@ -104,7 +104,7 @@ public class EmptyCell extends Cell{
     }
     
     private void checkItemCollision() {
-        if(FindClassType.containsInstance(content, Pacman.class) && FindClassType.containsInstance(content, Item.class)){
+        if(FindClassTypeFromList.containsInstance(content, Pacman.class) && FindClassTypeFromList.containsInstance(content, Item.class)){
             for (GameElement content1 : content) {
                 if(content1 instanceof Item){
                     Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Item)content1).points );
