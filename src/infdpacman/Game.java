@@ -184,6 +184,9 @@ public class Game implements ActionListener {
                     else{
                        frame.remove(board);
                        frame.add(winner, BorderLayout.CENTER);
+                       player.setScore(player.getScore() / (int)seconds);
+                       insertHighScore ihs = new insertHighScore(hscores, player.getScore());
+                       ihs.init();
                     }
                 }
             }
@@ -283,10 +286,12 @@ public class Game implements ActionListener {
                 else{
                     if(board.getPacman().lives == 0){
                         //JOptionPane.showMessageDialog(null, "Game Over!", "gameover", JOptionPane.ERROR_MESSAGE);
+                        stopTimers = true;
                         t.cancel();
                         t.purge();
                         frame.remove(board);
                         board = null;
+                        player.setScore(player.getScore() / (int)seconds);
                         insertHighScore ihs = new insertHighScore(hscores, player.getScore());
                         ihs.init();
                         player.setScore(0);
