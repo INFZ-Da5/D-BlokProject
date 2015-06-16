@@ -76,23 +76,19 @@ public class EmptyCell extends Cell{
             }
         }
     }
-    
-    
-    
+        
     private void invincibleCollision(){
         if(FindClassTypeFromList.containsInstance(content, Pacman.class) 
            && (FindClassTypeFromList.containsInstance(content, Ghost.class) || FindClassTypeFromList.containsInstance(content, DrunkGhost.class)) ){
-            GameElement[] a = content.toArray(new GameElement[content.size()]);
+            GameElement[] a = content.toArray(new GameElement[content.size()]); //make an array to prevent ConcurrentModificationException
             for (GameElement c : a) {
                 if(c instanceof Ghost || c instanceof DrunkGhost){
                     a = ArrayUtils.removeElement(a, c);
                     ghostRespawnTimer(new Timer(), c);
                     if(c instanceof Ghost){
-                        ((Ghost)c).setCell((EmptyCell)board.getGhostRespawnCell());
                         Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)c).getPoints());
                     }
                     else if(c instanceof DrunkGhost){
-                        ((DrunkGhost)c).setCell((EmptyCell)board.getGhostRespawnCell());
                         Game.getPlayer().setScore(Game.getPlayer().getScore() + ((DrunkGhost)c).getPoints());
                     }
                 }
@@ -130,7 +126,7 @@ public class EmptyCell extends Cell{
                 setGhostImage();
             }
         };
-        t.scheduleAtFixedRate(task, 20000, 1);
+        t.scheduleAtFixedRate(task, 10000, 1);
 
     }
     
@@ -138,7 +134,12 @@ public class EmptyCell extends Cell{
         TimerTask task = new TimerTask(){
             public void run(){
                 t.cancel();
-                //((EmptyCell)board.getGhostRespawnCell()).getInhoud().add(g); drunkghost respawned gwn?!?!
+                if(g instanceof Ghost){
+                    ((Ghost)g).setCell((EmptyCell)board.getGhostRespawnCell());
+                }
+                else if(g instanceof DrunkGhost){
+                    ((DrunkGhost)g).setCell((EmptyCell)board.getGhostRespawnCell());
+                }
             }
         };
         t.scheduleAtFixedRate(task, 5000, 1);
