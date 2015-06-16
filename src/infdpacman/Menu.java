@@ -13,12 +13,12 @@ import javax.swing.JPanel;
  * @author Lenovo
  */
 public class Menu implements ActionListener {
-    
+public JFrame menu;
     
     
 public void init(){
 
-  JFrame menu = new JFrame();
+   menu = new JFrame();
                 JButton start = new JButton("start");
             start.setActionCommand(Actions.START.name());
             start.addActionListener(this);
@@ -45,7 +45,7 @@ if (e.getActionCommand().equals(Actions.START.name())) {
         }else if(e.getActionCommand().equals(Actions.SETTINGS.name())){            
 
         } else if(e.getActionCommand().equals(Actions.QUIT.name())){
-
+           menu.dispose();
         }
     }
     

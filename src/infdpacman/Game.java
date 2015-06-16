@@ -146,7 +146,9 @@ public class Game implements ActionListener {
                 message = message + score + "\n";
                 }
             }
-           JOptionPane.showMessageDialog(null, message, "gameover", JOptionPane.ERROR_MESSAGE);       
+          // JOptionPane.showMessageDialog(null, message, "gameover", JOptionPane.ERROR_MESSAGE);  
+            
+            
         }
     }
     
@@ -269,11 +271,14 @@ public class Game implements ActionListener {
                 }
                 else{
                     if(board.getPacman().lives == 0){
-                        JOptionPane.showMessageDialog(null, "Game Over!", "gameover", JOptionPane.ERROR_MESSAGE);
+                        //JOptionPane.showMessageDialog(null, "Game Over!", "gameover", JOptionPane.ERROR_MESSAGE);
+                        insertHighScore ihs = new insertHighScore(hscores, player.getScore());
+                        ihs.init();
                         frame.remove(board);
                         board = null;
                         t.cancel();
                         t.purge();
+                        player.setScore(0);
                         frame.validate();
                         frame.repaint();
                     }
