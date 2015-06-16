@@ -12,10 +12,12 @@ import infdpacman.utilities.FindClassTypeFromList;
 import infdpacman.view.Board;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  *
@@ -80,9 +82,10 @@ public class EmptyCell extends Cell{
     private void invincibleCollision(){
         if(FindClassTypeFromList.containsInstance(content, Pacman.class) 
            && (FindClassTypeFromList.containsInstance(content, Ghost.class) || FindClassTypeFromList.containsInstance(content, DrunkGhost.class)) ){
-            for (GameElement c : content) {
+            GameElement[] a = content.toArray(new GameElement[content.size()]);
+            for (GameElement c : a) {
                 if(c instanceof Ghost || c instanceof DrunkGhost){
-                    content.remove(c);
+                    a = ArrayUtils.removeElement(a, c);
                     ghostRespawnTimer(new Timer(), c);
                     if(c instanceof Ghost){
                         ((Ghost)c).setCell((EmptyCell)board.getGhostRespawnCell());
@@ -93,6 +96,10 @@ public class EmptyCell extends Cell{
                         Game.getPlayer().setScore(Game.getPlayer().getScore() + ((DrunkGhost)c).getPoints());
                     }
                 }
+            }
+            content.clear();
+            for(int i = 0; i < a.length; i++){
+                content.add(i, a[i]);
             }
         }
     }

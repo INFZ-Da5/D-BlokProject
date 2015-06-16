@@ -78,24 +78,7 @@ public class Ghost extends GameCharacter {
         }
         dijkstra.execute(cell);
         if(flee){
-            if(board.getNodes().indexOf(board.getPacman().getCell()) > board.getNodes().size()/2){
-                int randomNumber = r.nextInt((board.getNodes().size()/2)+1);
-                while(board.getNodes().get(randomNumber) instanceof Wall){
-                    if(board.getNodes().get(randomNumber) instanceof EmptyCell){
-                        path = dijkstra.getPath(board.getNodes().get(randomNumber));
-                    }
-                    randomNumber = r.nextInt((board.getNodes().size()/2)+1);
-                }
-            }
-            else{
-                int randomNumber = r.nextInt(((board.getNodes().size() - board.getNodes().size()/2))+board.getNodes().size()/2);
-                while(board.getNodes().get(randomNumber) instanceof Wall){
-                    if(board.getNodes().get(randomNumber) instanceof EmptyCell){
-                        path = dijkstra.getPath(board.getNodes().get(randomNumber));
-                    }
-                    randomNumber = r.nextInt(((board.getNodes().size() - board.getNodes().size()/2))+board.getNodes().size()/2);
-                }
-            }
+            path = dijkstra.getPath(board.getPacman().getCell());            
         }
         else{
             path = dijkstra.getPath(board.getPacman().getCell());
