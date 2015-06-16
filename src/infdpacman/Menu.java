@@ -49,7 +49,7 @@ public void init(){
     @Override
     public void actionPerformed(ActionEvent e) {
 if (e.getActionCommand().equals(Actions.START.name())) {
-        game = new Game();
+        game = new Game(this);
         game.initFrame();
         menu.dispose();
         }else if(e.getActionCommand().equals(Actions.SETTINGS.name())){  

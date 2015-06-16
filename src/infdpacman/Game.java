@@ -49,12 +49,14 @@ public class Game implements ActionListener {
     private JLabel scoreLabel;
     private JLabel lifeLabel;
     private JLabel timeLabel;
+    private Menu menu;
 
-    public Game(){
+    public Game(Menu menu){
         player = new Player();
         ghostTimerMs = 500;
         fillLevelList();
         hscores = new ArrayList();
+        this.menu = menu;
     }
     
     public static Player getPlayer(){
@@ -81,15 +83,11 @@ public class Game implements ActionListener {
         JButton reset = new JButton("opnieuw");
             reset.setActionCommand(Actions.RESET.name());
             reset.addActionListener(this);
-        JButton highscores = new JButton("highscores");
-            highscores.setActionCommand(Actions.SCORE.name());
-            highscores.addActionListener(this);
         
         inGameMenu.add(start);
         inGameMenu.add(stop);
         inGameMenu.add(pauze);
         inGameMenu.add(reset);
-        inGameMenu.add(highscores);
         
         gameInfo = new JPanel();
         lifeLabel = new JLabel();
@@ -123,7 +121,6 @@ public class Game implements ActionListener {
             stopTimers = true;
             if(board != null){
             frame.remove(board);
-            }
             levels.clear();
             gameStarted = false;
             fillLevelList(); //reset levels
@@ -132,6 +129,9 @@ public class Game implements ActionListener {
             player.setScore(0);
             frame.validate();
             frame.repaint();
+            }else{ frame.dispose();
+                 
+                    menu.init();}
         } else if(e.getActionCommand().equals(Actions.PAUZE.name())){
             stopTimers = true;
             board = null;
@@ -148,16 +148,6 @@ public class Game implements ActionListener {
             setLevel();
             frame.validate();
             frame.repaint();
-        }else if(e.getActionCommand().equals(Actions.SCORE.name())){
-          String message = "Highscores:\n";
-            if(!hscores.isEmpty()){
-                for(String score: hscores){
-                message = message + "" + score + "\n";
-                }
-            }
-           JOptionPane.showMessageDialog(null, message, "scorelist", JOptionPane.ERROR_MESSAGE);  
-            
-            
         }
     }
     
