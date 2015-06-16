@@ -62,6 +62,7 @@ if (e.getActionCommand().equals(Actions.START.name())) {
             
             Settings settings = new Settings(this);
             settings.init();
+            menu.dispose();
             
         }else if(e.getActionCommand().equals(Actions.SCORE.name())){ 
              String message = "Highscores:\n";

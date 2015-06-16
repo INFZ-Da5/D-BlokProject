@@ -61,7 +61,11 @@ public class Settings implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
   if (e.getActionCommand().equals(Actions.LEVEL.name())) {
-      menu.game.setBoard(menu.game.getLevels().get(Integer.parseInt(tfLC.getText()) - 1));
+      int level = (Integer.parseInt(tfLC.getText()) - 2);
+      if(level < 0 || level > 3){
+       menu.game.setBoard(null);    
+      }else{      
+      menu.game.setBoard(menu.game.getLevels().get(level));}
         }else if (e.getActionCommand().equals(Actions.STOP.name())) {
        frame.dispose();
        menu.init();
