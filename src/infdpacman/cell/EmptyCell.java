@@ -65,12 +65,11 @@ public class EmptyCell extends Cell{
             && (FindClassTypeFromList.containsInstance(content, Ghost.class) || FindClassTypeFromList.containsInstance(content, DrunkGhost.class)) ){
             for (GameElement content1 : content) {
                 if(content1 instanceof Pacman){
-                    if(!((Pacman)content1).invincible){
-                        ((Pacman)content1).lives -= 1;
-                        content.remove(content1);
-                        ((EmptyCell)board.getPacmanRespawnCell()).getInhoud().add(board.getPacman());
-                        board.getPacman().setCell((EmptyCell)board.getPacmanRespawnCell());
-                    }
+                    ((Pacman)content1).lives -= 1;
+                    content.remove(content1);
+                    ((EmptyCell)board.getPacmanRespawnCell()).getInhoud().add(board.getPacman());
+                    board.getPacman().setCell((EmptyCell)board.getPacmanRespawnCell());
+                    break;
                 }
             }
         }
@@ -81,21 +80,17 @@ public class EmptyCell extends Cell{
     private void invincibleCollision(){
         if(FindClassTypeFromList.containsInstance(content, Pacman.class) 
            && (FindClassTypeFromList.containsInstance(content, Ghost.class) || FindClassTypeFromList.containsInstance(content, DrunkGhost.class)) ){
-            for (GameElement content1 : content) {
-                if(content1 instanceof Pacman){
-                    for(GameElement content2: content){
-                            if(content2 instanceof Ghost || content2 instanceof DrunkGhost){
-                                content.remove(content2);
-                                ghostRespawnTimer(new Timer(), content2);
-                                if(content2 instanceof Ghost){
-                                    ((Ghost)content2).setCell((EmptyCell)board.getGhostRespawnCell());
-                                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)content2).getPoints());
-                                }
-                                else if(content2 instanceof DrunkGhost){
-                                    ((DrunkGhost)content2).setCell((EmptyCell)board.getGhostRespawnCell());
-                                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((DrunkGhost)content2).getPoints());
-                                }
-                            }
+            for (GameElement c : content) {
+                if(c instanceof Ghost || c instanceof DrunkGhost){
+                    content.remove(c);
+                    ghostRespawnTimer(new Timer(), c);
+                    if(c instanceof Ghost){
+                        ((Ghost)c).setCell((EmptyCell)board.getGhostRespawnCell());
+                        Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)c).getPoints());
+                    }
+                    else if(c instanceof DrunkGhost){
+                        ((DrunkGhost)c).setCell((EmptyCell)board.getGhostRespawnCell());
+                        Game.getPlayer().setScore(Game.getPlayer().getScore() + ((DrunkGhost)c).getPoints());
                     }
                 }
             }
@@ -113,6 +108,7 @@ public class EmptyCell extends Cell{
                         board.getPacman().invincible = true;
                         invincibleTimer(new Timer());
                     }
+                    break;
                 }
             }
         }
@@ -127,16 +123,15 @@ public class EmptyCell extends Cell{
                 setGhostImage();
             }
         };
-        t.scheduleAtFixedRate(task, 10000, 1);
+        t.scheduleAtFixedRate(task, 20000, 1);
 
     }
     
     private void ghostRespawnTimer(Timer t, GameElement g) {
-        setGhostImage();
         TimerTask task = new TimerTask(){
             public void run(){
                 t.cancel();
-                ((EmptyCell)board.getGhostRespawnCell()).getInhoud().add(g);
+                //((EmptyCell)board.getGhostRespawnCell()).getInhoud().add(g); drunkghost respawned gwn?!?!
             }
         };
         t.scheduleAtFixedRate(task, 5000, 1);

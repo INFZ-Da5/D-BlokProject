@@ -3,7 +3,6 @@ package infdpacman.gameelement.character;
 import infdpacman.cell.Cell;
 import infdpacman.cell.EmptyCell;
 import infdpacman.cell.Wall;
-import infdpacman.enums.Direction;
 import infdpacman.utilities.dijkstra.DijkstraAlgorithm;
 import infdpacman.view.Board;
 import java.awt.Graphics;
@@ -59,14 +58,22 @@ public class Ghost extends GameCharacter {
     }
 
     public void moveGhost(){
-        calculateRoute();
-        moveGhost(this, path.getFirst());
-        path.removeFirst();
+        if(path != null){
+            if(!path.isEmpty()){
+                moveGhost(this, path.getFirst());
+                path.removeFirst();
+            }
+        }
+        else{
+            calculateRoute();
+        }
     }
 
     public void calculateRoute(){
+        //dijkstra geeft de error
         if(firstStep){
             dijkstra = new DijkstraAlgorithm(board);
+            firstStep = false;
         }
         dijkstra.execute(cell);
         if(flee){
@@ -80,12 +87,12 @@ public class Ghost extends GameCharacter {
                 }
             }
             else{
-                int randomNumber = r.nextInt(((board.getNodes().size() - board.getNodes().size()/2)+1)+board.getNodes().size()/2);
+                int randomNumber = r.nextInt(((board.getNodes().size() - board.getNodes().size()/2))+board.getNodes().size()/2);
                 while(board.getNodes().get(randomNumber) instanceof Wall){
                     if(board.getNodes().get(randomNumber) instanceof EmptyCell){
                         path = dijkstra.getPath(board.getNodes().get(randomNumber));
                     }
-                    randomNumber = r.nextInt(((board.getNodes().size() - board.getNodes().size()/2)+1)+board.getNodes().size()/2);
+                    randomNumber = r.nextInt(((board.getNodes().size() - board.getNodes().size()/2))+board.getNodes().size()/2);
                 }
             }
         }

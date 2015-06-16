@@ -35,8 +35,10 @@ public abstract class GameCharacter extends GameElement{
     
     public void moveGhost(Ghost character, Cell nextCell){
         Cell cell = character.getCell();
-        ((EmptyCell)cell).getInhoud().remove(this);
-        ((EmptyCell)nextCell).getInhoud().add(this);
-        character.setCell(nextCell);
+        if(cell != nextCell){
+            ((EmptyCell)cell).getInhoud().remove(this);
+            ((EmptyCell)nextCell).getInhoud().add(this);
+            character.setCell(nextCell);
+        }
     }
 }
