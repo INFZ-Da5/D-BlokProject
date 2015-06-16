@@ -77,7 +77,7 @@ public class Game implements ActionListener {
             pauze.addActionListener(this);
         JButton reset = new JButton("opnieuw");
             reset.setActionCommand(Actions.RESET.name());
-            reset.addActionListener(this);
+//            reset.addActionListener(this);
         
         inGameMenu.add(start);
         inGameMenu.add(stop);

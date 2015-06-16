@@ -128,7 +128,7 @@ public class EmptyCell extends Cell{
                 setGhostImage();
             }
         };
-        t.scheduleAtFixedRate(task, 5000, 1);
+        t.scheduleAtFixedRate(task, 10000, 1);
 
     }
     private void setGhostImage(){
@@ -145,7 +145,7 @@ public class EmptyCell extends Cell{
         else{
             for(GameCharacter gc: board.getGhosts()){
                 if(gc instanceof Ghost){
-                  ((Ghost)gc).normal();
+                  ((Ghost)gc).attack();
                 }
                 else if(gc instanceof DrunkGhost){
                   ((DrunkGhost)gc).normal();
