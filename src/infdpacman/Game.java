@@ -30,7 +30,7 @@ import javax.swing.border.TitledBorder;
  * @author Lenovo
  */
 public class Game implements ActionListener {
-    private ArrayList<Board> levels;
+    public ArrayList<Board> levels;
     private Board board;
     private static Player player;
     public ArrayList<String> hscores;
@@ -57,6 +57,7 @@ public class Game implements ActionListener {
         fillLevelList();
         hscores = new ArrayList();
         this.menu = menu;
+        
     }
     
     public static Player getPlayer(){
@@ -106,6 +107,17 @@ public class Game implements ActionListener {
         frame.setVisible(true); 
     }
     
+    public void setBoard(Board board){
+    
+    this.board = board;
+    
+    }
+    
+    public ArrayList<Board> getLevels(){
+    
+    return levels;
+    
+    }
    
 
     @Override

@@ -2,6 +2,7 @@
 package infdpacman;
 
 import infdpacman.enums.Actions;
+import infdpacman.view.Settings;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,12 +18,17 @@ import javax.swing.JPanel;
 public class Menu implements ActionListener {
 public JFrame menu;
 public Game game;
+
+
+public Menu(){
+   game = new Game(this);
+
+}
     
     
 public void init(){
-   
    menu = new JFrame();
-   menu.setLayout(new GridLayout(3,0));
+   menu.setLayout(new GridLayout(4,0));
    menu.setSize(200, 200);
                 JButton start = new JButton("start");
             start.setActionCommand(Actions.START.name());
@@ -49,10 +55,13 @@ public void init(){
     @Override
     public void actionPerformed(ActionEvent e) {
 if (e.getActionCommand().equals(Actions.START.name())) {
-        game = new Game(this);
+        
         game.initFrame();
         menu.dispose();
-        }else if(e.getActionCommand().equals(Actions.SETTINGS.name())){  
+        }else if(e.getActionCommand().equals(Actions.SETTINGS.name())){
+            
+            Settings settings = new Settings(this);
+            settings.init();
             
         }else if(e.getActionCommand().equals(Actions.SCORE.name())){ 
              String message = "Highscores:\n";
