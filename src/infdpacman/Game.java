@@ -39,6 +39,7 @@ public class Game implements ActionListener {
     private boolean cherrySpawned;
     private boolean timerStarted = false;
     private boolean stopTimers = false;
+    private boolean gameStarted = false;
     private int ghostTimerMs;
    
     private Winner winner;
@@ -112,7 +113,10 @@ public class Game implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(Actions.START.name())) {
-            setLevel();
+            if(!gameStarted){
+                setLevel();
+                gameStarted = true;
+            }
             frame.validate();
             frame.repaint();
         }else if(e.getActionCommand().equals(Actions.STOP.name())){            
@@ -121,6 +125,7 @@ public class Game implements ActionListener {
             frame.remove(board);
             }
             levels.clear();
+            gameStarted = false;
             fillLevelList(); //reset levels
             board = null;          
             seconds = 0;
@@ -128,11 +133,13 @@ public class Game implements ActionListener {
             frame.validate();
             frame.repaint();
         } else if(e.getActionCommand().equals(Actions.PAUZE.name())){
-           stopTimers = true;
-           board = null;
+            stopTimers = true;
+            board = null;
+            gameStarted = false;
         }else if(e.getActionCommand().equals(Actions.RESET.name())){
             stopTimers = true;
             frame.remove(board);
+            gameStarted = false;
             board = null; 
             levels.clear();
             fillLevelList();

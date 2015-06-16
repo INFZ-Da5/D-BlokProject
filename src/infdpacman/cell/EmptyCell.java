@@ -86,8 +86,7 @@ public class EmptyCell extends Cell{
                     for(GameElement content2: content){
                             if(content2 instanceof Ghost || content2 instanceof DrunkGhost){
                                 content.remove(content2);
-                                ((EmptyCell)board.getGhostRespawnCell()).getInhoud().add(content2);
-                                
+                                ghostRespawnTimer(new Timer(), content2);
                                 if(content2 instanceof Ghost){
                                     ((Ghost)content2).setCell((EmptyCell)board.getGhostRespawnCell());
                                     Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)content2).getPoints());
@@ -131,6 +130,18 @@ public class EmptyCell extends Cell{
         t.scheduleAtFixedRate(task, 10000, 1);
 
     }
+    
+    private void ghostRespawnTimer(Timer t, GameElement g) {
+        setGhostImage();
+        TimerTask task = new TimerTask(){
+            public void run(){
+                t.cancel();
+                ((EmptyCell)board.getGhostRespawnCell()).getInhoud().add(g);
+            }
+        };
+        t.scheduleAtFixedRate(task, 5000, 1);
+    }
+    
     private void setGhostImage(){
         if(board.getPacman().invincible){
             for(GameCharacter gc: board.getGhosts()){
