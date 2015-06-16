@@ -58,6 +58,7 @@ public class Ghost extends GameCharacter {
     }
 
     public void moveGhost(){
+        calculateRoute();
         if(path != null){
             if(!path.isEmpty()){
                 moveGhost(this, path.getFirst());
