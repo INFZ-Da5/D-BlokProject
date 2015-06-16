@@ -33,6 +33,7 @@ public class Game implements ActionListener {
     private ArrayList<Board> levels;
     private Board board;
     private static Player player;
+    public ArrayList<Integer> hscores;
     
     private double seconds = 0;
     private boolean cherrySpawned;
@@ -52,6 +53,7 @@ public class Game implements ActionListener {
         player = new Player();
         ghostTimerMs = 500;
         fillLevelList();
+        hscores = new ArrayList();
     }
     
     public static Player getPlayer(){
@@ -78,11 +80,15 @@ public class Game implements ActionListener {
         JButton reset = new JButton("opnieuw");
             reset.setActionCommand(Actions.RESET.name());
             reset.addActionListener(this);
+        JButton highscores = new JButton("highscores");
+            highscores.setActionCommand(Actions.SCORE.name());
+            highscores.addActionListener(this);
         
         inGameMenu.add(start);
         inGameMenu.add(stop);
         inGameMenu.add(pauze);
         inGameMenu.add(reset);
+        inGameMenu.add(highscores);
         
         gameInfo = new JPanel();
         lifeLabel = new JLabel();
@@ -133,6 +139,14 @@ public class Game implements ActionListener {
             setLevel();
             frame.validate();
             frame.repaint();
+        }else if(e.getActionCommand().equals(Actions.SCORE.name())){
+          String message = "Highscores:\n";
+            if(!hscores.isEmpty()){
+                for(int score: hscores){
+                message = message + score + "\n";
+                }
+            }
+           JOptionPane.showMessageDialog(null, message, "gameover", JOptionPane.ERROR_MESSAGE);       
         }
     }
     
