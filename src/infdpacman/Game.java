@@ -33,7 +33,7 @@ public class Game implements ActionListener {
     private ArrayList<Board> levels;
     private Board board;
     private static Player player;
-    public ArrayList<Integer> hscores;
+    public ArrayList<String> hscores;
     
     private double seconds = 0;
     private boolean cherrySpawned;
@@ -117,7 +117,9 @@ public class Game implements ActionListener {
             frame.repaint();
         }else if(e.getActionCommand().equals(Actions.STOP.name())){            
             stopTimers = true;
+            if(board != null){
             frame.remove(board);
+            }
             levels.clear();
             fillLevelList(); //reset levels
             board = null;          
@@ -142,11 +144,11 @@ public class Game implements ActionListener {
         }else if(e.getActionCommand().equals(Actions.SCORE.name())){
           String message = "Highscores:\n";
             if(!hscores.isEmpty()){
-                for(int score: hscores){
-                message = message + score + "\n";
+                for(String score: hscores){
+                message = message + "" + score + "\n";
                 }
             }
-          // JOptionPane.showMessageDialog(null, message, "gameover", JOptionPane.ERROR_MESSAGE);  
+           JOptionPane.showMessageDialog(null, message, "scorelist", JOptionPane.ERROR_MESSAGE);  
             
             
         }
@@ -272,12 +274,12 @@ public class Game implements ActionListener {
                 else{
                     if(board.getPacman().lives == 0){
                         //JOptionPane.showMessageDialog(null, "Game Over!", "gameover", JOptionPane.ERROR_MESSAGE);
-                        insertHighScore ihs = new insertHighScore(hscores, player.getScore());
-                        ihs.init();
-                        frame.remove(board);
-                        board = null;
                         t.cancel();
                         t.purge();
+                        frame.remove(board);
+                        board = null;
+                        insertHighScore ihs = new insertHighScore(hscores, player.getScore());
+                        ihs.init();
                         player.setScore(0);
                         frame.validate();
                         frame.repaint();

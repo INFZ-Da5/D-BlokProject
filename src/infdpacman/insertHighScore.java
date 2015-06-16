@@ -1,6 +1,7 @@
 
 package infdpacman;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class insertHighScore implements ActionListener {
     public ArrayList hscore;
     public int score;
     public JTextField TFname;
+    public JFrame submitscore;
     
     public insertHighScore(ArrayList hscore, int score){
     
@@ -28,16 +30,17 @@ public class insertHighScore implements ActionListener {
     public void init(){
     
     
-    JFrame submitscore = new JFrame();
-    
+    submitscore = new JFrame();
+    submitscore.setLayout(new GridLayout(0,2));
     TFname = new JTextField();
-    JButton submit = new JButton();
+    JButton submit = new JButton("opslaan");
+    submit.addActionListener(this);
     
     submitscore.add(TFname);
     submitscore.add(submit);
     
     
-    
+    submitscore.setVisible(true);
     
     }
     
@@ -51,6 +54,7 @@ public class insertHighScore implements ActionListener {
     public void actionPerformed(ActionEvent e) {
        hscore.add(score + "" + TFname.getText() );
        Collections.sort(hscore);
+       submitscore.dispose();
     }
     
 }

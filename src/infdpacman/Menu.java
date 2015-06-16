@@ -2,6 +2,7 @@
 package infdpacman;
 
 import infdpacman.enums.Actions;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -19,6 +20,8 @@ public JFrame menu;
 public void init(){
 
    menu = new JFrame();
+   menu.setLayout(new GridLayout(3,0));
+   menu.setSize(200, 200);
                 JButton start = new JButton("start");
             start.setActionCommand(Actions.START.name());
             start.addActionListener(this);
@@ -29,11 +32,11 @@ public void init(){
             quit.setActionCommand(Actions.QUIT.name());
             quit.addActionListener(this);
             
-           JPanel panel = new JPanel(); 
-            panel.add(start);
-            panel.add(settings);
-            panel.add(quit);
-            menu.add(panel);
+
+            menu.add(start);
+            menu.add(settings);
+            menu.add(quit);
+           
         menu.setVisible(true);
         }
 
@@ -42,6 +45,7 @@ public void init(){
 if (e.getActionCommand().equals(Actions.START.name())) {
         Game game = new Game();
         game.initFrame();
+        menu.dispose();
         }else if(e.getActionCommand().equals(Actions.SETTINGS.name())){            
 
         } else if(e.getActionCommand().equals(Actions.QUIT.name())){
