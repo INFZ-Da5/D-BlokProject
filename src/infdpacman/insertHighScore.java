@@ -15,10 +15,10 @@ import javax.swing.JTextField;
  * @author Lenovo
  */
 public class insertHighScore implements ActionListener {
-    public ArrayList hscore;
-    public int score;
-    public JTextField TFname;
-    public JFrame submitscore;
+    private ArrayList hscore;
+    private int score;
+    private JTextField TFname;
+    private JFrame submitscore;
     
     public insertHighScore(ArrayList hscore, int score){
     

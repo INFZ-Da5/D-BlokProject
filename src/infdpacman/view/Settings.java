@@ -1,12 +1,10 @@
 package infdpacman.view;
 
-import infdpacman.Game;
 import infdpacman.Menu;
 import infdpacman.enums.Actions;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,10 +16,9 @@ import javax.swing.JTextField;
  */
 public class Settings implements ActionListener {
     
- public JFrame frame;
- public JTextField tfLC;
- public Menu menu;
- public ArrayList<Board> levels;
+ private JFrame frame;
+ private JTextField tfLC;
+ private Menu menu;
  
  public Settings(Menu menu){
  
@@ -61,7 +58,7 @@ public class Settings implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
   if (e.getActionCommand().equals(Actions.LEVEL.name())) {
-      int level = (Integer.parseInt(tfLC.getText()) - 2);
+      int level = (Integer.parseInt(tfLC.getText()) - 2); // -2 omdat 1: bij size altijd -1 en 2: Setlevel in Game laadt level na board 
       if(level < 0 || level > 3){
        menu.game.setBoard(null);    
       }else{      
