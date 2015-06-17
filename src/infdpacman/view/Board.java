@@ -7,7 +7,7 @@ import infdpacman.enums.Direction;
 import infdpacman.gameelement.GameElement;
 import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.GameCharacter;
-import infdpacman.gameelement.character.Ghost;
+import infdpacman.gameelement.character.SmartGhost;
 import infdpacman.gameelement.character.Pacman;
 import infdpacman.gameelement.item.Banana;
 import infdpacman.gameelement.item.Cherry;
@@ -34,7 +34,7 @@ import javax.swing.JPanel;
 public abstract class Board extends JPanel  {
     private Pacman pacman;
     private DrunkGhost dg1;
-    private Ghost g1;
+    private SmartGhost g1;
     private Cell[][] cellgrid;
     private ArrayList<GameCharacter> ghosts;
     private ArrayList<Edge> edges;
@@ -83,8 +83,8 @@ public abstract class Board extends JPanel  {
 
                     switch(grid[row][col]){
                         case 1: inhoud.add(pacman = new Pacman(cell)); this.addKeyListener(pacman); pacmanRespawnCell = cell; break;
-                        case 2: inhoud.add(g1 = new Ghost(cell, this)); ghosts.add(g1); GhostRespawnCell = cell;break;
-                        case 3: inhoud.add(dg1 = new DrunkGhost(cell)); ghosts.add(dg1);break;
+                        case 2: inhoud.add(g1 = new SmartGhost(cell, this)); ghosts.add(g1); GhostRespawnCell = cell;break;
+                        case 3: inhoud.add(dg1 = new DrunkGhost(cell, this)); ghosts.add(dg1);break;
                         case 4: inhoud.add(new Pill());break;
                         case 5: inhoud.add(new SuperPill()); break;
                         case 6: inhoud.add(new Banana()); break;

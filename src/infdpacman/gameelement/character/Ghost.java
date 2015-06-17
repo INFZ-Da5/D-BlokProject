@@ -1,65 +1,52 @@
 package infdpacman.gameelement.character;
 
 import infdpacman.cell.Cell;
-import infdpacman.cell.EmptyCell;
-import infdpacman.cell.Wall;
 import infdpacman.utilities.dijkstra.DijkstraAlgorithm;
 import infdpacman.view.Board;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.util.LinkedList;
 import java.util.Random;
 import javax.swing.ImageIcon;
 
 /**
  *
- * @author Lenovo
+ * @author CVD
  */
-public class Ghost extends GameCharacter {
-    private ImageIcon normalGhost;
-    private ImageIcon fleeGhost;    
-    private ImageIcon currentImage;
-    private int points = 200;
-    private boolean flee;
+public abstract class Ghost extends GameCharacter{
+    protected ImageIcon normalGhost;
+    private final ImageIcon fleeGhost;    
+    protected ImageIcon currentImage;
+    private final int points = 200;
+    protected boolean flee;
     private boolean firstStep;
     private Cell cell;
-    private Board board;
-    private DijkstraAlgorithm dijkstra;
-    private LinkedList<Cell> path;
-    private Random r;
-
+    private static Board board;
+    protected DijkstraAlgorithm dijkstra;
+    protected LinkedList<Cell> path;
+    private final Random r;
     
-   
-    public Ghost(Cell cell, Board board) {
-        super(new ImageIcon("Plaatjes/ghost.png"));
-        fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");
-        normalGhost = new ImageIcon("Plaatjes/ghost.png");
-        currentImage = normalGhost;
-        this.cell = cell;
+    public Ghost(ImageIcon i, Board board) {
+        super(i);
         this.board = board;
+        fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");
         flee = false;
         r = new Random();
         firstStep = true;
     }
 
+    @Override
+    public abstract Cell getCell();
+    @Override
+    public abstract void setCell(Cell cell);
+
     public int getPoints() {
         return points;
     }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-    
+        
     public void flee(){
-        currentImage = fleeGhost;
         flee = true;
+        currentImage = fleeGhost;
     }
     
-    public void attack(){
-        currentImage = normalGhost;
-        flee = false;
-    }
-
     public void moveGhost(){
         calculateRoute();
         if(path != null){
@@ -70,56 +57,29 @@ public class Ghost extends GameCharacter {
         }
         else{
             calculateRoute();
-        }
+        }                 
     }
-
+        
     public void calculateRoute(){
-        //dijkstra geeft de error
         if(firstStep){
             dijkstra = new DijkstraAlgorithm(board);
             firstStep = false;
         }
-        
         dijkstra.execute(cell);
         if(flee){
-                        if(board.getNodes().indexOf(board.getPacman().getCell()) > board.getNodes().size()/2){
-                int randomNumber = r.nextInt((board.getNodes().size()/2)+1);
-                while(board.getNodes().get(randomNumber) instanceof EmptyCell){
-                    if(board.getNodes().get(randomNumber) instanceof EmptyCell){
-                        path = dijkstra.getPath(board.getNodes().get(randomNumber));
-                    }
-                    randomNumber = r.nextInt((board.getNodes().size()/2)+1);
-                }
+            if(board.getNodes().indexOf(board.getPacman().getCell()) > board.getNodes().size()/2){
+                int randomNumber = r.nextInt((board.getNodes().size()/2));
+                path = dijkstra.getPath(board.getNodes().get(randomNumber));
             }
             else{
-                int randomNumber = r.nextInt((board.getNodes().size()/2)-1);
-                while(board.getNodes().get(randomNumber) instanceof EmptyCell){
-                    if(board.getNodes().get(randomNumber) instanceof EmptyCell){
-                        path = dijkstra.getPath(board.getNodes().get(randomNumber));
-                    }
-                    randomNumber = r.nextInt((board.getNodes().size()/2)-1);
-                }
-            }           
+                int randomNumber = r.nextInt((board.getNodes().size() - board.getNodes().size()/2)+1)+board.getNodes().size()/2;
+                path = dijkstra.getPath(board.getNodes().get(randomNumber));
+            }  
         }
-        
-        if(flee == false){
-          
+        else{
             path = dijkstra.getPath(board.getPacman().getCell());
         }
     }
     
-    public Cell getCell() {
-        return cell;
-    }
-
-    public void setCell(Cell cell) {
-        this.cell = cell;
-    }
-    
-    @Override
-    public void draw(Graphics g,int width, int height) {
-        ImageIcon i = currentImage;
-        Image img = i.getImage();
-        g.drawImage(img, 0,0, width,height, null);    
-    }
+    public abstract void attack();
 }

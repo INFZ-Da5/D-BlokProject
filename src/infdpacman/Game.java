@@ -1,7 +1,6 @@
 package infdpacman;
 
 import infdpacman.enums.Actions;
-import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.GameCharacter;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.view.Board;
@@ -59,7 +58,6 @@ public class Game implements ActionListener {
         fillLevelList();
         hScores = new HashMap();
         this.menu = menu;
-        board = levels.get(3);
     }
     
     public static Player getPlayer(){
@@ -225,12 +223,7 @@ public class Game implements ActionListener {
     
     private void moveGhosts(){
         for(GameCharacter g : (ArrayList<GameCharacter>)board.getGhosts()){
-            if(g instanceof DrunkGhost){
-                ((DrunkGhost)g).moveGhost();
-            }
-            else{
-                ((Ghost)g).moveGhost();
-            }
+            ((Ghost)g).moveGhost();
         }
     }    
     
@@ -282,7 +275,7 @@ public class Game implements ActionListener {
                     t.cancel();
                 }
                 else{
-                    //moveGhosts();
+                    moveGhosts();
                 }
             }
         };
