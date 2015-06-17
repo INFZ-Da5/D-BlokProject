@@ -7,6 +7,7 @@ import infdpacman.enums.Direction;
 import infdpacman.gameelement.GameElement;
 import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.GameCharacter;
+import infdpacman.gameelement.character.Ghost;
 import infdpacman.gameelement.character.SmartGhost;
 import infdpacman.gameelement.character.Pacman;
 import infdpacman.gameelement.item.Banana;
@@ -45,7 +46,7 @@ public abstract class Board extends JPanel  {
     private boolean cherrySpawned;
     private boolean bananaSpawned;
     private boolean stopTimer;
-    private Cell GhostRespawnCell;
+    private Cell ghostRespawnCell;
     private Cell pacmanRespawnCell;
 
     public Board(){
@@ -60,7 +61,7 @@ public abstract class Board extends JPanel  {
     }
     
     public Cell getGhostRespawnCell() {
-        return GhostRespawnCell;    
+        return ghostRespawnCell;    
     }
 
     public Cell[][] getCellgrid() {
@@ -83,7 +84,7 @@ public abstract class Board extends JPanel  {
 
                     switch(grid[row][col]){
                         case 1: inhoud.add(pacman = new Pacman(cell)); this.addKeyListener(pacman); pacmanRespawnCell = cell; break;
-                        case 2: inhoud.add(g1 = new SmartGhost(cell, this)); ghosts.add(g1); GhostRespawnCell = cell;break;
+                        case 2: inhoud.add(g1 = new SmartGhost(cell, this)); ghosts.add(g1); ghostRespawnCell = cell;break;
                         case 3: inhoud.add(dg1 = new DrunkGhost(cell, this)); ghosts.add(dg1);break;
                         case 4: inhoud.add(new Pill());break;
                         case 5: inhoud.add(new SuperPill()); break;
@@ -260,6 +261,30 @@ public abstract class Board extends JPanel  {
 
     private void setNodes() {
         nodes = twoDArrayToList(cellgrid);
+    }
+    
+    public void ghostRespawnTimer(Timer t, GameElement g) {
+        TimerTask task = new TimerTask(){
+            public void run(){
+                t.cancel();
+                //optie 1:
+                ((Ghost)g).attack();
+                ((Ghost)g).setCell(ghostRespawnCell);
+                ghosts.add((GameCharacter)g);
+                
+                //optie 2:
+                /*
+                if(g instanceof SmartGhost){
+                    Ghost ghost = new SmartGhost(board.getGhostRespawnCell(), board);
+                    board.getGhosts().add(ghost);
+                }
+                else{
+                    Ghost ghost = new DrunkGhost(board.getGhostRespawnCell(), board);   
+                    board.getGhosts().add(ghost);
+                }*/
+            }
+        };
+        t.scheduleAtFixedRate(task, 5000, 1);
     }
     
 }
