@@ -91,15 +91,20 @@ public class Settings implements ActionListener {
       if(livesbox.getSelectedItem() != livesbox.getItemAt(0)){
       menu.game.setPrefLives((Integer)livesbox.getSelectedItem());
       }
+      else if(livesbox.getSelectedItem() == null){
+        menu.game.setPrefLives(3);
+      }
       
       if(arrows.isSelected()){     
       menu.game.setKeys(true);
       }
       
       if(wasd.isSelected()){
+        menu.game.setKeys(false);
+      }
       
-      menu.game.setKeys(false);
-      
+      else if(!(wasd.isSelected() && arrows.isSelected())){
+            menu.game.setKeys(true);
       }
        frame.dispose();
        menu.init();  

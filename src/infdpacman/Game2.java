@@ -30,7 +30,7 @@ import javax.swing.border.TitledBorder;
  *
  * @author Lenovo
  */
-public class Game implements ActionListener {
+public class Game2 implements ActionListener {
     public ArrayList<Board> levels;
     private Board board;
     private static Player player;
@@ -41,7 +41,7 @@ public class Game implements ActionListener {
     private boolean gameStarted;
     private boolean gameWon;
     private boolean startedFromFirstLevel;
-    private boolean keys = true;
+    private boolean keys;
 
     private double seconds = 0;
     private int ghostTimerMs;
@@ -56,7 +56,7 @@ public class Game implements ActionListener {
     private JLabel timeLabel;
     private Menu menu;
 
-    public Game(Menu menu){
+    public Game2(Menu menu){
         player = new Player();
         ghostTimerMs = 600;
         extraPoints = 10000;
@@ -68,7 +68,6 @@ public class Game implements ActionListener {
         stopTimers = false;
         gameStarted = false;
         gameWon = false;
-   
     }
     public void setKeys(boolean keys){
     

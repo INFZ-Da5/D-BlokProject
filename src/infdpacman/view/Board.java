@@ -74,7 +74,7 @@ public abstract class Board extends JPanel  {
 
                     switch(grid[row][col]){
                         case 1: inhoud.add(pacman = new Pacman(cell)); this.addKeyListener(pacman);break;
-                        case 2: inhoud.add(g1 = new SmartGhost(cell, this)); ghosts.add(g1);;break;
+                        case 2: inhoud.add(g1 = new SmartGhost(cell, this)); ghosts.add(g1);break;
                         case 3: inhoud.add(dg1 = new DrunkGhost(cell, this)); ghosts.add(dg1);break;
                         case 4: inhoud.add(new Pill());break;
                         case 5: inhoud.add(new SuperPill()); break;

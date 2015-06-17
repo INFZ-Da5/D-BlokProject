@@ -1,6 +1,7 @@
 
-package infdpacman.view;
+package infdpacman.view.levels;
 
+import infdpacman.view.Board;
 import java.awt.GridLayout;
 
 /**

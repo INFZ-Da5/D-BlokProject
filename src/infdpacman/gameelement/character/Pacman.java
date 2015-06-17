@@ -105,7 +105,7 @@ public class Pacman extends GameCharacter implements KeyListener {
                 d = Direction.WEST; 
                break;
         }
-        if(keys == false)
+        else{
         switch (ke.getKeyCode()){
             case KeyEvent.VK_S:
                 d = Direction.SOUTH;
@@ -119,6 +119,7 @@ public class Pacman extends GameCharacter implements KeyListener {
             case KeyEvent.VK_A:
                 d = Direction.WEST; 
                break;
+        }
         }
         if(firstMove){
             moveTimer();
