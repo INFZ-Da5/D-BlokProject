@@ -81,14 +81,15 @@ public class EmptyCell extends Cell{
         if(FindClassTypeFromList.containsInstance(content, Pacman.class) 
            && (FindClassTypeFromList.containsInstance(content, Ghost.class)) ){
             GameElement[] a = content.toArray(new GameElement[content.size()]); //make an array to prevent ConcurrentModificationException
+            content.clear();
             for (GameElement c : a) {
                 if(c instanceof Ghost){
+                    board.getGhosts().remove((GameCharacter)c);
                     a = ArrayUtils.removeElement(a, c);
-                    ghostRespawnTimer(new Timer(), c);
                     Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)c).getPoints());
+                    ghostRespawnTimer(new Timer(), c);
                 }
             }
-            content.clear();
             for(int i = 0; i < a.length; i++){
                 content.add(i, a[i]);
             }
@@ -129,7 +130,21 @@ public class EmptyCell extends Cell{
         TimerTask task = new TimerTask(){
             public void run(){
                 t.cancel();
+                //optie 1:
+                ((Ghost)g).attack();
                 ((Ghost)g).setCell((EmptyCell)board.getGhostRespawnCell());
+                board.getGhosts().add((GameCharacter)g);
+                
+                //optie 2:
+                /*
+                if(g instanceof SmartGhost){
+                    Ghost ghost = new SmartGhost(board.getGhostRespawnCell(), board);
+                    board.getGhosts().add(ghost);
+                }
+                else{
+                    Ghost ghost = new DrunkGhost(board.getGhostRespawnCell(), board);   
+                    board.getGhosts().add(ghost);
+                }*/
             }
         };
         t.scheduleAtFixedRate(task, 5000, 1);
