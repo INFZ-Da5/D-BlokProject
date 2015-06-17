@@ -2,10 +2,8 @@ package infdpacman.cell;
 
 import infdpacman.Game;
 import infdpacman.gameelement.GameElement;
-import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.GameCharacter;
 import infdpacman.gameelement.character.Ghost;
-import infdpacman.gameelement.character.SmartGhost;
 import infdpacman.gameelement.character.Pacman;
 import infdpacman.gameelement.item.Item;
 import infdpacman.gameelement.item.SuperPill;
@@ -88,7 +86,7 @@ public class EmptyCell extends Cell{
                     board.getGhosts().remove((GameCharacter)c);
                     a = ArrayUtils.removeElement(a, c);
                     Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)c).getPoints());
-                    ghostRespawnTimer(new Timer(), c);
+                    board.ghostRespawnTimer(new Timer(), c);
                 }
             }
             for(int i = 0; i < a.length; i++){
@@ -105,32 +103,23 @@ public class EmptyCell extends Cell{
                     content.remove(content1);
                     board.setAmountOfPills(board.getAmountOfPills()-1);
                     if(content1 instanceof SuperPill){
-                        board.getPacman().setInvincible(true);
-                        invincibleTimer(new Timer());
+                        board.getPacman().invincibleTimer(new Timer());
+                        ghostState(new Timer(), board.getPacman().getInvincibleTimeInMs());
+                        for(GameCharacter gc: board.getGhosts()){
+                            ((Ghost)gc).flee();
+                        }
                     }
                     break;
                 }
             }
         }
     }
-    
-    private void invincibleTimer(Timer t) {
-        setGhostState();
+       
+    public void ghostState(Timer t, int amountOfTime) {
         TimerTask task = new TimerTask(){
             public void run(){
                 t.cancel();
-                board.getPacman().setInvincible(false);
-                setGhostState();
-            }
-        };
-        t.scheduleAtFixedRate(task, 10000, 1);
 
-    }
-    
-    private void ghostRespawnTimer(Timer t, GameElement g) {
-        TimerTask task = new TimerTask(){
-            public void run(){
-                t.cancel();
                 //optie 1:
                 ((Ghost)g).attack();
                 ((Ghost)g).setCell(((Ghost)g).getBeginCell());
@@ -142,26 +131,12 @@ public class EmptyCell extends Cell{
                 if(g instanceof SmartGhost){
                     Ghost ghost = new SmartGhost(board.getGhostRespawnCell(), board);
                     board.getGhosts().add(ghost);
+
+                for(GameCharacter gc: board.getGhosts()){
+                    ((Ghost)gc).attack();
                 }
-                else{
-                    Ghost ghost = new DrunkGhost(board.getGhostRespawnCell(), board);   
-                    board.getGhosts().add(ghost);
-                }*/
             }
         };
-        t.scheduleAtFixedRate(task, 5000, 1);
-    }
-    
-    private void setGhostState(){
-        if(board.getPacman().isInvincible()){
-            for(GameCharacter gc: board.getGhosts()){
-                ((Ghost)gc).flee();
-            }
-        }
-        else{
-            for(GameCharacter gc: board.getGhosts()){
-                ((Ghost)gc).attack();
-            }
-        }
-    }
-}
+        t.scheduleAtFixedRate(task, amountOfTime, 1);
+    }*/
+}}}}

@@ -17,7 +17,8 @@ import javax.swing.ImageIcon;
  * @author Lenovo
  */
 public class Pacman extends GameCharacter implements KeyListener {
-    private int lives = 3;
+    private int lives;
+    private int invincibleTimeInMs;
     private boolean keys = true;
     private boolean invincible;
     private boolean stopTimer;
@@ -47,20 +48,22 @@ public class Pacman extends GameCharacter implements KeyListener {
         images.put(Direction.NORTH, northImage);
         images.put(Direction.SOUTH, southImage);
         this.cell = cell;
+        lives = 3;
         invincible = false;
         firstMove = true;
         currentImage = westImage;
         timer = new Timer();
         stopTimer = false;
-   
+        invincibleTimeInMs = 10000;
     }
 
     public void setKeys(boolean keys){
-    
-    this.keys = keys;
-    
+        this.keys = keys;
     }
-    
+
+    public int getInvincibleTimeInMs() {
+        return invincibleTimeInMs;
+    }
     
     public boolean isStopTimer() {
         return stopTimer;
@@ -98,9 +101,6 @@ public class Pacman extends GameCharacter implements KeyListener {
                 d = Direction.WEST; 
                break;
         }
-        
-        
-        
         if(keys == false)
         switch (ke.getKeyCode()){
             case KeyEvent.VK_S:
@@ -116,12 +116,6 @@ public class Pacman extends GameCharacter implements KeyListener {
                 d = Direction.WEST; 
                break;
         }
-        
-        
-        
-        
-        
-        
         if(firstMove){
             moveTimer();
             firstMove = false;
@@ -172,5 +166,16 @@ public class Pacman extends GameCharacter implements KeyListener {
         ImageIcon i = currentImage;
         Image img = i.getImage();
         g.drawImage(img, 0,0, width,height, null);    
+    }
+
+    public void invincibleTimer(Timer t) {
+        invincible = true;
+        TimerTask task = new TimerTask(){
+            public void run(){
+                t.cancel();
+                invincible = false;
+            }
+        };
+        t.scheduleAtFixedRate(task, invincibleTimeInMs, 1);
     }
 }
