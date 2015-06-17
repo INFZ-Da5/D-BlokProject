@@ -16,9 +16,9 @@ import javax.swing.ImageIcon;
  * @author Lenovo
  */
 public class Ghost extends GameCharacter {
-    private ImageIcon normalGhost = new ImageIcon("Plaatjes/ghost.png");
-    private ImageIcon fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");    
-    private ImageIcon currentImage = normalGhost;
+    private ImageIcon normalGhost;
+    private ImageIcon fleeGhost;    
+    private ImageIcon currentImage;
     private int points = 200;
     private boolean flee;
     private boolean firstStep;
@@ -32,6 +32,9 @@ public class Ghost extends GameCharacter {
    
     public Ghost(Cell cell, Board board) {
         super(new ImageIcon("Plaatjes/ghost.png"));
+        fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");
+        normalGhost = new ImageIcon("Plaatjes/ghost.png");
+        currentImage = normalGhost;
         this.cell = cell;
         this.board = board;
         flee = false;

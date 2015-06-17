@@ -11,16 +11,18 @@ import javax.swing.ImageIcon;
  * @author CVD
  */
 public class DrunkGhost extends GameCharacter{
-    private long lastPressProcessed = 0;
-    private ImageIcon normalGhost = new ImageIcon("Plaatjes/drunkghost.png");
-    private ImageIcon fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");    
-    private ImageIcon currentImage = normalGhost;
-    private Direction lastDirection;
+    private ImageIcon normalGhost;
+    private ImageIcon fleeGhost;    
+    private ImageIcon currentImage;
+    
     private int points = 200;
     private Cell cell;
     
     public DrunkGhost(Cell cell) {
         super(new ImageIcon("Plaatjes/drunkghost.png"));
+        fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");
+        normalGhost = new ImageIcon("Plaatjes/drunkghost.png");
+        currentImage = normalGhost;
         this.cell = cell;
     }
 
@@ -52,21 +54,6 @@ public class DrunkGhost extends GameCharacter{
     public void setCell(Cell cell) {
         this.cell = cell;
     }
-    
-    /*
-    public void moveGhost(){
-        lastPressProcessed = System.currentTimeMillis();
-        while(true){
-            if(System.currentTimeMillis() - lastPressProcessed > 5000) {
-                Direction d = Direction.getRandom();
-                if(lastDirection != d){
-                    move(d, this);
-                    lastDirection = d;
-                }
-                lastPressProcessed = System.currentTimeMillis();
-            }
-        }
-    }*/
 
     @Override
     public void draw(Graphics g,int width, int height) {

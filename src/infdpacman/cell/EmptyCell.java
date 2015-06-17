@@ -54,7 +54,7 @@ public class EmptyCell extends Cell{
     } 
 
     private void checkCollision() {
-        if(board.getPacman().invincible){
+        if(board.getPacman().isInvincible()){
             invincibleCollision();
         }else{
             checkGhostCollision();
@@ -67,7 +67,7 @@ public class EmptyCell extends Cell{
             && (FindClassTypeFromList.containsInstance(content, Ghost.class) || FindClassTypeFromList.containsInstance(content, DrunkGhost.class)) ){
             for (GameElement content1 : content) {
                 if(content1 instanceof Pacman){
-                    ((Pacman)content1).lives -= 1;
+                    ((Pacman)content1).setLives(((Pacman)content1).getLives() -1);
                     content.remove(content1);
                     ((EmptyCell)board.getPacmanRespawnCell()).getInhoud().add(board.getPacman());
                     board.getPacman().setCell((EmptyCell)board.getPacmanRespawnCell());
@@ -108,7 +108,7 @@ public class EmptyCell extends Cell{
                     content.remove(content1);
                     board.setAmountOfPills(board.getAmountOfPills()-1);
                     if(content1 instanceof SuperPill){
-                        board.getPacman().invincible = true;
+                        board.getPacman().setInvincible(true);
                         invincibleTimer(new Timer());
                     }
                     break;
@@ -122,7 +122,7 @@ public class EmptyCell extends Cell{
         TimerTask task = new TimerTask(){
             public void run(){
                 t.cancel();
-                board.getPacman().invincible = false;
+                board.getPacman().setInvincible(false);
                 setGhostImage();
             }
         };
@@ -146,7 +146,7 @@ public class EmptyCell extends Cell{
     }
     
     private void setGhostImage(){
-        if(board.getPacman().invincible){
+        if(board.getPacman().isInvincible()){
             for(GameCharacter gc: board.getGhosts()){
                 if(gc instanceof Ghost){
                   ((Ghost)gc).flee();

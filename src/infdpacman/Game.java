@@ -108,18 +108,13 @@ public class Game implements ActionListener {
     }
     
     public void setBoard(Board board){
-    
-    this.board = board;
-    
+        this.board = board;
     }
     
     public ArrayList<Board> getLevels(){
-    
-    return levels;
-    
+        return levels;
     }
    
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(Actions.START.name())) {
@@ -130,36 +125,40 @@ public class Game implements ActionListener {
             frame.validate();
             frame.repaint();
         }else if(e.getActionCommand().equals(Actions.STOP.name())){            
-            stopTimers = true;
             if(board != null){
-            frame.remove(board);
-            levels.clear();
-            gameStarted = false;
-            fillLevelList(); //reset levels
-            board = null;          
-            seconds = 0;
-            player.setScore(0);
-            frame.validate();
-            frame.repaint();
-            }else{ frame.dispose();
-                 
-                    menu.init();}
+                stopTimers = true;
+                board.getPacman().setStopTimer(stopTimers);
+                frame.remove(board);
+                levels.clear();
+                gameStarted = false;
+                fillLevelList(); //reset levels else the pills that you ate won't come back.
+                board = null;          
+                seconds = 0;
+                player.setScore(0);
+                frame.validate();
+                frame.repaint();
+            }else{ 
+                frame.dispose();
+                menu.init();
+            }
         } else if(e.getActionCommand().equals(Actions.PAUZE.name())){
             stopTimers = true;
             board = null;
             gameStarted = false;
         }else if(e.getActionCommand().equals(Actions.RESET.name())){
-            stopTimers = true;
-            frame.remove(board);
-            gameStarted = false;
-            board = null; 
-            levels.clear();
-            fillLevelList();
-            seconds = 0;
-            player.setScore(0);
-            setLevel();
-            frame.validate();
-            frame.repaint();
+            if(board != null){
+                stopTimers = true;
+                frame.remove(board);
+                gameStarted = false;
+                board = null; 
+                levels.clear();
+                fillLevelList();
+                seconds = 0;
+                player.setScore(0);
+                setLevel();
+                frame.validate();
+                frame.repaint();
+            }
         }
     }
     
@@ -251,7 +250,7 @@ public class Game implements ActionListener {
                 }
                 else{
                     timeLabel.setText("Time: " + seconds);
-                    lifeLabel.setText("Lives: " + board.getPacman().lives);
+                    lifeLabel.setText("Lives: " + board.getPacman().getLives());
                     scoreLabel.setText("score: " + player.getScore());
                     checkForCherrySpawn();
                     seconds+=0.5; 
@@ -284,7 +283,7 @@ public class Game implements ActionListener {
                     t.cancel();
                 }
                 else{
-                    if(board.getPacman().lives == 0){
+                    if(board.getPacman().getLives() == 0){
                         //JOptionPane.showMessageDialog(null, "Game Over!", "gameover", JOptionPane.ERROR_MESSAGE);
                         stopTimers = true;
                         t.cancel();
