@@ -56,7 +56,7 @@ public class Pacman extends GameCharacter implements KeyListener {
         timer = new Timer();
         stopTimer = false;
         invincibleTimeInMs = 10000;
-        this.cell = spawnCell;
+        this.spawnCell = cell;
     }
 
     public void setKeys(boolean keys){

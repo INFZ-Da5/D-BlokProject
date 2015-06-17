@@ -47,24 +47,12 @@ public abstract class Board extends JPanel  {
     private boolean bananaSpawned;
     private boolean stopTimer;
 
-    private Cell ghostRespawnCell;
-    private Cell pacmanRespawnCell;
-
     public Board(){
         ghosts = new ArrayList();
         stopTimer = false;
         this.requestFocusInWindow();
         this.repaint();
     }
-
-    public Cell getPacmanRespawnCell() {
-        return pacmanRespawnCell;    
-    }
-    
-    public Cell getGhostRespawnCell() {
-        return ghostRespawnCell;    
-    }
-    
 
     public Cell[][] getCellgrid() {
         return cellgrid;
@@ -271,7 +259,7 @@ public abstract class Board extends JPanel  {
                 t.cancel();
                 //optie 1:
                 ((Ghost)g).attack();
-                ((Ghost)g).setCell(ghostRespawnCell);
+                ((Ghost)g).setCell(((Ghost)g).getSpawnCell());
                 ghosts.add((GameCharacter)g);
                 
                 //optie 2:

@@ -68,8 +68,8 @@ public class EmptyCell extends Cell{
                 if(content1 instanceof Pacman){
                     ((Pacman)content1).setLives(((Pacman)content1).getLives() -1);
                     content.remove(content1);
-                    ((EmptyCell)board.getPacmanRespawnCell()).getInhoud().add(board.getPacman());
-                    board.getPacman().setCell((EmptyCell)board.getPacmanRespawnCell());
+                    ((EmptyCell)board.getPacman().getSpawnCell()).getInhoud().add(board.getPacman());
+                    board.getPacman().setCell((EmptyCell)board.getPacman().getSpawnCell());
                     break;
                 }
             }
