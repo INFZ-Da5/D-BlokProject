@@ -1,5 +1,6 @@
 package infdpacman;
 
+import infdpacman.view.Menu;
 import infdpacman.enums.Actions;
 import infdpacman.gameelement.character.GameCharacter;
 import infdpacman.gameelement.character.Ghost;
@@ -33,17 +34,19 @@ public class Game implements ActionListener {
     public ArrayList<Board> levels;
     private Board board;
     private static Player player;
-     private Map<String, Integer> hScores;
+    private Map<String, Integer> hScores;
     
+    private boolean timerStarted;
+    private boolean stopTimers;
+    private boolean gameStarted;
+    private boolean gameWon;
+    private boolean startedFromFirstLevel;
+    private boolean keys;
+
     private double seconds = 0;
-    private boolean timerStarted = false;
-    private boolean stopTimers = false;
-    private boolean gameStarted = false;
-    private boolean gameWon = false;
     private int ghostTimerMs;
     private int extraPoints;
     private int prefLives = 3;
-    private boolean keys;
    
     private JFrame frame;
     private JPanel inGameMenu;
@@ -56,12 +59,15 @@ public class Game implements ActionListener {
     public Game(Menu menu){
         player = new Player();
         ghostTimerMs = 600;
-        extraPoints = 100000;
+        extraPoints = 10000;
         fillLevelList();
         hScores = new HashMap();
         this.menu = menu;
-
-        //board = levels.get(3);
+        startedFromFirstLevel = false;
+        timerStarted = false;
+        stopTimers = false;
+        gameStarted = false;
+        gameWon = false;
     }
     public void setKeys(boolean keys){
     
@@ -204,6 +210,7 @@ public class Game implements ActionListener {
             board = levels.get(0);
             startTimers();
             timerStarted = true;
+            startedFromFirstLevel = true;
         }
         else{
             for(Board level : levels){
@@ -212,17 +219,19 @@ public class Game implements ActionListener {
                     if(levels.indexOf(level)+1 < levels.size()){
                         frame.remove(board);
                         board = levels.get(levels.indexOf(level)+1);
-                         board.getPacman().setLives(prefLives);
-                         board.getPacman().setKeys(keys);
+                        board.getPacman().setLives(prefLives);
+                        board.getPacman().setKeys(keys);
                         ghostTimerMs -= 75;
                         break;
                     }
                     else{
-                       gameWon = true;
-                       frame.remove(board);
-                        player.setScore(player.getScore() + (extraPoints / (int)seconds));
-                       frame.add(new EndGame(hScores, player.getScore(), gameWon), BorderLayout.CENTER);
-                       stopGameFunctionality();
+                        gameWon = true;
+                        frame.remove(board);
+                        if(startedFromFirstLevel){
+                            player.setScore(player.getScore() + (extraPoints / (int)seconds));
+                        }
+                        frame.add(new EndGame(hScores, player.getScore(), gameWon), BorderLayout.CENTER);
+                        stopGameFunctionality();
                     }
                 }
             }
