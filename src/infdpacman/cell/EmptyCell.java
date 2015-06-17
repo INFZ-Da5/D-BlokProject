@@ -5,6 +5,7 @@ import infdpacman.gameelement.GameElement;
 import infdpacman.gameelement.character.DrunkGhost;
 import infdpacman.gameelement.character.GameCharacter;
 import infdpacman.gameelement.character.Ghost;
+import infdpacman.gameelement.character.SmartGhost;
 import infdpacman.gameelement.character.Pacman;
 import infdpacman.gameelement.item.Item;
 import infdpacman.gameelement.item.SuperPill;
@@ -63,7 +64,7 @@ public class EmptyCell extends Cell{
 
     private void checkGhostCollision() {
         if(FindClassTypeFromList.containsInstance(content, Pacman.class) 
-            && (FindClassTypeFromList.containsInstance(content, Ghost.class) || FindClassTypeFromList.containsInstance(content, DrunkGhost.class)) ){
+            && (FindClassTypeFromList.containsInstance(content, Ghost.class))){
             for (GameElement content1 : content) {
                 if(content1 instanceof Pacman){
                     ((Pacman)content1).setLives(((Pacman)content1).getLives() -1);
@@ -78,18 +79,13 @@ public class EmptyCell extends Cell{
         
     private void invincibleCollision(){
         if(FindClassTypeFromList.containsInstance(content, Pacman.class) 
-           && (FindClassTypeFromList.containsInstance(content, Ghost.class) || FindClassTypeFromList.containsInstance(content, DrunkGhost.class)) ){
+           && (FindClassTypeFromList.containsInstance(content, Ghost.class)) ){
             GameElement[] a = content.toArray(new GameElement[content.size()]); //make an array to prevent ConcurrentModificationException
             for (GameElement c : a) {
-                if(c instanceof Ghost || c instanceof DrunkGhost){
+                if(c instanceof Ghost){
                     a = ArrayUtils.removeElement(a, c);
                     ghostRespawnTimer(new Timer(), c);
-                    if(c instanceof Ghost){
-                        Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)c).getPoints());
-                    }
-                    else if(c instanceof DrunkGhost){
-                        Game.getPlayer().setScore(Game.getPlayer().getScore() + ((DrunkGhost)c).getPoints());
-                    }
+                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)c).getPoints());
                 }
             }
             content.clear();
@@ -117,12 +113,12 @@ public class EmptyCell extends Cell{
     }
     
     private void invincibleTimer(Timer t) {
-        setGhostImage();
+        setGhostState();
         TimerTask task = new TimerTask(){
             public void run(){
                 t.cancel();
                 board.getPacman().setInvincible(false);
-                setGhostImage();
+                setGhostState();
             }
         };
         t.scheduleAtFixedRate(task, 10000, 1);
@@ -133,36 +129,21 @@ public class EmptyCell extends Cell{
         TimerTask task = new TimerTask(){
             public void run(){
                 t.cancel();
-                if(g instanceof Ghost){
-                    ((Ghost)g).setCell((EmptyCell)board.getGhostRespawnCell());
-                }
-                else if(g instanceof DrunkGhost){
-                    ((DrunkGhost)g).setCell((EmptyCell)board.getGhostRespawnCell());
-                }
+                ((Ghost)g).setCell((EmptyCell)board.getGhostRespawnCell());
             }
         };
         t.scheduleAtFixedRate(task, 5000, 1);
     }
     
-    private void setGhostImage(){
+    private void setGhostState(){
         if(board.getPacman().isInvincible()){
             for(GameCharacter gc: board.getGhosts()){
-                if(gc instanceof Ghost){
-                  ((Ghost)gc).flee();
-                }
-                else if(gc instanceof DrunkGhost){
-                  ((DrunkGhost)gc).flee();
-                }
+                ((Ghost)gc).flee();
             }
         }
         else{
             for(GameCharacter gc: board.getGhosts()){
-                if(gc instanceof Ghost){
-                  ((Ghost)gc).attack();
-                }
-                else if(gc instanceof DrunkGhost){
-                  ((DrunkGhost)gc).normal();
-                }
+                ((Ghost)gc).attack();
             }
         }
     }

@@ -1,36 +1,32 @@
 package infdpacman.gameelement.character;
 
 import infdpacman.cell.Cell;
-import infdpacman.enums.Direction;
+import infdpacman.utilities.dijkstra.DijkstraAlgorithm;
 import infdpacman.view.Board;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+
 /**
  *
- * @author CVD
+ * @author Lenovo
  */
-public class DrunkGhost extends Ghost{
+public class SmartGhost extends Ghost {
     private Cell cell;
-    
-    public DrunkGhost(Cell cell, Board board) {
-        super(new ImageIcon("Plaatjes/drunkghost.png"), board);
-        normalGhost = new ImageIcon("Plaatjes/drunkghost.png");
+   
+    public SmartGhost(Cell cell, Board board) {
+        super(new ImageIcon("Plaatjes/ghost.png"), board);
+        normalGhost = new ImageIcon("Plaatjes/ghost.png");
         currentImage = normalGhost;
         this.cell = cell;
     }
 
     @Override
-    public void moveGhost(){
-        if(!flee){
-            Direction d = Direction.getRandom();
-            move(d, this);
-        }
-        else{
-            super.moveGhost();
-        }
+    public void attack(){
+        currentImage = normalGhost;
+        flee = false;
     }
-
+    
     @Override
     public Cell getCell() {
         return cell;
@@ -40,17 +36,11 @@ public class DrunkGhost extends Ghost{
     public void setCell(Cell cell) {
         this.cell = cell;
     }
-
+    
     @Override
     public void draw(Graphics g,int width, int height) {
         ImageIcon i = currentImage;
         Image img = i.getImage();
         g.drawImage(img, 0,0, width,height, null);    
-    }
-
-    @Override
-    public void attack() {
-        currentImage = normalGhost;
-        flee = false;
     }
 }
