@@ -1,7 +1,6 @@
 package infdpacman.gameelement.character;
 
 import infdpacman.cell.Cell;
-import infdpacman.utilities.dijkstra.DijkstraAlgorithm;
 import infdpacman.view.Board;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -52,11 +51,17 @@ public class SmartGhost extends Ghost {
 
     @Override
     public void moveGhost() {
+        if(!flee){
+            path = calculateRoute(cell);
+        }
         path = calculateRoute(cell);
         if(path != null){
             if(!path.isEmpty()){
                 moveGhost(this, path.getFirst());
                 path.removeFirst();
+            }
+            else{
+                path = calculateRoute(cell);
             }
         }
         else{

@@ -28,8 +28,8 @@ public abstract class Ghost extends GameCharacter{
         this.board = board;
         fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");
         flee = false;
-        r = new Random();
         firstStep = true;
+        r = new Random();
     }
 
     @Override
@@ -50,7 +50,7 @@ public abstract class Ghost extends GameCharacter{
             
     public LinkedList<Cell> calculateRoute(Cell cell){
         if(firstStep){
-            dijkstra = new DijkstraAlgorithm(board);
+            dijkstra = new DijkstraAlgorithm(board); //init nodes & edges
             firstStep = false;
         }
         dijkstra.execute(cell);
@@ -60,7 +60,7 @@ public abstract class Ghost extends GameCharacter{
                 path = dijkstra.getPath(board.getNodes().get(randomNumber));
             }
             else{
-                int randomNumber = r.nextInt((board.getNodes().size() - board.getNodes().size()/2)+1)+board.getNodes().size()/2;
+                int randomNumber = r.nextInt((board.getNodes().size() - board.getNodes().size()/2)+1)+board.getNodes().size()/2 -1;
                 path = dijkstra.getPath(board.getNodes().get(randomNumber));
             }  
         }

@@ -34,6 +34,9 @@ public class DrunkGhost extends Ghost{
                     moveGhost(this, path.getFirst());
                     path.removeFirst();
                 }
+                else{
+                    path = calculateRoute(cell);
+                }
             }
             else{
                 path = calculateRoute(cell);
