@@ -5,6 +5,7 @@ import infdpacman.utilities.dijkstra.DijkstraAlgorithm;
 import infdpacman.view.Board;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.Random;
 import javax.swing.ImageIcon;
 
 /**
@@ -13,12 +14,17 @@ import javax.swing.ImageIcon;
  */
 public class SmartGhost extends Ghost {
     private Cell cell;
+    private Random r;
    
     public SmartGhost(Cell cell, Board board) {
         super(new ImageIcon("Plaatjes/ghost.png"), board);
         normalGhost = new ImageIcon("Plaatjes/ghost.png");
         currentImage = normalGhost;
         this.cell = cell;
+        this.board = board;
+        flee = false;
+        r = new Random();
+        firstStep = true;
     }
 
     @Override
@@ -42,5 +48,19 @@ public class SmartGhost extends Ghost {
         ImageIcon i = currentImage;
         Image img = i.getImage();
         g.drawImage(img, 0,0, width,height, null);    
+    }
+
+    @Override
+    public void moveGhost() {
+        path = calculateRoute(cell);
+        if(path != null){
+            if(!path.isEmpty()){
+                moveGhost(this, path.getFirst());
+                path.removeFirst();
+            }
+        }
+        else{
+            path = calculateRoute(cell);
+        } 
     }
 }

@@ -18,6 +18,7 @@ public class DrunkGhost extends Ghost{
         normalGhost = new ImageIcon("Plaatjes/drunkghost.png");
         currentImage = normalGhost;
         this.cell = cell;
+        
     }
 
     @Override
@@ -27,10 +28,19 @@ public class DrunkGhost extends Ghost{
             move(d, this);
         }
         else{
-            super.moveGhost();
+            path = calculateRoute(cell);
+            if(path != null){
+                if(!path.isEmpty()){
+                    moveGhost(this, path.getFirst());
+                    path.removeFirst();
+                }
+            }
+            else{
+                path = calculateRoute(cell);
+            } 
         }
     }
-
+    
     @Override
     public Cell getCell() {
         return cell;

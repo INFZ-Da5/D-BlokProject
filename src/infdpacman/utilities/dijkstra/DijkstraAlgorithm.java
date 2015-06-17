@@ -133,17 +133,4 @@ public class DijkstraAlgorithm {
     path.removeFirst();
     return path;
   }
-  
-  public Cell getFarthestCell(Cell target) {
-    Cell step = target;
-    // check if a path exists
-    if (predecessors.get(step) == null) {
-      return null;
-    }
-    while (predecessors.get(step) != null) {
-      step = predecessors.get(step);
-    }
-    return step;
-  }
-
 } 

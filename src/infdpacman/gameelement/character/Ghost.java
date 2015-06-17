@@ -17,12 +17,11 @@ public abstract class Ghost extends GameCharacter{
     protected ImageIcon currentImage;
     private final int points = 200;
     protected boolean flee;
-    private boolean firstStep;
-    private Cell cell;
-    private static Board board;
-    protected DijkstraAlgorithm dijkstra;
+    protected boolean firstStep;
+    protected Board board;
     protected LinkedList<Cell> path;
-    private final Random r;
+    protected DijkstraAlgorithm dijkstra;
+    protected final Random r;
     
     public Ghost(ImageIcon i, Board board) {
         super(i);
@@ -47,20 +46,9 @@ public abstract class Ghost extends GameCharacter{
         currentImage = fleeGhost;
     }
     
-    public void moveGhost(){
-        calculateRoute();
-        if(path != null){
-            if(!path.isEmpty()){
-                moveGhost(this, path.getFirst());
-                path.removeFirst();
-            }
-        }
-        else{
-            calculateRoute();
-        }                 
-    }
-        
-    public void calculateRoute(){
+    public abstract void moveGhost();
+            
+    public LinkedList<Cell> calculateRoute(Cell cell){
         if(firstStep){
             dijkstra = new DijkstraAlgorithm(board);
             firstStep = false;
@@ -79,6 +67,7 @@ public abstract class Ghost extends GameCharacter{
         else{
             path = dijkstra.getPath(board.getPacman().getCell());
         }
+        return path;
     }
     
     public abstract void attack();
