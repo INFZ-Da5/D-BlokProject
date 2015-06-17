@@ -41,12 +41,12 @@ public class Game implements ActionListener {
     private boolean gameStarted;
     private boolean gameWon;
     private boolean startedFromFirstLevel;
-    private boolean keys = true;
+    private boolean keys;
 
-    private double seconds = 0;
+    private double seconds;
     private int ghostTimerMs;
     private int extraPoints;
-    private int prefLives = 3;
+    private int prefLives;
    
     private JFrame frame;
     private JPanel inGameMenu;
@@ -59,7 +59,7 @@ public class Game implements ActionListener {
     public Game(Menu menu){
         player = new Player();
         ghostTimerMs = 600;
-        extraPoints = 10000;
+        extraPoints = 100000;
         fillLevelList();
         hScores = new HashMap();
         this.menu = menu;
@@ -68,7 +68,9 @@ public class Game implements ActionListener {
         stopTimers = false;
         gameStarted = false;
         gameWon = false;
-   
+        prefLives = 3;
+        keys = true;
+        seconds = 0;
     }
     public void setKeys(boolean keys){
     
@@ -202,7 +204,6 @@ public class Game implements ActionListener {
         gameStarted = false;
         fillLevelList(); //reset levels else the pills that you ate won't come back.
         board = null;          
-
     }
     
     public void setLevel(){
@@ -330,6 +331,7 @@ public class Game implements ActionListener {
                 else{
                     if(board.getPacman().getLives() < 1){
                         stopTimers = true;
+                        frame.remove(board);
                         stopGameFunctionality();
                         frame.add(new EndGame(hScores, player.getScore(), gameWon), BorderLayout.CENTER);
                         frame.validate();

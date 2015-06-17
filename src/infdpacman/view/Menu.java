@@ -69,7 +69,7 @@ if (e.getActionCommand().equals(Actions.START.name())) {
                 for ( Map.Entry<String, Integer> entry : game.gethScores().entrySet()) {
                     String name = entry.getKey();
                     Integer score = entry.getValue();
-                    message = message + name + score + "\n";
+                    message = message + name + ": " + score + "\n";
                 }
            JOptionPane.showMessageDialog(null, message, "scorelist", JOptionPane.ERROR_MESSAGE);  
             

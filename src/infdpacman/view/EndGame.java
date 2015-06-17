@@ -3,6 +3,7 @@ package infdpacman.view;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.TextLayout;
@@ -30,18 +31,18 @@ public class EndGame extends JPanel implements ActionListener{
     private JButton submit;
     
     public EndGame(Map hScore, int score, boolean winner){
+        this.setLayout(new GridLayout(4,0));
         this.hScore = hScore;
         this.score = score;
         createBigLabel(winner);
 
-        TFname = new JTextField();
+        TFname = new JTextField(100);
         submit = new JButton("opslaan");
         submit.addActionListener(this);
 
         this.add(TFname);
         this.add(submit);
 
-        
         this.setVisible(true);
     }
     
@@ -57,10 +58,11 @@ public class EndGame extends JPanel implements ActionListener{
         for ( Map.Entry<String, Integer> entry : hScore.entrySet()) {
             String name = entry.getKey();
             Integer score = entry.getValue();
-            message = message + name + score + "\n";
+            message = message + name + ": " + score + "\n";
+            ta.append(message);
         }
-        ta.append(message);
         this.add(ta);
+        this.validate();
     }
 
     private void createBigLabel(boolean winner) {
