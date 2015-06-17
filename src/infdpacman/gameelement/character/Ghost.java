@@ -79,11 +79,31 @@ public class Ghost extends GameCharacter {
             dijkstra = new DijkstraAlgorithm(board);
             firstStep = false;
         }
+        
         dijkstra.execute(cell);
         if(flee){
-            path = dijkstra.getPath(board.getPacman().getCell());            
+                        if(board.getNodes().indexOf(board.getPacman().getCell()) > board.getNodes().size()/2){
+                int randomNumber = r.nextInt((board.getNodes().size()/2)+1);
+                while(board.getNodes().get(randomNumber) instanceof EmptyCell){
+                    if(board.getNodes().get(randomNumber) instanceof EmptyCell){
+                        path = dijkstra.getPath(board.getNodes().get(randomNumber));
+                    }
+                    randomNumber = r.nextInt((board.getNodes().size()/2)+1);
+                }
+            }
+            else{
+                int randomNumber = r.nextInt((board.getNodes().size()/2)-1);
+                while(board.getNodes().get(randomNumber) instanceof EmptyCell){
+                    if(board.getNodes().get(randomNumber) instanceof EmptyCell){
+                        path = dijkstra.getPath(board.getNodes().get(randomNumber));
+                    }
+                    randomNumber = r.nextInt((board.getNodes().size()/2)-1);
+                }
+            }           
         }
-        else{
+        
+        if(flee == false){
+          
             path = dijkstra.getPath(board.getPacman().getCell());
         }
     }
