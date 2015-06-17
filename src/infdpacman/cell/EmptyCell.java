@@ -12,7 +12,6 @@ import infdpacman.utilities.FindClassTypeFromList;
 import infdpacman.view.Board;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;

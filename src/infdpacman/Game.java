@@ -10,7 +10,7 @@ import infdpacman.view.Level1;
 import infdpacman.view.Level2;
 import infdpacman.view.Level3;
 import infdpacman.view.Level5;
-import infdpacman.view.Winner;
+import infdpacman.view.EndGame;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +22,6 @@ import java.util.TimerTask;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -141,8 +140,8 @@ public class Game implements ActionListener {
             frame.repaint();
         }else if(e.getActionCommand().equals(Actions.STOP.name())){            
             if(board != null){
-                stopGameFunctionality();
                 frame.remove(board);
+                stopGameFunctionality();
                 frame.validate();
                 frame.repaint();
             }else{ 
@@ -201,7 +200,7 @@ public class Game implements ActionListener {
                        gameWon = true;
                        frame.remove(board);
                         player.setScore(player.getScore() + (extraPoints / (int)seconds));
-                       frame.add(new Winner(hScores, player.getScore()), BorderLayout.CENTER);
+                       frame.add(new EndGame(hScores, player.getScore(), gameWon), BorderLayout.CENTER);
                        stopGameFunctionality();
                     }
                 }
@@ -298,16 +297,13 @@ public class Game implements ActionListener {
                 }
                 else{
                     if(board.getPacman().getLives() == 0){
-                        //JOptionPane.showMessageDialog(null, "Game Over!", "gameover", JOptionPane.ERROR_MESSAGE);
                         stopTimers = true;
-                        t.cancel();
-                        t.purge();
-                        frame.remove(board);
-                        board = null;
-                        player.setScore(player.getScore() / (int)seconds);
-                        player.setScore(0);
+                        stopGameFunctionality();
+                        frame.add(new EndGame(hScores, player.getScore(), gameWon), BorderLayout.CENTER);
                         frame.validate();
                         frame.repaint();
+                        t.cancel();
+                        t.purge();
                     }
                 }
             }

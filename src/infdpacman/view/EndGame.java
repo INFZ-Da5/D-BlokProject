@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -15,7 +14,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -25,17 +23,17 @@ import javax.swing.JTextField;
  *
  * @author CVD
  */
-public class Winner extends JPanel implements ActionListener{
+public class EndGame extends JPanel implements ActionListener{
     private Map<String, Integer> hScore;
     private int score;
     private JTextField TFname;
     private JButton submit;
     
-    public Winner(Map hScore, int score){
-        createWinnerLabel();
+    public EndGame(Map hScore, int score, boolean winner){
         this.hScore = hScore;
         this.score = score;
-        
+        createBigLabel(winner);
+
         TFname = new JTextField();
         submit = new JButton("opslaan");
         submit.addActionListener(this);
@@ -65,8 +63,14 @@ public class Winner extends JPanel implements ActionListener{
         this.add(ta);
     }
 
-    private void createWinnerLabel() {
-        JLabel winLabel = new JLabel("You win!");
+    private void createBigLabel(boolean winner) {
+        JLabel winLabel;
+        if(winner){
+            winLabel = new JLabel("You win!");
+        }
+        else{        
+            winLabel = new JLabel("You lose!");
+        }
         winLabel.setFont(new Font("Helvetica", Font.PLAIN, 88));
         FontMetrics fm = winLabel.getFontMetrics(winLabel.getFont());
         TextLayout layout = new TextLayout(winLabel.getText(), winLabel.getFont(), fm.getFontRenderContext());
