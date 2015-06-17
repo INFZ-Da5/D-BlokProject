@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
  */
 public class Pacman extends GameCharacter implements KeyListener {
     private int lives = 3;
+    private boolean keys = true;
     private boolean invincible;
     private boolean stopTimer;
     private boolean firstMove;
@@ -54,6 +55,13 @@ public class Pacman extends GameCharacter implements KeyListener {
    
     }
 
+    public void setKeys(boolean keys){
+    
+    this.keys = keys;
+    
+    }
+    
+    
     public boolean isStopTimer() {
         return stopTimer;
     }
@@ -75,6 +83,7 @@ public class Pacman extends GameCharacter implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent ke) {
+        if(keys)
         switch (ke.getKeyCode()){
             case KeyEvent.VK_DOWN:
                 d = Direction.SOUTH;
@@ -89,6 +98,30 @@ public class Pacman extends GameCharacter implements KeyListener {
                 d = Direction.WEST; 
                break;
         }
+        
+        
+        
+        if(keys == false)
+        switch (ke.getKeyCode()){
+            case KeyEvent.VK_S:
+                d = Direction.SOUTH;
+                break;
+            case KeyEvent.VK_W:
+                d = Direction.NORTH;
+                break;
+            case KeyEvent.VK_D:
+                d = Direction.EAST;
+                break;
+            case KeyEvent.VK_A:
+                d = Direction.WEST; 
+               break;
+        }
+        
+        
+        
+        
+        
+        
         if(firstMove){
             moveTimer();
             firstMove = false;

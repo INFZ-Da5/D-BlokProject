@@ -11,7 +11,7 @@ public class ComboItem {
 
     public ComboItem(String key, Board value)
     {
-        this.key = key;
+        this.key = key; // wat in de view van de box komt
         this.value = value;
     }
 

@@ -1,15 +1,16 @@
 package infdpacman.view;
 
 import infdpacman.Menu;
-import infdpacman.enums.Actions;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 /**
@@ -23,29 +24,28 @@ public class Settings implements ActionListener {
  private JComboBox cbLC;
  private JComboBox livesbox;
  private Menu menu;
+ private JRadioButton arrows;
+ private JRadioButton wasd;
  
  public Settings(Menu menu){
  
- this.menu = menu;
- 
- 
+ this.menu = menu; 
  }
 
-    
-    
  public void init(){
  
     frame = new JFrame();
-   frame.setLayout(new GridLayout(3,2));
-   frame.setSize(200, 200);
+   frame.setLayout(new GridLayout(4,2));
+   frame.setSize(400, 400);
    JLabel levelchooser = new JLabel("choose level");
    cbLC = new JComboBox();
    cbLC.addItem("Maak een keuze");
+   //ComboItem class aangemaakt om de level namen in de boxview neer te zetten ipv de levels zelf
    for(int i = 0; i < menu.game.getLevels().size(); i++){
        if(i - 1 < 0){
         cbLC.addItem(new ComboItem("level: " + (i+1), null));  
        }else{
-   cbLC.addItem(new ComboItem("level: " + (i+1), menu.game.getLevels().get(i - 1)));}
+   cbLC.addItem(new ComboItem("level: " + (i+1), menu.game.getLevels().get(i - 1)));} //-1 vanwege setLevel in game
    }
 
    JLabel liveslabel = new JLabel("selecteer aantal levens");
@@ -55,10 +55,20 @@ public class Settings implements ActionListener {
    livesbox.addItem(i + 1);
    }
    
+     ButtonGroup controls = new ButtonGroup();
+     arrows = new JRadioButton("pijltjes toetsen");
+     wasd = new JRadioButton("wasd");
+    JLabel Cuitleg = new JLabel("selecteer controls");
+    controls.add(arrows);
+    controls.add(wasd);
+    JPanel Pcontrols = new JPanel();
+    Pcontrols.add(Cuitleg);
+    Pcontrols.add(arrows);
+    Pcontrols.add(wasd);
+   
    JButton save = new JButton("save changes");  
             save.addActionListener(this);
     JPanel levelselect = new JPanel();
-    levelselect.setLayout(new GridLayout(0, 2));
     levelselect.add(levelchooser);
     levelselect.add(cbLC);
        JPanel livesselect = new JPanel();
@@ -66,31 +76,34 @@ public class Settings implements ActionListener {
        livesselect.add(livesbox);
     frame.add(levelselect);   
     frame.add(livesselect);
-    frame.add(save);
-    frame.setVisible(true);          
+    frame.add(Pcontrols);
+    JPanel sPanel = new JPanel();
+    sPanel.add(save);
+    frame.add(sPanel);
+    frame.setVisible(true);   
  }   
- 
-     
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-  
- // -2 omdat 1: bij size altijd -1 en 2: Setlevel in Game laadt level na board 
-     // if(level < 0 || level > 3){
-       //menu.game.setBoard(null);    
-      //}else{    
+    public void actionPerformed(ActionEvent e) {  
       if(cbLC.getSelectedItem() != cbLC.getItemAt(0)){
       menu.game.setBoard(((ComboItem)cbLC.getSelectedItem()).getValue());//}
       }
       
-          if(livesbox.getSelectedItem() != livesbox.getItemAt(0)){
-          menu.game.setPrefLives((Integer)livesbox.getSelectedItem());
-          }
+      if(livesbox.getSelectedItem() != livesbox.getItemAt(0)){
+      menu.game.setPrefLives((Integer)livesbox.getSelectedItem());
+      }
       
+      if(arrows.isSelected()){     
+      menu.game.setKeys(true);
+      }
       
+      if(wasd.isSelected()){
+      
+      menu.game.setKeys(false);
+      
+      }
        frame.dispose();
-       menu.init();
-        
+       menu.init();  
     }
     
 }

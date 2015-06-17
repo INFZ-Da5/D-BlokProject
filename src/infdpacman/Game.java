@@ -43,6 +43,7 @@ public class Game implements ActionListener {
     private int ghostTimerMs;
     private int extraPoints;
     private int prefLives = 3;
+    private boolean keys;
    
     private JFrame frame;
     private JPanel inGameMenu;
@@ -62,7 +63,11 @@ public class Game implements ActionListener {
 
         //board = levels.get(3);
     }
+    public void setKeys(boolean keys){
     
+    this.keys = keys;
+    
+    }
     public static Player getPlayer(){
         return player;
     }
@@ -208,6 +213,7 @@ public class Game implements ActionListener {
                         frame.remove(board);
                         board = levels.get(levels.indexOf(level)+1);
                          board.getPacman().setLives(prefLives);
+                         board.getPacman().setKeys(keys);
                         ghostTimerMs -= 75;
                         break;
                     }
