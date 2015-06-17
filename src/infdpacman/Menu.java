@@ -6,6 +6,7 @@ import infdpacman.view.Settings;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -20,8 +21,7 @@ public Game game;
 
 
 public Menu(){
-   game = new Game(this);
-
+    game = new Game(this);
 }
     
     
@@ -43,13 +43,13 @@ public void init(){
             quit.addActionListener(this);
             
 
-            menu.add(start);
-            menu.add(settings);
-            menu.add(Highscore);
-            menu.add(quit);
-           
+        menu.add(start);
+        menu.add(settings);
+        menu.add(Highscore);
+        menu.add(quit);
+        menu.setLocationRelativeTo(null);
         menu.setVisible(true);
-        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -65,11 +65,11 @@ if (e.getActionCommand().equals(Actions.START.name())) {
             
         }else if(e.getActionCommand().equals(Actions.SCORE.name())){ 
              String message = "Highscores:\n";
-            if(!game.hscores.isEmpty()){
-                for(String score: game.hscores){
-                message = message + "" + score + "\n";
+                for ( Map.Entry<String, Integer> entry : game.gethScores().entrySet()) {
+                    String name = entry.getKey();
+                    Integer score = entry.getValue();
+                    message = message + name + score + "\n";
                 }
-            }
            JOptionPane.showMessageDialog(null, message, "scorelist", JOptionPane.ERROR_MESSAGE);  
             
 

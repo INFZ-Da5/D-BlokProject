@@ -15,6 +15,8 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JButton;
@@ -33,16 +35,16 @@ public class Game implements ActionListener {
     public ArrayList<Board> levels;
     private Board board;
     private static Player player;
-    public ArrayList<String> hscores;
+     private Map<String, Integer> hScores;
     
     private double seconds = 0;
-    private boolean cherrySpawned;
     private boolean timerStarted = false;
     private boolean stopTimers = false;
     private boolean gameStarted = false;
+    private boolean gameWon = false;
     private int ghostTimerMs;
+    private int extraPoints;
    
-    private Winner winner;
     private JFrame frame;
     private JPanel inGameMenu;
     private JPanel gameInfo;
@@ -53,16 +55,27 @@ public class Game implements ActionListener {
 
     public Game(Menu menu){
         player = new Player();
-        ghostTimerMs = 500;
+        ghostTimerMs = 600;
+        extraPoints = 100000;
         fillLevelList();
-        hscores = new ArrayList();
+        hScores = new HashMap();
         this.menu = menu;
-        
+        board = levels.get(3);
     }
     
     public static Player getPlayer(){
         return player;
     }
+
+    public Map<String, Integer> gethScores() {
+        return hScores;
+    }
+
+    public void sethScores(Map<String, Integer> hScores) {
+        this.hScores = hScores;
+    }
+    
+    
     
     public void initFrame(){
         
@@ -104,6 +117,7 @@ public class Game implements ActionListener {
         both.add(inGameMenu);
         both.add(gameInfo);
         frame.add(both, BorderLayout.NORTH);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true); 
     }
     
@@ -119,6 +133,7 @@ public class Game implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(Actions.START.name())) {
             if(!gameStarted){
+                gameWon = false;
                 setLevel();
                 gameStarted = true;
             }
@@ -126,40 +141,41 @@ public class Game implements ActionListener {
             frame.repaint();
         }else if(e.getActionCommand().equals(Actions.STOP.name())){            
             if(board != null){
-                stopTimers = true;
-                board.getPacman().setStopTimer(stopTimers);
+                stopGameFunctionality();
                 frame.remove(board);
-                levels.clear();
-                gameStarted = false;
-                fillLevelList(); //reset levels else the pills that you ate won't come back.
-                board = null;          
-                seconds = 0;
-                player.setScore(0);
                 frame.validate();
                 frame.repaint();
             }else{ 
                 frame.dispose();
                 menu.init();
             }
+            gameWon = false;
         } else if(e.getActionCommand().equals(Actions.PAUZE.name())){
             stopTimers = true;
+            board.getPacman().setStopTimer(stopTimers);
+            board.setStopTimer(stopTimers);
             board = null;
             gameStarted = false;
         }else if(e.getActionCommand().equals(Actions.RESET.name())){
             if(board != null){
-                stopTimers = true;
-                frame.remove(board);
-                gameStarted = false;
-                board = null; 
-                levels.clear();
-                fillLevelList();
-                seconds = 0;
-                player.setScore(0);
+                stopGameFunctionality();
                 setLevel();
                 frame.validate();
                 frame.repaint();
             }
         }
+    }
+    
+    public void stopGameFunctionality(){
+        stopTimers = true;
+        board.getPacman().setStopTimer(stopTimers);
+        board.setStopTimer(stopTimers);
+        levels.clear();
+        gameStarted = false;
+        fillLevelList(); //reset levels else the pills that you ate won't come back.
+        board = null;          
+        seconds = 0;
+        player.setScore(0);
     }
     
     public void setLevel(){
@@ -174,6 +190,7 @@ public class Game implements ActionListener {
         else{
             for(Board level : levels){
                 if(board == level){
+                    //level + 1, for next level
                     if(levels.indexOf(level)+1 < levels.size()){
                         frame.remove(board);
                         board = levels.get(levels.indexOf(level)+1);
@@ -181,16 +198,18 @@ public class Game implements ActionListener {
                         break;
                     }
                     else{
+                       gameWon = true;
                        frame.remove(board);
-                       frame.add(winner, BorderLayout.CENTER);
-                       player.setScore(player.getScore() / (int)seconds);
-                       insertHighScore ihs = new insertHighScore(hscores, player.getScore());
-                       ihs.init();
+                        player.setScore(player.getScore() + (extraPoints / (int)seconds));
+                       frame.add(new Winner(hScores, player.getScore()), BorderLayout.CENTER);
+                       stopGameFunctionality();
                     }
                 }
             }
         }
-        startLevel();
+        if(!gameWon){
+            startLevel();
+        }
     }
     
     private void startLevel() {
@@ -200,7 +219,8 @@ public class Game implements ActionListener {
         frame.add(board,BorderLayout.CENTER);      
         board.requestFocus();
         frame.validate();
-        cherrySpawned = false;
+        board.setCherrySpawned(false);
+        board.setBananaSpawned(false);
     }
     
     
@@ -213,13 +233,7 @@ public class Game implements ActionListener {
                 ((Ghost)g).moveGhost();
             }
         }
-    }
-    
-    private void checkForCherrySpawn() {
-        if(board.getAmountOfPills() == (board.getAmountofPillsInGame()/2) && !cherrySpawned){
-            cherrySpawned = board.spawnCherry();
-        }
-    }
+    }    
     
     private void checkIfLevelCompleted(){
         if(board.getAmountOfPills() == 0){
@@ -252,7 +266,7 @@ public class Game implements ActionListener {
                     timeLabel.setText("Time: " + seconds);
                     lifeLabel.setText("Lives: " + board.getPacman().getLives());
                     scoreLabel.setText("score: " + player.getScore());
-                    checkForCherrySpawn();
+                    board.checkForExtraItemSpawn();
                     seconds+=0.5; 
                     checkIfLevelCompleted();
                 }
@@ -269,7 +283,7 @@ public class Game implements ActionListener {
                     t.cancel();
                 }
                 else{
-                    moveGhosts();
+                    //moveGhosts();
                 }
             }
         };
@@ -291,8 +305,6 @@ public class Game implements ActionListener {
                         frame.remove(board);
                         board = null;
                         player.setScore(player.getScore() / (int)seconds);
-                        insertHighScore ihs = new insertHighScore(hscores, player.getScore());
-                        ihs.init();
                         player.setScore(0);
                         frame.validate();
                         frame.repaint();

@@ -23,6 +23,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JPanel;
 
 /**
@@ -40,11 +42,15 @@ public abstract class Board extends JPanel  {
 
     private int amountOfPills;
     private int amountOfPillsInGame;
+    private boolean cherrySpawned;
+    private boolean bananaSpawned;
+    private boolean stopTimer;
     private Cell GhostRespawnCell;
     private Cell pacmanRespawnCell;
 
     public Board(){
         ghosts = new ArrayList();
+        stopTimer = false;
         this.requestFocusInWindow();
         this.repaint();
     }
@@ -156,6 +162,22 @@ public abstract class Board extends JPanel  {
         amountOfPills = amountOfPillsInGame;
     }
 
+    public boolean isCherrySpawned() {
+        return cherrySpawned;
+    }
+
+    public void setCherrySpawned(boolean cherrySpawned) {
+        this.cherrySpawned = cherrySpawned;
+    }
+
+    public boolean isBananaSpawned() {
+        return bananaSpawned;
+    }
+
+    public void setBananaSpawned(boolean bananaSpawned) {
+        this.bananaSpawned = bananaSpawned;
+    }
+    
     public int getAmountOfPills() {
         return amountOfPills;
     }
@@ -171,28 +193,69 @@ public abstract class Board extends JPanel  {
     public int getAmountofPillsInGame() {
         return amountOfPillsInGame;
     }
-        
-    public boolean spawnCherry(){
-        Random rd = new Random();
-        rd.nextInt(cellgrid.length);
 
-        double row = rd.nextInt(cellgrid.length);
-        double col = rd.nextInt(cellgrid.length);
+    public boolean isStopTimer() {
+        return stopTimer;
+    }
+
+    public void setStopTimer(boolean stopTimer) {
+        this.stopTimer = stopTimer;
+    }
+          
+    public void checkForExtraItemSpawn() {
+        if(amountOfPillsInGame%2 ==0){
+            if(amountOfPills == (amountOfPillsInGame/2) && !cherrySpawned){
+                cherrySpawned = spawnExtraItem(new Cherry());
+            }
+            else if(amountOfPills == (amountOfPillsInGame/4) && !bananaSpawned){
+                bananaSpawned = spawnExtraItem(new Banana());
+            }
+        }
+        else{
+            amountOfPillsInGame-=1;
+        }
+    }
+    
+    public boolean spawnExtraItem(Item item){
+        Random rd = new Random();
+
+        double row = rd.nextInt(cellgrid.length-1);
+        double col = rd.nextInt(cellgrid[0].length-1);
         
         if(cellgrid[(int)row][(int)col] instanceof EmptyCell){
-        LinkedList<GameElement> l = (LinkedList<GameElement>) ((EmptyCell)cellgrid[(int)row][(int)col]).getInhoud();
+            EmptyCell c = (EmptyCell)cellgrid[(int)row][(int)col];
+            LinkedList<GameElement> l = (LinkedList<GameElement>) c.getInhoud();
             if(l.isEmpty()){
-                l.add(new Cherry());
-                ((EmptyCell)cellgrid[(int)row][(int)col]).setInhoud(l);
+                l.add(item);
+                c.setInhoud(l);
                 amountOfPills++;
+                extraItemTimer(new Timer(),c, item);
             }
             else{
-                spawnCherry();
+                spawnExtraItem(item);
             }
         }else{   
-            spawnCherry();
+            spawnExtraItem(item);
         }
         return true;
+    }
+    
+    private void extraItemTimer(Timer t, EmptyCell c, Item item){
+        TimerTask task = new TimerTask(){
+            public void run(){ 
+                if(stopTimer){
+                    t.cancel();
+                }
+                else{
+                    if(c.getInhoud().contains(item)){
+                        c.getInhoud().remove(item);
+                        amountOfPills--;
+                    }
+                    t.cancel();
+                }
+            }
+        };
+        t.scheduleAtFixedRate(task, 10000, 1);
     }
 
     private void setNodes() {
