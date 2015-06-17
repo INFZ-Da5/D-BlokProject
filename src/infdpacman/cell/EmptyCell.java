@@ -24,6 +24,7 @@ import org.apache.commons.lang3.ArrayUtils;
 public class EmptyCell extends Cell{
     private List<GameElement> content = new LinkedList<>(); 
     private Board board;
+    private boolean Ghostrespawner = true;
     
     public EmptyCell(Board board){
         this.setBackground(Color.BLACK);
@@ -113,7 +114,7 @@ public class EmptyCell extends Cell{
             }
         }
     }
-       
+    
     public void ghostState(Timer t, int amountOfTime) {
         TimerTask task = new TimerTask(){
             public void run(){
@@ -124,5 +125,6 @@ public class EmptyCell extends Cell{
             }
         };
         t.scheduleAtFixedRate(task, amountOfTime, 1);
-    }
+    }    
 }
+

@@ -20,6 +20,7 @@ public abstract class GameCharacter extends GameElement{
     
     public abstract Cell getCell();
     public abstract void setCell(Cell cell);
+    public abstract Cell getSpawnCell();
     
     public void move(Direction direction, GameCharacter character){
         Cell cell = character.getCell();

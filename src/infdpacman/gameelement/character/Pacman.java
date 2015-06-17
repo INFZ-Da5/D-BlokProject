@@ -25,6 +25,7 @@ public class Pacman extends GameCharacter implements KeyListener {
     private boolean firstMove;
     private Timer timer;
     private Cell cell;
+    private Cell spawnCell;
     private Map<Direction, ImageIcon> images;
 
     private ImageIcon westImage;
@@ -55,6 +56,7 @@ public class Pacman extends GameCharacter implements KeyListener {
         timer = new Timer();
         stopTimer = false;
         invincibleTimeInMs = 10000;
+        this.cell = spawnCell;
     }
 
     public void setKeys(boolean keys){
@@ -73,10 +75,12 @@ public class Pacman extends GameCharacter implements KeyListener {
         this.stopTimer = stopTimer;
     }
 
+    @Override
     public Cell getCell() {
         return cell;
     }
 
+    @Override
     public void setCell(Cell cell) {
         this.cell = cell;
     }
@@ -177,5 +181,10 @@ public class Pacman extends GameCharacter implements KeyListener {
             }
         };
         t.scheduleAtFixedRate(task, invincibleTimeInMs, 1);
+    }
+
+    @Override
+    public Cell getSpawnCell() {
+        return spawnCell;
     }
 }

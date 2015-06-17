@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 public class DrunkGhost extends Ghost{
     private Cell cell;
     private boolean firstFleePath;
+    private Cell spawnCell;
     
     public DrunkGhost(Cell cell, Board board) {
         super(new ImageIcon("Plaatjes/drunkghost.png"), board);
@@ -20,8 +21,14 @@ public class DrunkGhost extends Ghost{
         currentImage = normalGhost;
         this.cell = cell;
         firstFleePath = true;
+        this.spawnCell = cell;
     }
-
+    
+    @Override
+    public Cell getSpawnCell(){
+        return spawnCell;
+    }
+     
     @Override
     public void moveGhost(){
         if(!flee){

@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 public class SmartGhost extends Ghost {
     private Cell cell;
     private boolean firstFleePath;
+    private Cell spawnCell;
    
     public SmartGhost(Cell cell, Board board) {
         super(new ImageIcon("Plaatjes/ghost.png"), board);
@@ -21,6 +22,14 @@ public class SmartGhost extends Ghost {
         this.cell = cell;
         this.board = board;
         firstFleePath = true;
+        flee = false;
+        firstStep = true;
+        this.spawnCell = cell;
+    }
+    
+    @Override
+    public Cell getSpawnCell(){
+        return spawnCell;
     }
 
     @Override

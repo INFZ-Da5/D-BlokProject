@@ -34,6 +34,10 @@ public abstract class Ghost extends GameCharacter{
 
     @Override
     public abstract Cell getCell();
+    
+    @Override
+    public abstract Cell getSpawnCell();
+    
     @Override
     public abstract void setCell(Cell cell);
 
