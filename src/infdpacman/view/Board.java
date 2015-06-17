@@ -46,6 +46,7 @@ public abstract class Board extends JPanel  {
     private boolean bananaSpawned;
     private boolean stopTimer;
     private Cell GhostRespawnCell;
+    private Cell drunkGhostCell;
     private Cell pacmanRespawnCell;
 
     public Board(){
@@ -61,6 +62,11 @@ public abstract class Board extends JPanel  {
     
     public Cell getGhostRespawnCell() {
         return GhostRespawnCell;    
+    }
+    
+    public Cell getDrunkGhostRespawnCell(){
+    
+    return drunkGhostCell;
     }
 
     public Cell[][] getCellgrid() {
@@ -84,7 +90,7 @@ public abstract class Board extends JPanel  {
                     switch(grid[row][col]){
                         case 1: inhoud.add(pacman = new Pacman(cell)); this.addKeyListener(pacman); pacmanRespawnCell = cell; break;
                         case 2: inhoud.add(g1 = new SmartGhost(cell, this)); ghosts.add(g1); GhostRespawnCell = cell;break;
-                        case 3: inhoud.add(dg1 = new DrunkGhost(cell, this)); ghosts.add(dg1);break;
+                        case 3: inhoud.add(dg1 = new DrunkGhost(cell, this)); ghosts.add(dg1); drunkGhostCell = cell;break;
                         case 4: inhoud.add(new Pill());break;
                         case 5: inhoud.add(new SuperPill()); break;
                         case 6: inhoud.add(new Banana()); break;

@@ -12,15 +12,22 @@ import javax.swing.ImageIcon;
  */
 public class DrunkGhost extends Ghost{
     private Cell cell;
+    private Cell begincell;
     
     public DrunkGhost(Cell cell, Board board) {
         super(new ImageIcon("Plaatjes/drunkghost.png"), board);
         normalGhost = new ImageIcon("Plaatjes/drunkghost.png");
         currentImage = normalGhost;
         this.cell = cell;
+        this.begincell = cell;
         
     }
-
+     @Override
+     public Cell getBeginCell(){
+    
+    return begincell;
+    }
+     
     @Override
     public void moveGhost(){
         if(!flee){

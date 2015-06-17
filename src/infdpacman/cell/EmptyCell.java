@@ -26,6 +26,7 @@ import org.apache.commons.lang3.ArrayUtils;
 public class EmptyCell extends Cell{
     private List<GameElement> content = new LinkedList<>(); 
     private Board board;
+    private boolean Ghostrespawner = true;
     
     public EmptyCell(Board board){
         this.setBackground(Color.BLACK);
@@ -132,9 +133,10 @@ public class EmptyCell extends Cell{
                 t.cancel();
                 //optie 1:
                 ((Ghost)g).attack();
-                ((Ghost)g).setCell((EmptyCell)board.getGhostRespawnCell());
+                ((Ghost)g).setCell(((Ghost)g).getBeginCell());
                 board.getGhosts().add((GameCharacter)g);
-                
+
+
                 //optie 2:
                 /*
                 if(g instanceof SmartGhost){

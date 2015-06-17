@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 public class SmartGhost extends Ghost {
     private Cell cell;
     private Random r;
+    private Cell begincell;
    
     public SmartGhost(Cell cell, Board board) {
         super(new ImageIcon("Plaatjes/ghost.png"), board);
@@ -24,6 +25,12 @@ public class SmartGhost extends Ghost {
         flee = false;
         r = new Random();
         firstStep = true;
+        this.begincell = cell;
+    }
+    @Override
+    public Cell getBeginCell(){
+    
+    return begincell;
     }
 
     @Override
