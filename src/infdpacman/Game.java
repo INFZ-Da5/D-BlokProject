@@ -43,6 +43,7 @@ public class Game implements ActionListener {
     private boolean gameWon = false;
     private int ghostTimerMs;
     private int extraPoints;
+    private int prefLives = 3;
    
     private JFrame frame;
     private JPanel inGameMenu;
@@ -59,7 +60,7 @@ public class Game implements ActionListener {
         fillLevelList();
         hScores = new HashMap();
         this.menu = menu;
-        board = levels.get(3);
+        //board = levels.get(3);
     }
     
     public static Player getPlayer(){
@@ -74,7 +75,15 @@ public class Game implements ActionListener {
         this.hScores = hScores;
     }
     
+    public int getPrefLives(){
     
+    return prefLives;
+    }
+    
+    public void setPrefLives(int lives){
+    
+    prefLives = lives;
+    }
     
     public void initFrame(){
         
@@ -124,6 +133,10 @@ public class Game implements ActionListener {
         this.board = board;
     }
     
+    public Board getBoard(){
+        return board;
+    }
+    
     public ArrayList<Board> getLevels(){
         return levels;
     }
@@ -167,6 +180,7 @@ public class Game implements ActionListener {
     
     public void stopGameFunctionality(){
         stopTimers = true;
+        board.getPacman().setLives(3);
         board.getPacman().setStopTimer(stopTimers);
         board.setStopTimer(stopTimers);
         levels.clear();
@@ -193,6 +207,7 @@ public class Game implements ActionListener {
                     if(levels.indexOf(level)+1 < levels.size()){
                         frame.remove(board);
                         board = levels.get(levels.indexOf(level)+1);
+                         board.getPacman().setLives(prefLives);
                         ghostTimerMs -= 75;
                         break;
                     }

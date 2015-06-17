@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
  * @author Lenovo
  */
 public class Pacman extends GameCharacter implements KeyListener {
-    private int lives;
+    private int lives = 3;
     private boolean invincible;
     private boolean stopTimer;
     private boolean firstMove;
@@ -47,11 +47,11 @@ public class Pacman extends GameCharacter implements KeyListener {
         images.put(Direction.SOUTH, southImage);
         this.cell = cell;
         invincible = false;
-        lives = 3;
         firstMove = true;
         currentImage = westImage;
         timer = new Timer();
         stopTimer = false;
+   
     }
 
     public boolean isStopTimer() {
