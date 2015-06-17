@@ -12,13 +12,14 @@ import javax.swing.ImageIcon;
  */
 public class DrunkGhost extends Ghost{
     private Cell cell;
+    private boolean firstFleePath;
     
     public DrunkGhost(Cell cell, Board board) {
         super(new ImageIcon("Plaatjes/drunkghost.png"), board);
         normalGhost = new ImageIcon("Plaatjes/drunkghost.png");
         currentImage = normalGhost;
         this.cell = cell;
-        
+        firstFleePath = true;
     }
 
     @Override
@@ -28,7 +29,16 @@ public class DrunkGhost extends Ghost{
             move(d, this);
         }
         else{
-            path = calculateRoute(cell);
+            if(!flee){
+                path = calculateRoute(cell);
+                firstFleePath = true;
+            }
+            else{
+                if(firstFleePath){
+                    path = calculateRoute(cell);  
+                    firstFleePath = false;
+                }
+            }
             if(path != null){
                 if(!path.isEmpty()){
                     moveGhost(this, path.getFirst());

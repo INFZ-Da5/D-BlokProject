@@ -4,7 +4,6 @@ import infdpacman.cell.Cell;
 import infdpacman.view.Board;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.Random;
 import javax.swing.ImageIcon;
 
 /**
@@ -13,7 +12,7 @@ import javax.swing.ImageIcon;
  */
 public class SmartGhost extends Ghost {
     private Cell cell;
-    private Random r;
+    private boolean firstFleePath;
    
     public SmartGhost(Cell cell, Board board) {
         super(new ImageIcon("Plaatjes/ghost.png"), board);
@@ -21,9 +20,7 @@ public class SmartGhost extends Ghost {
         currentImage = normalGhost;
         this.cell = cell;
         this.board = board;
-        flee = false;
-        r = new Random();
-        firstStep = true;
+        firstFleePath = true;
     }
 
     @Override
@@ -53,8 +50,14 @@ public class SmartGhost extends Ghost {
     public void moveGhost() {
         if(!flee){
             path = calculateRoute(cell);
+            firstFleePath = true;
         }
-        path = calculateRoute(cell);
+        else{
+            if(firstFleePath){
+                path = calculateRoute(cell);  
+                firstFleePath = false;
+            }
+        }
         if(path != null){
             if(!path.isEmpty()){
                 moveGhost(this, path.getFirst());
