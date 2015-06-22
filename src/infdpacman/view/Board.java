@@ -257,21 +257,9 @@ public abstract class Board extends JPanel  {
         TimerTask task = new TimerTask(){
             public void run(){
                 t.cancel();
-                //optie 1:
                 ((Ghost)g).attack();
                 ((Ghost)g).setCell(((Ghost)g).getSpawnCell());
                 ghosts.add((GameCharacter)g);
-                
-                //optie 2:
-                /*
-                if(g instanceof SmartGhost){
-                    Ghost ghost = new SmartGhost(board.getGhostRespawnCell(), board);
-                    board.getGhosts().add(ghost);
-                }
-                else{
-                    Ghost ghost = new DrunkGhost(board.getGhostRespawnCell(), board);   
-                    board.getGhosts().add(ghost);
-                }*/
             }
         };
         t.scheduleAtFixedRate(task, 5000, 1);

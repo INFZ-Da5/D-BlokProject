@@ -5,6 +5,8 @@ import infdpacman.utilities.dijkstra.DijkstraAlgorithm;
 import infdpacman.view.Board;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,13 +17,15 @@ public abstract class Ghost extends GameCharacter{
     protected ImageIcon normalGhost;
     private final ImageIcon fleeGhost;    
     protected ImageIcon currentImage;
-    private final int points = 200;
+    private final int points;
     protected boolean flee;
     protected boolean firstStep;
+    private boolean stopTimer;
     protected Board board;
     protected LinkedList<Cell> path;
     protected DijkstraAlgorithm dijkstra;
     protected final Random r;
+    private int ghostTimerMs;
     
     public Ghost(ImageIcon i, Board board) {
         super(i);
@@ -30,16 +34,9 @@ public abstract class Ghost extends GameCharacter{
         flee = false;
         firstStep = true;
         r = new Random();
+        points = 200;
+        ghostTimerMs = 600;
     }
-
-    @Override
-    public abstract Cell getCell();
-    
-    @Override
-    public abstract Cell getSpawnCell();
-    
-    @Override
-    public abstract void setCell(Cell cell);
 
     public int getPoints() {
         return points;
@@ -75,4 +72,34 @@ public abstract class Ghost extends GameCharacter{
     }
     
     public abstract void attack();
+    
+    public boolean isStopTimer() {
+        return stopTimer;
+    }
+
+    public void setStopTimer(boolean stopTimer) {
+        this.stopTimer = stopTimer;
+    }
+    
+    public void ghostTimer(Timer t) {
+        TimerTask task = new TimerTask(){
+            public void run(){ 
+                if(stopTimer){
+                    t.cancel();
+                }
+                else{
+                    moveGhost();
+                }
+            }
+        };
+        t.scheduleAtFixedRate(task, 0, ghostTimerMs);
+    }
+
+    public int getGhostTimerMs() {
+        return ghostTimerMs;
+    }
+
+    public void setGhostTimerMs(int ghostTimerMs) {
+        this.ghostTimerMs = ghostTimerMs;
+    }
 }
