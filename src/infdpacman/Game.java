@@ -44,7 +44,6 @@ public class Game implements ActionListener {
     private boolean keys;
 
     private double seconds;
-    private int ghostTimerMs;
     private int extraPoints;
     private int prefLives;
    
@@ -58,7 +57,6 @@ public class Game implements ActionListener {
 
     public Game(Menu menu){
         player = new Player();
-        ghostTimerMs = 600;
         extraPoints = 100000;
         fillLevelList();
         hScores = new HashMap();
@@ -181,6 +179,9 @@ public class Game implements ActionListener {
         } else if(e.getActionCommand().equals(Actions.PAUZE.name())){
             stopTimers = true;
             board.getPacman().setStopTimer(stopTimers);
+            for(GameCharacter g : (ArrayList<GameCharacter>)board.getGhosts()){
+                ((Ghost)g).setStopTimer(stopTimers);
+            }
             board.setStopTimer(stopTimers);
             board = null;
             gameStarted = false;
@@ -199,6 +200,9 @@ public class Game implements ActionListener {
     public void stopGameFunctionality(){
         stopTimers = true;
         board.getPacman().setStopTimer(stopTimers);
+        for(GameCharacter g : (ArrayList<GameCharacter>)board.getGhosts()){
+            ((Ghost)g).setStopTimer(stopTimers);
+        }
         board.setStopTimer(stopTimers);
         levels.clear();
         gameStarted = false;
@@ -227,7 +231,9 @@ public class Game implements ActionListener {
                         board = levels.get(levels.indexOf(level)+1);
                         board.getPacman().setLives(prefLives);
                         board.getPacman().setKeys(keys);
-                        ghostTimerMs -= 75;
+                        for(GameCharacter g : (ArrayList<GameCharacter>)board.getGhosts()){
+                            ((Ghost)g).setGhostTimerMs(((Ghost)g).getGhostTimerMs() - 75);
+                        }
                         break;
                     }
                     else{
@@ -263,7 +269,7 @@ public class Game implements ActionListener {
     
     private void moveGhosts(){
         for(GameCharacter g : (ArrayList<GameCharacter>)board.getGhosts()){
-            ((Ghost)g).moveGhost();
+            ((Ghost)g).ghostTimer(new Timer());
         }
     }    
     
@@ -284,8 +290,8 @@ public class Game implements ActionListener {
 
     private void startTimers() {
         gameTimer(new Timer());
-        ghostTimer(new Timer());
         gameOverTimer(new Timer());
+        moveGhosts();
     }
     
     private void gameTimer(Timer t) {
@@ -307,20 +313,6 @@ public class Game implements ActionListener {
         t.scheduleAtFixedRate(task, 0, 500);
     } 
     
-    
-    private void ghostTimer(Timer t) {
-        TimerTask task = new TimerTask(){
-            public void run(){ 
-                if(stopTimers){
-                    t.cancel();
-                }
-                else{
-                    moveGhosts();
-                }
-            }
-        };
-        t.scheduleAtFixedRate(task, 0, ghostTimerMs);
-    }
         
     private void gameOverTimer(Timer t){
         TimerTask task = new TimerTask(){

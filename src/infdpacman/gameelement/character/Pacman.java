@@ -187,5 +187,5 @@ public class Pacman extends GameCharacter implements KeyListener {
     @Override
     public Cell getSpawnCell() {
         return spawnCell;
-    }
+    }    
 }
