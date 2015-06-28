@@ -264,7 +264,6 @@ public abstract class Board extends JPanel  {
         };
         t.scheduleAtFixedRate(task, 5000, 1);
     }
-    
 }
 
 

@@ -16,7 +16,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import org.apache.commons.lang3.ArrayUtils;
 
 /**
  *
@@ -34,7 +33,6 @@ public class EmptyCell extends Cell{
     
     @Override
     public void draw(Graphics g){
-        checkCollision();
         for (GameElement content1 : content) {
             if(content1 instanceof Item){
                 content1.draw(g, this.getWidth()/2, this.getHeight()/2);
@@ -53,7 +51,7 @@ public class EmptyCell extends Cell{
         this.content = content;
     } 
 
-    private void checkCollision() {
+    public void checkCollision() {
         if(board.getPacman().isInvincible()){
             invincibleCollision();
         }else{

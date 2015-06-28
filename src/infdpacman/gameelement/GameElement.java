@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
  * @author CVD
  */
 public abstract class GameElement {
-    private ImageIcon i;
+    private final ImageIcon i;
     public GameElement(ImageIcon i){
         this.i = i;
     }

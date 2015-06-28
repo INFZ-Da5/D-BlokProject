@@ -1,6 +1,7 @@
 package infdpacman.gameelement.character;
 
 import infdpacman.cell.Cell;
+import infdpacman.cell.EmptyCell;
 import infdpacman.enums.Direction;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -156,6 +157,7 @@ public class Pacman extends GameCharacter implements KeyListener {
                 else{
                     currentImage = images.get(d);
                     movePacman(d);
+                    ((EmptyCell)cell).checkCollision();
                 }
             }
         };

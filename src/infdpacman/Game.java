@@ -1,7 +1,10 @@
 package infdpacman;
 
+import infdpacman.cell.Cell;
+import infdpacman.cell.EmptyCell;
 import infdpacman.view.Menu;
 import infdpacman.enums.Actions;
+import infdpacman.gameelement.GameElement;
 import infdpacman.gameelement.character.GameCharacter;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.view.Board;
@@ -307,6 +310,7 @@ public class Game implements ActionListener {
                     t.cancel();
                 }
                 else{
+                    //((EmptyCell)board.getPacman().getCell()).checkCollision();
                     timeLabel.setText("Time: " + seconds);
                     lifeLabel.setText("Lives: " + board.getPacman().getLives());
                     scoreLabel.setText("score: " + player.getScore());
@@ -318,7 +322,6 @@ public class Game implements ActionListener {
         };
         t.scheduleAtFixedRate(task, 0, 500);
     } 
-    
         
     private void gameOverTimer(Timer t){
         TimerTask task = new TimerTask(){
