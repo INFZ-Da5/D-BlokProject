@@ -78,7 +78,6 @@ public abstract class Board extends JPanel  {
                         case 3: inhoud.add(dg1 = new DrunkGhost(cell, this)); ghosts.add(dg1);break;
                         case 4: inhoud.add(new Pill());break;
                         case 5: inhoud.add(new SuperPill()); break;
-                        case 6: inhoud.add(new Banana()); break;
                     }
                 }
                 this.add(cellgrid[row][col]);

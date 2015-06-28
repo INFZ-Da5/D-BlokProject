@@ -8,7 +8,15 @@ import java.awt.GridLayout;
  * @author Lenovo
  */
 public class Level2 extends Board{
-    private int [][] grid = new int[][] {
+    /*
+        0 = wall
+        1 = pacman
+        2 = smartghost
+        3 = drunkghost
+        4 = pill
+        5 = superpill
+    */
+    private final int [][] grid = new int[][] {
     {0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0, 0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0},
     {0, 4,  4,  4,  4,  4,  4,  0,  4,  4,  4,  4, 4, 4, 4, 4,  4,  4,  4,  4,  0,  4,  4,  4,  4,  4, 4, 0},
     {0, 4,  0,  0,  0,  0,  4,  0,  4,  0,  0,  0, 0, 0, 0, 0,  0,  0,  0,  4,  0,  4,  0,  0,  0,  0, 4, 0},
@@ -43,17 +51,8 @@ public class Level2 extends Board{
     
     };
         
-        
-        public Level2() {
+    public Level2() {
         this.setLayout(new GridLayout(grid.length,grid[0].length));
-         fillCells(grid);
+        fillCells(grid);
     }
-
-
-
-    
-        
-        
-        
-        
 }

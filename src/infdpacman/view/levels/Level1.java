@@ -9,7 +9,15 @@ import java.awt.GridLayout;
  * @author Lenovo
  */
 public class Level1 extends Board {
-    private int [][] grid = new int[][] {
+    /*
+        0 = wall
+        1 = pacman
+        2 = smartghost
+        3 = drunkghost
+        4 = pill
+        5 = superpill
+    */
+    private final int [][] grid = new int[][] {
         {0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0, 0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 0, 0},
         {0, 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 4, 0, 0, 4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4, 4, 0},
         {0, 4,  0,  0,  0,  0,  4,  0,  0,  0,  0,  0, 4, 0, 0, 4,  0,  0,  0,  0,  0,  4,  0,  0,  0,  0, 4, 0},
