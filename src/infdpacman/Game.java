@@ -190,9 +190,14 @@ public class Game implements ActionListener {
             gameStarted = false;
         }else if(e.getActionCommand().equals(Actions.RESET.name())){
             if(board != null){
+                Board current = levels.get(levels.indexOf(board)+1);
+                frame.remove(board);
                 stopGameFunctionality();
+                levels.remove(levels.get(levels.indexOf(current)-1));
                 seconds = 0;
                 player.setScore(0);
+                board = current;
+                timerStarted = false;
                 setLevel();
                 frame.validate();
                 frame.repaint();
