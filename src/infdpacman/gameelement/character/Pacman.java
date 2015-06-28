@@ -104,6 +104,9 @@ public class Pacman extends GameCharacter implements KeyListener {
             case KeyEvent.VK_LEFT:
                 d = Direction.WEST; 
                break;
+            case KeyEvent.VK_R:
+                invincible = true; 
+               break;
         }
         else{
         switch (ke.getKeyCode()){

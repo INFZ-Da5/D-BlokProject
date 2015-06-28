@@ -7,7 +7,7 @@ import java.util.List;
  * @author CVD
  */
 
-//wat is E, ff opzoeken 
+//E = generic element
 public class FindClassTypeFromList {
     public static <E> boolean containsInstance(List<E> list, Class<? extends E> classType) {
         for (E e : list) {

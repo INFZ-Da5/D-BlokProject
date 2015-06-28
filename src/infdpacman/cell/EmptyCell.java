@@ -11,6 +11,7 @@ import infdpacman.utilities.FindClassTypeFromList;
 import infdpacman.view.Board;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
@@ -79,18 +80,15 @@ public class EmptyCell extends Cell{
     private void invincibleCollision(){
         if(FindClassTypeFromList.containsInstance(content, Pacman.class) 
            && (FindClassTypeFromList.containsInstance(content, Ghost.class)) ){
-            GameElement[] a = content.toArray(new GameElement[content.size()]); //make an array to prevent ConcurrentModificationException
-            content.clear();
-            for (GameElement c : a) {
-                if(c instanceof Ghost){
-                    board.getGhosts().remove((GameCharacter)c);
-                    a = ArrayUtils.removeElement(a, c);
-                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)c).getPoints());
-                    board.ghostRespawnTimer(new Timer(), c);
+            Iterator<GameElement> it = content.iterator();
+            while(it.hasNext()){
+                GameElement g = it.next();
+                if(g instanceof Ghost){
+                    board.getGhosts().remove((GameCharacter)g);
+                    it.remove();
+                    Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)g).getPoints());
+                    board.ghostRespawnTimer(new Timer(), g);
                 }
-            }
-            for(int i = 0; i < a.length; i++){
-                content.add(i, a[i]);
             }
         }
     }

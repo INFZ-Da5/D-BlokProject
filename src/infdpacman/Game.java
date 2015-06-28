@@ -161,6 +161,12 @@ public class Game implements ActionListener {
                 setLevel();
                 gameStarted = true;
             }
+            if(stopTimers){
+                stopTimers = false;
+                startTimers();
+                //laat alles weer verder gaan
+                //werkt nog niet!
+            }
             frame.validate();
             frame.repaint();
         }else if(e.getActionCommand().equals(Actions.STOP.name())){            
@@ -178,12 +184,8 @@ public class Game implements ActionListener {
             gameWon = false;
         } else if(e.getActionCommand().equals(Actions.PAUZE.name())){
             stopTimers = true;
-            board.getPacman().setStopTimer(stopTimers);
-            for(GameCharacter g : (ArrayList<GameCharacter>)board.getGhosts()){
-                ((Ghost)g).setStopTimer(stopTimers);
-            }
-            board.setStopTimer(stopTimers);
-            board = null;
+            setTimerState();
+            board = null; //wrm?
             gameStarted = false;
         }else if(e.getActionCommand().equals(Actions.RESET.name())){
             if(board != null){
@@ -197,13 +199,17 @@ public class Game implements ActionListener {
         }
     }
     
-    public void stopGameFunctionality(){
-        stopTimers = true;
+    public void setTimerState(){
         board.getPacman().setStopTimer(stopTimers);
         for(GameCharacter g : (ArrayList<GameCharacter>)board.getGhosts()){
             ((Ghost)g).setStopTimer(stopTimers);
         }
         board.setStopTimer(stopTimers);
+    }
+    
+    public void stopGameFunctionality(){
+        stopTimers = true;
+        setTimerState();
         levels.clear();
         gameStarted = false;
         fillLevelList(); //reset levels else the pills that you ate won't come back.
@@ -289,6 +295,8 @@ public class Game implements ActionListener {
     }
 
     private void startTimers() {
+        stopTimers = false;
+        setTimerState();
         gameTimer(new Timer());
         gameOverTimer(new Timer());
         moveGhosts();
