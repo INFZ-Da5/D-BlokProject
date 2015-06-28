@@ -21,6 +21,7 @@ public abstract class Ghost extends GameCharacter{
     protected boolean flee;
     protected boolean firstStep;
     private boolean stopTimer;
+    private boolean eaten;
     protected Board board;
     protected LinkedList<Cell> path;
     protected DijkstraAlgorithm dijkstra;
@@ -32,6 +33,7 @@ public abstract class Ghost extends GameCharacter{
         this.board = board;
         fleeGhost = new ImageIcon("Plaatjes/fleeghost.png");
         flee = false;
+        eaten = false;
         firstStep = true;
         r = new Random();
         points = 200;
@@ -81,14 +83,17 @@ public abstract class Ghost extends GameCharacter{
         this.stopTimer = stopTimer;
     }
     
+    //nullpointer met invincible
     public void ghostTimer(Timer t) {
         TimerTask task = new TimerTask(){
             public void run(){ 
-                if(stopTimer){
+               if(stopTimer){
                     t.cancel();
                 }
                 else{
-                    moveGhost();
+                    if(!eaten){
+                        moveGhost();
+                    }
                 }
             }
         };
@@ -101,5 +106,9 @@ public abstract class Ghost extends GameCharacter{
 
     public void setGhostTimerMs(int ghostTimerMs) {
         this.ghostTimerMs = ghostTimerMs;
+    }
+
+    public void setEaten(boolean eaten) {
+        this.eaten = eaten;
     }
 }

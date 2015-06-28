@@ -23,13 +23,13 @@ import org.apache.commons.lang3.ArrayUtils;
  * @author Lenovo
  */
 public class EmptyCell extends Cell{
-    private List<GameElement> content = new LinkedList<>(); 
-    private Board board;
-    private boolean Ghostrespawner = true;
+    private List<GameElement> content; 
+    private final Board board;
     
     public EmptyCell(Board board){
         this.setBackground(Color.BLACK);
         this.board = board;
+        content = new LinkedList<>();
     }
     
     @Override
@@ -84,6 +84,7 @@ public class EmptyCell extends Cell{
             while(it.hasNext()){
                 GameElement g = it.next();
                 if(g instanceof Ghost){
+                    ((Ghost)g).setEaten(true);
                     board.getGhosts().remove((GameCharacter)g);
                     it.remove();
                     Game.getPlayer().setScore(Game.getPlayer().getScore() + ((Ghost)g).getPoints());

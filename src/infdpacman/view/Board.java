@@ -260,6 +260,7 @@ public abstract class Board extends JPanel  {
                 ((Ghost)g).attack();
                 ((Ghost)g).setCell(((Ghost)g).getSpawnCell());
                 ghosts.add((GameCharacter)g);
+                ((Ghost)g).setEaten(false);
             }
         };
         t.scheduleAtFixedRate(task, 5000, 1);
