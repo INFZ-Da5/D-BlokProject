@@ -1,10 +1,7 @@
 package infdpacman;
 
-import infdpacman.cell.Cell;
-import infdpacman.cell.EmptyCell;
 import infdpacman.view.Menu;
 import infdpacman.enums.Actions;
-import infdpacman.gameelement.GameElement;
 import infdpacman.gameelement.character.GameCharacter;
 import infdpacman.gameelement.character.Ghost;
 import infdpacman.view.Board;
@@ -56,7 +53,7 @@ public class Game implements ActionListener {
     private JLabel scoreLabel;
     private JLabel lifeLabel;
     private JLabel timeLabel;
-    private Menu menu;
+    private final Menu menu;
 
     public Game(Menu menu){
         player = new Player();
@@ -190,15 +187,13 @@ public class Game implements ActionListener {
             gameStarted = false;
         }else if(e.getActionCommand().equals(Actions.RESET.name())){
             if(board != null){
-                Board current = levels.get(levels.indexOf(board)+1);
+                int currentLevel = levels.indexOf(board);
                 frame.remove(board);
                 stopGameFunctionality();
-                levels.remove(levels.get(levels.indexOf(current)-1));
                 seconds = 0;
                 player.setScore(0);
-                board = current;
-                timerStarted = false;
-                setLevel();
+                board = levels.get(currentLevel);
+                startLevel();
                 frame.validate();
                 frame.repaint();
             }
@@ -216,10 +211,10 @@ public class Game implements ActionListener {
     public void stopGameFunctionality(){
         stopTimers = true;
         setTimerState();
-        levels.clear();
-        gameStarted = false;
-        fillLevelList(); //reset levels else the pills that you ate won't come back.
         board = null;          
+        levels.clear();
+        fillLevelList(); //reset levels else the pills that you ate won't come back.
+        gameStarted = false;
     }
     
     public void setLevel(){
@@ -231,8 +226,6 @@ public class Game implements ActionListener {
             startTimers();
             timerStarted = true;
             startedFromFirstLevel = true;
-            board.getPacman().setLives(prefLives);
-            board.getPacman().setKeys(keys);
         }
         else{
             for(Board level : levels){
@@ -241,8 +234,7 @@ public class Game implements ActionListener {
                     if(levels.indexOf(level)+1 < levels.size()){
                         frame.remove(board);
                         board = levels.get(levels.indexOf(level)+1);
-                        board.getPacman().setLives(prefLives);
-                        board.getPacman().setKeys(keys);
+
                         for(GameCharacter g : (ArrayList<GameCharacter>)board.getGhosts()){
                             ((Ghost)g).setGhostTimerMs(((Ghost)g).getGhostTimerMs() - 75);
                         }
@@ -265,6 +257,8 @@ public class Game implements ActionListener {
         if(!gameWon){
             startLevel();
         }
+        board.getPacman().setLives(prefLives);
+        board.getPacman().setKeys(keys);
     }
     
     private void startLevel() {
