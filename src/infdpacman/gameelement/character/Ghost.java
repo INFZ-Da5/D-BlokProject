@@ -83,7 +83,6 @@ public abstract class Ghost extends GameCharacter{
         this.stopTimer = stopTimer;
     }
     
-    //nullpointer met invincible
     public void ghostTimer(Timer t) {
         TimerTask task = new TimerTask(){
             public void run(){ 

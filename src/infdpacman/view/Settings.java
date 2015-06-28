@@ -10,7 +10,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextField;
 
 /**
  *
@@ -19,10 +18,9 @@ import javax.swing.JTextField;
 public class Settings implements ActionListener {
     
  private JFrame frame;
- private JTextField tfLC;
  private JComboBox cbLC;
  private JComboBox livesbox;
- private Menu menu;
+ private final Menu menu;
  private JRadioButton arrows;
  private JRadioButton wasd;
  

@@ -25,10 +25,10 @@ import javax.swing.JTextField;
  * @author CVD
  */
 public class EndGame extends JPanel implements ActionListener{
-    private Map<String, Integer> hScore;
-    private int score;
-    private JTextField TFname;
-    private JButton submit;
+    private final Map<String, Integer> hScore;
+    private final int score;
+    private final JTextField TFname;
+    private final JButton submit;
     
     public EndGame(Map hScore, int score, boolean winner){
         this.setLayout(new GridLayout(4,0));

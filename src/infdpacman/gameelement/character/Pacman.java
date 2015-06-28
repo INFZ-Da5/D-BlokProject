@@ -18,20 +18,20 @@ import javax.swing.ImageIcon;
  */
 public class Pacman extends GameCharacter implements KeyListener {
     private int lives;
-    private int invincibleTimeInMs;
+    private final int invincibleTimeInMs;
     private boolean keys = true;
     private boolean invincible;
     private boolean stopTimer;
     private boolean firstMove;
-    private Timer timer;
+    private final Timer timer;
     private Cell cell;
-    private Cell spawnCell;
-    private Map<Direction, ImageIcon> images;
+    private final Cell spawnCell;
+    private final Map<Direction, ImageIcon> images;
 
-    private ImageIcon westImage;
-    private ImageIcon eastImage;
-    private ImageIcon northImage;
-    private ImageIcon southImage;
+    private final ImageIcon westImage;
+    private final ImageIcon eastImage;
+    private final ImageIcon northImage;
+    private final ImageIcon southImage;
     private ImageIcon currentImage;
     private Direction d;
     
@@ -103,9 +103,6 @@ public class Pacman extends GameCharacter implements KeyListener {
                 break;
             case KeyEvent.VK_LEFT:
                 d = Direction.WEST; 
-               break;
-            case KeyEvent.VK_R:
-                invincible = true; 
                break;
         }
         else{

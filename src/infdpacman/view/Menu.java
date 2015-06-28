@@ -3,7 +3,6 @@ package infdpacman.view;
 
 import infdpacman.Game;
 import infdpacman.enums.Actions;
-import infdpacman.view.Settings;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

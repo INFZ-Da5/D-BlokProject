@@ -44,7 +44,7 @@ public class Game implements ActionListener {
     private boolean keys;
 
     private double seconds;
-    private int extraPoints;
+    private final int extraPoints;
     private int prefLives;
    
     private JFrame frame;
@@ -164,8 +164,6 @@ public class Game implements ActionListener {
             if(stopTimers){
                 stopTimers = false;
                 startTimers();
-                //laat alles weer verder gaan
-                //werkt nog niet!
             }
             frame.validate();
             frame.repaint();
@@ -185,7 +183,7 @@ public class Game implements ActionListener {
         } else if(e.getActionCommand().equals(Actions.PAUZE.name())){
             stopTimers = true;
             setTimerState();
-            board = null; //wrm?
+            board = null;
             gameStarted = false;
         }else if(e.getActionCommand().equals(Actions.RESET.name())){
             if(board != null){

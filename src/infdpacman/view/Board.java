@@ -37,7 +37,7 @@ public abstract class Board extends JPanel  {
     private DrunkGhost dg1;
     private SmartGhost g1;
     private Cell[][] cellgrid;
-    private ArrayList<GameCharacter> ghosts;
+    private final ArrayList<GameCharacter> ghosts;
     private ArrayList<Edge> edges;
     private List<Cell> nodes;
 
@@ -223,10 +223,10 @@ public abstract class Board extends JPanel  {
                 extraItemTimer(new Timer(),c, item);
             }
             else{
-                spawnExtraItem(item);
+                return spawnExtraItem(item);
             }
         }else{   
-            spawnExtraItem(item);
+            return spawnExtraItem(item);
         }
         return true;
     }

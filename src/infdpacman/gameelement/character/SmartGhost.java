@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 public class SmartGhost extends Ghost {
     private Cell cell;
     private boolean firstFleePath;
-    private Cell spawnCell;
+    private final Cell spawnCell;
    
     public SmartGhost(Cell cell, Board board) {
         super(new ImageIcon("Plaatjes/ghost.png"), board);
