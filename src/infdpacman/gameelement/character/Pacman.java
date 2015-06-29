@@ -24,7 +24,7 @@ public class Pacman extends GameCharacter implements KeyListener {
     private boolean invincible;
     private boolean stopTimer;
     private boolean firstMove;
-    private final Timer timer;
+    //private final Timer timer;
     private Cell cell;
     private final Cell spawnCell;
     private final Map<Direction, ImageIcon> images;
@@ -54,7 +54,7 @@ public class Pacman extends GameCharacter implements KeyListener {
         invincible = false;
         firstMove = true;
         currentImage = westImage;
-        timer = new Timer();
+        //timer = new Timer();
         stopTimer = false;
         invincibleTimeInMs = 10000;
         this.spawnCell = cell;
@@ -123,8 +123,8 @@ public class Pacman extends GameCharacter implements KeyListener {
         }
         }
         if(firstMove){
-            moveTimer();
             firstMove = false;
+            moveTimer(new Timer());
         }
     }
 
@@ -147,16 +147,18 @@ public class Pacman extends GameCharacter implements KeyListener {
     @Override
     public void keyReleased(KeyEvent ke) {}
 
-    public void moveTimer(){
-        TimerTask task;
-        task = new TimerTask(){ 
+    public void moveTimer(Timer timer){
+        TimerTask task = new TimerTask(){ 
             public void run(){
                 if(stopTimer){
                     timer.cancel();
                 }
                 else{
                     currentImage = images.get(d);
-                    movePacman(d);
+                    ((EmptyCell)cell).checkCollision();
+                    if(!firstMove){
+                        movePacman(d);
+                    }
                     ((EmptyCell)cell).checkCollision();
                 }
             }
@@ -167,6 +169,12 @@ public class Pacman extends GameCharacter implements KeyListener {
     public void movePacman(Direction d){
         move(d, this);
     }
+
+    public void setFirstMove(boolean firstMove) {
+        this.firstMove = firstMove;
+    }
+    
+    
     
     @Override
     public void draw(Graphics g,int width, int height) {

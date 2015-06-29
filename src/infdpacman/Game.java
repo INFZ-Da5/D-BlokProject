@@ -218,13 +218,8 @@ public class Game implements ActionListener {
     }
     
     public void setLevel(){
-        if(stopTimers){
-            stopTimers = false;
-        }
         if(board == null){
             board = levels.get(0);
-            startTimers();
-            timerStarted = true;
             startedFromFirstLevel = true;
         }
         else{
@@ -246,25 +241,26 @@ public class Game implements ActionListener {
                         if(startedFromFirstLevel){
                             player.setScore(player.getScore() + (extraPoints / (int)seconds));
                         }
-                        stopGameFunctionality();
                         frame.add(new EndGame(hScores, player.getScore(), gameWon), BorderLayout.CENTER);
                         seconds = 0;
                         player.setScore(0);
+                        frame.validate();
                     }
                 }
             }
         }
         if(!gameWon){
             startLevel();
+            board.getPacman().setLives(prefLives);
+            board.getPacman().setKeys(keys);
         }
-        board.getPacman().setLives(prefLives);
-        board.getPacman().setKeys(keys);
+        else{
+            stopGameFunctionality();
+        }
     }
     
     private void startLevel() {
-        if(!timerStarted){
-            startTimers();
-        }
+        startTimers();
         frame.add(board,BorderLayout.CENTER);      
         board.requestFocus();
         frame.validate();
@@ -300,6 +296,7 @@ public class Game implements ActionListener {
         gameTimer(new Timer());
         gameOverTimer(new Timer());
         moveGhosts();
+        board.getPacman().setFirstMove(true);
     }
     
     private void gameTimer(Timer t) {
@@ -330,12 +327,10 @@ public class Game implements ActionListener {
                 }
                 else{
                     if(board.getPacman().getLives() < 1){
-                        stopTimers = true;
                         frame.remove(board);
                         stopGameFunctionality();
                         frame.add(new EndGame(hScores, player.getScore(), gameWon), BorderLayout.CENTER);
                         frame.validate();
-                        frame.repaint();
                         t.cancel();
                         t.purge();
                     }
