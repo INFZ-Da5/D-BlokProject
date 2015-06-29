@@ -156,9 +156,7 @@ public class Pacman extends GameCharacter implements KeyListener {
                 else{
                     currentImage = images.get(d);
                     ((EmptyCell)cell).checkCollision();
-                    if(!firstMove){
-                        movePacman(d);
-                    }
+                    movePacman(d);
                     ((EmptyCell)cell).checkCollision();
                 }
             }
